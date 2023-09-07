@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --primary-bg-color: #212529; 
+  --secondary-bg-color: #A4B1CD;
+  --primary-button-color: #55ABE0;
+  --secondary-button-color: #A4B1CD;
+  --black-color: #000000;
+  --green-color: #00FF1A;
+  --red-color: #FF1F00;
+  --header-color: #FFFFFF;
+  --text-color: #A4B1CD;
+  --bronze-color: #CD7F32;
+
+}
+
+
+html, body {
+  height:100%;
+  margin: 0;
+  background-color: var(--primary-bg-color);
+}
+
+#root{
+  height:100%;
+}
+.btn{
+  border-radius: 10px;
+}
+.primary-btn{
+  background-color: var(--primary-button-color);
+}
+
+.secondary-btn{
+  background-color: var(--secondary-button-color);
+}
+
+
+
