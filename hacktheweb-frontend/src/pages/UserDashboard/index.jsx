@@ -6,7 +6,7 @@ const UserDashboard = () => {
   
     return ( 
         <section className='content-wrapper'>
-            <h1>{name}</h1>
+
         </section>
         
     );
