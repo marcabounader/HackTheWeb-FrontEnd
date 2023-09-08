@@ -64,7 +64,7 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
           onChange={onChange}
           value={email}
           className={'w-[300px]'}
-          labelStyle={{ color: 'white' }}
+          labelStyle={{color: 'white'}}
         />
         <CustomInput
           label="Password"
@@ -90,7 +90,7 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
           Cancel
         </button>
       </div>
-      <div>
+      <div className='p-5'>
         Want to <span className="cursor-pointer text-color-main" onClick={()=>{handleCloseViewModal(); handleOpenRegisterModal();}}>register</span>?
       </div>
     </Modal>
