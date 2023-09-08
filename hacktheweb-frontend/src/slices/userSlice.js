@@ -7,7 +7,6 @@ const userSlice = createSlice({
     token: null,
     name: null,
     type_id: null,
-    rank: null,
   },
   reducers: {
     loginUser: (state, action) => {
@@ -15,7 +14,6 @@ const userSlice = createSlice({
         state.token = action.payload.token;
         state.name = action.payload.name;
         state.type_id = action.payload.type_id;
-        state.rank = action.payload.rank;
     },
   },
 });
