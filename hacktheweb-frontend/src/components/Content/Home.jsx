@@ -9,13 +9,13 @@ const Home = ({token}) => {
     useEffect(() => {
         const fetchStatistics = async () => {
           const {data , errors, message} = await getStatistics(token);
-          if (data) {
+          if(data && data.message=="Unauthenticated."){
+            navigate("/");
+          } else if (data && data.message) {
             const {message,...statistics_temp} = data;
             setStatistics(statistics_temp);
           }
-          if(data.message=="Unauthenticated"){
-            navigate("/");
-          }
+
         };
     
         fetchStatistics();
