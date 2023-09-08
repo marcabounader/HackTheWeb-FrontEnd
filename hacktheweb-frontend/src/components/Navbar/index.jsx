@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-const Navbar = ({onEnter,onLeave,handleOpenLoginModal}) => {
+const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) => {
     const location = useLocation();
     const isLanding = location.pathname === '/';
     const logoRef = useRef();
@@ -34,7 +34,7 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal}) => {
             {
                 isLanding ? 
                     (
-                        <button ref={btnRef} className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onEnter} onMouseLeave={onLeave}>Login/Register</button>
+                        <button ref={btnRef} className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onEnter} onMouseLeave={onLeave} handleOpenRegisterModal={handleOpenRegisterModal}>Login/Register</button>
                     )
                 :
                     (
