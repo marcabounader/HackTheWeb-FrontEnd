@@ -109,10 +109,10 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home token={token}/>}
-                {badges && <Badges/>}
-                {labs && <Labs/>}
-                {active_labs && <ActiveLabs/>}
-                {completed_labs && <CompletedLabs/>}
+                {badges && <Badges token={token}/>}
+                {labs && <Labs token={token}/>}
+                {active_labs && <ActiveLabs token={token}/>}
+                {completed_labs && <CompletedLabs token={token}/>}
             </div>
         </section>
         
