@@ -38,7 +38,6 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
         token: data.token,
         name: data.user.name,
         type_id: data.user.type_id,
-        rank: data.rank,
       };
       dispatch(loginUser(user));
       navigate('/user-dashboard');
