@@ -9,6 +9,8 @@ const Landing = ({onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleC
 
     circleRefs.current = [];
     
+
+
     useEffect(() => {
       const { innerWidth, innerHeight } = window;
       circleRefs.current.forEach(ref => ref.moveTo(innerWidth / 2, innerHeight / 2));

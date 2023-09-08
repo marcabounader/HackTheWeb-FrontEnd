@@ -1,14 +1,20 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Circle from '../../components/Objects/circle';
+import { useNavigate } from 'react-router-dom';
 
 const UserDashboard = () => {
     const user = useSelector((state) => state.user);
     const { user_id, token, name, type_id, rank } = user;
     const circleRefs = useRef([]);
+    const navigate=useNavigate();
 
     circleRefs.current = [];
-    
+    useEffect(() => {
+      if (!token) {
+        navigate('/');
+      } 
+    },[]);
     useEffect(() => {
       const { innerWidth, innerHeight } = window;
       circleRefs.current.forEach(ref => ref.moveTo(innerWidth / 2, innerHeight / 2));
