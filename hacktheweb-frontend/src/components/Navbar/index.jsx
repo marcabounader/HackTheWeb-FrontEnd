@@ -3,7 +3,7 @@ import './Navbar.css';
 import mainLogo from '../../assets/logos/main-logo.svg';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) => {
@@ -14,14 +14,14 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) 
     const user = useSelector((state) => state.user);
     const { user_id, token, name, type_id, rank } = user;
 
-    useEffect(() => {
-      gsap.to(logoRef.current, {
-        rotation: '+=360',
-      });
-      gsap.to(btnRef.current, {
-        rotation: '+=360',
-      });
-    }, [location.pathname]);
+    // useEffect(() => {
+    //   gsap.to(logoRef.current, {
+    //     rotation: '+=360',
+    //   });
+    //   gsap.to(btnRef.current, {
+    //     rotation: '+=360',
+    //   });
+    // }, [location.pathname]);
 
     return (
     
