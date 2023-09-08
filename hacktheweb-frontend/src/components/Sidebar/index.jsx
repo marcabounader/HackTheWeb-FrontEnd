@@ -1,8 +1,8 @@
 import './sidebar.css';
-const Sidebar = () => {
+const Sidebar = ({children}) => {
     return ( 
         <aside class="sidebar">
-            <h1>sidebar</h1>
+            {children}
         </aside>
      );
 }
