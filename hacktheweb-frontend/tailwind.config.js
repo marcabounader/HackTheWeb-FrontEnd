@@ -7,6 +7,9 @@ export default {
       backgroundColor: {
         'bg-main': '#212529'
       },
+      textColor: {
+        'color-main': '#55ABE0'
+      },
     },
   },
   plugins: [],
