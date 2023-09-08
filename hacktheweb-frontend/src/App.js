@@ -51,12 +51,19 @@ function App() {
       const cursorElement = document.elementFromPoint(clientX, clientY);
       const isCursorOverInputOrButton =
       cursorElement &&
-      (cursorElement.tagName === "INPUT" || cursorElement.tagName === "BUTTON");
+      (cursorElement.tagName === "INPUT" || cursorElement.tagName === "BUTTON" || cursorElement.tagName === "svg");
+      if(!isCursorOverInputOrButton && !areCirclesVisible){
+        setAreCirclesVisible(true);
+      } else if(isCursorOverInputOrButton && areCirclesVisible){
+        setAreCirclesVisible(false);
 
-      circleRefs.current.forEach((ref) => 
-      {
-        ref.moveTo(clientX, clientY);
-      });
+      } else {
+        circleRefs.current.forEach((ref) => 
+        {
+          ref.moveTo(clientX, clientY);
+        });
+      }
+
     };
     
     
