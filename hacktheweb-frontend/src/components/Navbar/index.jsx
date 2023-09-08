@@ -30,7 +30,6 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) 
             <img src={mainLogo} alt="Main Logo" />
         </div>
         <div className="buttons-container">
-            <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave}>Leaderboard</button>
             {
                 isLanding ? 
                     (
@@ -38,8 +37,10 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) 
                     )
                 :
                     (
+                        <>
+                        <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave}>Leaderboard</button>
                         <button ref={btnRef} className="btn primary-btn"  onMouseEnter={onEnter} onMouseLeave={onLeave}>{name ? name :"Profile"}</button>
-
+                        </>
                     )
             }
         </div>
