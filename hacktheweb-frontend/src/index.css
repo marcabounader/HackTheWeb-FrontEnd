@@ -92,6 +92,9 @@ h6{
   min-height: calc(100vh - 100px);
   position: relative;
 }
+.content-wrapper *{
+  z-index: 1;
+}
 
 .footer {
   position: absolute;
@@ -109,3 +112,4 @@ input{
 input::placeholder{
   font-size:var(--placeholder-size)
 }
+
