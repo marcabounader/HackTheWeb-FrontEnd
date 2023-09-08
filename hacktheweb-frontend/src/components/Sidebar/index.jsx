@@ -1,7 +1,7 @@
 import './sidebar.css';
 const Sidebar = ({children}) => {
     return ( 
-        <aside class="sidebar">
+        <aside className="sidebar">
             {children}
         </aside>
      );
