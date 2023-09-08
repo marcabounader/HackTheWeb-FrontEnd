@@ -8,8 +8,11 @@ import UserDashboard from './pages/UserDashboard';
 
 function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const handleOpenLoginModal = () => setIsLoginModalOpen(true);
   const handleCloseLoginModal = () => setIsLoginModalOpen(false);
+  const handleOpenRegisterModal = () => setIsRegisterModalOpen(true);
+  const handleCloseRegisterModal = () => setIsRegisterModalOpen(false);
 
   const onEnter = ({ currentTarget }) => {
     if(currentTarget.classList.contains("primary-btn")){
@@ -32,9 +35,9 @@ function App() {
 
   return (
    <Router>
-        <Navbar onEnter={onEnter} onLeave={onLeave} handleOpenLoginModal={handleOpenLoginModal}/>
+        <Navbar onEnter={onEnter} onLeave={onLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
-          <Route path="/" element={<Landing isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} onEnter={onEnter} onLeave={onLeave}/>} />
+          <Route path="/" element={<Landing isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave}/>} />
           <Route path="/user-dashboard" element={<UserDashboard/>}/>
         </Routes>
     </Router>
