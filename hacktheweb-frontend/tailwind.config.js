@@ -5,7 +5,8 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        'bg-main': '#212529'
+        'bg-main': '#212529',
+        'bg-active': 'var(--active-color)'
       },
       textColor: {
         'color-main': '#55ABE0'
