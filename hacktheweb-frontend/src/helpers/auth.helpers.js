@@ -82,8 +82,8 @@ async function register({password,name, email }) {
       password,
       name,
     });
-    const data = res.data;
     if (res.status === 200) {
+      const data = res.data;
       return { data };
     }
   } catch (error) {

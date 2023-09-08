@@ -11,7 +11,7 @@ const initialState = {
 };
 Modal.setAppElement('#root');
 
-const RegisterForm = ({ isOpen, handleCloseViewModal }) => {
+const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal}) => {
   const [inputState, setInputState] = useState(initialState);
   const [errors, setErrors] = useState('');
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ const RegisterForm = ({ isOpen, handleCloseViewModal }) => {
     }
     if (data) {
       handleCloseViewModal();
+      handleOpenLoginModal();
     }
   }
 
@@ -40,13 +41,12 @@ const RegisterForm = ({ isOpen, handleCloseViewModal }) => {
     <Modal
     isOpen={isOpen}
     onRequestClose={handleCloseViewModal}
-    className="z-30  transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border dark:bg-slate-900 bg-white dark:text-slate-200 signIn-container text-black  text-lg   flex flex-col items-center gap-5 insta-border rounded-2xl "
-    overlayClassName="bg fixed top-0 z-10 left-0 w-[100vw] h-full bg-opacity-20 backdrop-blur-sm drop-shadow-lg "
+    className="z-30  transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border signIn-container flex flex-col items-center gap-5 insta-border rounded-2xl "
+    overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
     >
-      <div className=" dark:bg-slate-900 form-header gothic justify-center flex p-6 w-full rounded-t-2xl text-black ">
-
+      <h4 className="p-4">
         Register
-      </div>
+      </h4>
       <div className="form-container flex flex-col gap-5 p-6 pb-0 ">
       <CustomInput
           label="Name"
@@ -76,10 +76,10 @@ const RegisterForm = ({ isOpen, handleCloseViewModal }) => {
         
       </div>
       <div className="error font-normal text-red-700 text-sm">{errors}</div>
-      <div className=" monster flex  gap-3 w-full px-5 pb-5">
+      <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
         <div
           onClick={() => handleRegister()}
-          className="btn btn-primary"
+          className="btn primary-btn"
         >
           Add User
         </div>
