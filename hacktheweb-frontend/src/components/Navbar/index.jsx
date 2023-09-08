@@ -33,7 +33,7 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) 
             {
                 isLanding ? 
                     (
-                        <button ref={btnRef} className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onEnter} onMouseLeave={onLeave} handleOpenRegisterModal={handleOpenRegisterModal}>Login/Register</button>
+                        <button ref={btnRef} className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onEnter} onMouseLeave={onLeave}>Login/Register</button>
                     )
                 :
                     (
