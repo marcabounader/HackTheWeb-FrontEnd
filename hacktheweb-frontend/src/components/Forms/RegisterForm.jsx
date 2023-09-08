@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomInput from '../Inputs/CustomInput';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../helpers/auth.helpers';
@@ -11,10 +11,13 @@ const initialState = {
 };
 Modal.setAppElement('#root');
 
-const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal}) => {
-  const [inputState, setInputState] = useState(initialState);
+const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal, myEmail,setMyEmail}) => {
+  const [inputState, setInputState] = useState({...initialState});
   const [errors, setErrors] = useState('');
-  const navigate = useNavigate();
+  useEffect(()=>{
+    setInputState((prev) => ({ ...prev, email: myEmail }));
+    setMyEmail("");
+  },[]);
 
   function onChange(e) {
     const { value, name } = e.target;
@@ -35,7 +38,7 @@ const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal}) => 
       handleOpenLoginModal();
     }
   }
-
+  
   const { email, password ,name} = inputState;
   return (
     <Modal
@@ -49,14 +52,6 @@ const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal}) => 
       </h4>
       <div className="form-container flex flex-col gap-5 p-6 pb-0 ">
       <CustomInput
-          label="Name"
-          name="name"
-          type="text"
-          onChange={onChange}
-          value={name}
-          className={'w-[300px]  '}
-        />
-        <CustomInput
           label="Email"
           name="email"
           type="text"
@@ -64,6 +59,14 @@ const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal}) => 
           value={email}
           className={'w-[300px]'}
           labelStyle={{ color: 'white' }}
+      />
+      <CustomInput
+          label="Name"
+          name="name"
+          type="text"
+          onChange={onChange}
+          value={name}
+          className={'w-[300px]  '}
         />
         <CustomInput
           label="password"
