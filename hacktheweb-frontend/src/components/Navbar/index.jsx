@@ -25,7 +25,7 @@ const Navbar = ({onEnter,onLeave,handleOpenLoginModal,handleOpenRegisterModal}) 
 
     return (
     
-        <div className="navbar flex flex-row justify-between items-center px-20 py-10 bg-">
+        <div className="navbar flex flex-row justify-between items-center px-5 py-5 shadow-lg">
         <div className="logo-container" ref={logoRef}>
             <img src={mainLogo} alt="Main Logo" />
         </div>

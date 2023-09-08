@@ -89,11 +89,13 @@ h6{
   font-size: 18px;
 }
 
-.content-wrapper {
+.main-wrapper {
   min-height: calc(100vh - 100px);
   position: relative;
+  display: flex;
+  flex-wrap: nowrap;
 }
-.content-wrapper *{
+.main-wrapper *{
   z-index: 1;
 }
 

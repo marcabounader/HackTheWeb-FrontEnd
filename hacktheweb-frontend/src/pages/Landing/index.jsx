@@ -35,7 +35,7 @@ const Landing = ({onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleC
       }    
     };
     return ( 
-        <section className="content-wrapper flex flex-col justify-center items-center flex-grow-1 flex-wrap">
+        <section className="main-wrapper flex flex-col justify-center items-center flex-grow-1 flex-wrap">
             <LoginForm isOpen={isLoginModalOpen} handleCloseViewModal={handleCloseLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
             <RegisterForm isOpen={isRegisterModalOpen} handleCloseViewModal={handleCloseRegisterModal} handleOpenLoginModal={handleOpenLoginModal} setMyEmail={setMyEmail} myEmail={myEmail}/>
             <Circle size="sm" ref={addCircleRef} delay={0} />

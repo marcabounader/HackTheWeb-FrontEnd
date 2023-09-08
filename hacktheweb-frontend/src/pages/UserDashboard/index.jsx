@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Circle from '../../components/Objects/circle';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar';
 
 const UserDashboard = () => {
     const user = useSelector((state) => state.user);
@@ -34,10 +35,14 @@ const UserDashboard = () => {
       }    
     };
     return ( 
-        <section className='content-wrapper'>
+        <section className='main-wrapper'>
             <Circle size="sm" ref={addCircleRef} delay={0} />
             <Circle size="md" ref={addCircleRef} delay={0.1} />
             <Circle size="lg" ref={addCircleRef} delay={0.2} />
+            <Sidebar/>
+            <div className='content-wrapper'>
+
+            </div>
         </section>
         
     );
