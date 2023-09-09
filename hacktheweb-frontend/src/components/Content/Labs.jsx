@@ -9,7 +9,7 @@ const Labs = ({token}) => {
     useEffect(() => {
         const fetchLabs = async () => {
           const {data , errors, message} = await getLabs(token);
-          if(data.message=="Unauthenticated."){
+          if(message && message=="Unauthenticated."){
             navigate("/");
           }else if (data && data.labs) {
             setLabs([...data.labs]);
@@ -24,6 +24,7 @@ const Labs = ({token}) => {
         <h1 className=" text-start w-full">Labs</h1>
             {labs && labs.map((lab, index) => (
                 <LabCard lab={lab} key={index}/>
+                
             ))}
         </>
      );
