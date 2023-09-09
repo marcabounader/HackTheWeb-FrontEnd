@@ -21,7 +21,7 @@ const Labs = ({token}) => {
       }, []);
     return ( 
         <>
-
+        <h1 className=" text-start w-full">Labs</h1>
             {labs && labs.map((lab, index) => (
                 <LabCard lab={lab} key={index}/>
             ))}
