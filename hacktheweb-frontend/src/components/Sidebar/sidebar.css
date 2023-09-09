@@ -8,6 +8,8 @@
     gap: 10px;
     flex-shrink: 0;
     align-self: stretch;
+    background: #0D1115;
+
 }
 svg{
     cursor: pointer;
