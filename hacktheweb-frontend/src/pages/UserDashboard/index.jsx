@@ -11,31 +11,34 @@ import CompletedLabs from '../../components/Content/CompletedLabs';
 import Home from '../../components/Content/Home';
 import './UserDashboard.css';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
+import { getLabs, getStatistics } from '../../helpers/user.helpers';
 
 const falseState = {
   home:false,
   achievements:false,
-  labs: false,
+  labs_tab: false,
   active_labs: false,
   completed_labs:false,
 };
 
 
 const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
+  const dispatch = useDispatch();
+
     const user = useSelector((state) => state.user);
     const { token } = user;
-
     const [state, setState] = useState({
       home:true,
       achievements:false,
-      labs: false,
+      labs_tab: false,
       active_labs: false,
       completed_labs:false,
     });
     const toggleContent = (page) => {
       setState({ ...falseState, [page]: true });
     };
-    const {  home,achievements,labs, active_labs, completed_labs} = state;
 
     const navigate=useNavigate();
 
@@ -44,6 +47,35 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
         navigate('/');
       }
     });
+    useEffect(() => {
+        const fetchStatistics = async () => {
+          const {data , errors, message} = await getStatistics(token);
+          if(message && message=="Unauthenticated."){
+            navigate("/");
+          } else if (data && data.message) {
+            const {message,...statistics_temp} = data;
+            dispatch(setStatistics(statistics_temp));
+          }
+
+        };
+    
+        fetchStatistics();
+      }, []);
+
+      useEffect(() => {
+          const fetchLabs = async () => {
+            const {data , errors, message} = await getLabs(token);
+            if(message && message=="Unauthenticated."){
+              navigate("/");
+            }else if (data && data.labs) {
+              dispatch(setLabs(data.labs));
+            }
+  
+          };
+      
+          fetchLabs();
+        }, []);
+
     const circles = [];
 
     if (areCirclesVisible) {
@@ -51,6 +83,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
       circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
+    const {  home,achievements,labs_tab, active_labs, completed_labs} = state;
+
     return ( 
         <section className='main-wrapper'>
             {circles}
@@ -74,9 +108,9 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
                 <SideButton 
                 text="Labs"
                 onClick={() => {
-                  toggleContent("labs");
+                  toggleContent("labs_tab");
                 }}
-                className={`transition-all ${labs && "text-black bg-bg-active"}`}
+                className={`transition-all ${labs_tab && "text-black bg-bg-active"}`}
                 />
                 <SideButton 
                 text="Active"
@@ -96,7 +130,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
             <div className='content-wrapper'>
                 {home && <Home token={token}/>}
                 {achievements && <Achievements token={token}/>}
-                {labs && <Labs token={token}/>}
+                {labs_tab && <Labs token={token}/>}
                 {active_labs && <ActiveLabs token={token}/>}
                 {completed_labs && <CompletedLabs token={token}/>}
             </div>

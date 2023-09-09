@@ -2,23 +2,10 @@ import { useEffect, useState } from "react";
 import { getLabs } from "../../helpers/user.helpers";
 import { useNavigate } from "react-router-dom";
 import LabCard from "../Cards/LabCard";
+import { useSelector } from "react-redux";
 
-const Labs = ({token}) => {
-    const [labs,setLabs]=useState([]);
-    const navigate=useNavigate();
-    useEffect(() => {
-        const fetchLabs = async () => {
-          const {data , errors, message} = await getLabs(token);
-          if(message && message=="Unauthenticated."){
-            navigate("/");
-          }else if (data && data.labs) {
-            setLabs([...data.labs]);
-          }
-
-        };
-    
-        fetchLabs();
-      }, []);
+const Labs = () => {
+    const labs = useSelector((state) => state.labs.labs);
     return ( 
         <>
         <h1 className=" text-start w-full">Labs</h1>
