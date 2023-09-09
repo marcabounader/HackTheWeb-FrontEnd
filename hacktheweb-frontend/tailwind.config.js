@@ -6,7 +6,8 @@ export default {
     extend: {
       backgroundColor: {
         'bg-main': '#212529',
-        'bg-active': 'var(--active-color)'
+        'bg-active': 'var(--active-color)',
+        'bg-card': 'var(--card-bg-color)'
       },
       textColor: {
         'color-main': '#55ABE0'
