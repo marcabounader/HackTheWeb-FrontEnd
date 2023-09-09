@@ -8,6 +8,7 @@
   --secondary-bg-color: #A4B1CD;
   --primary-button-color: #55ABE0;
   --secondary-button-color: #A4B1CD;
+  --card-bg-color: rgba(0, 0, 0, 0.50);
   --black-color: #000000;
   --green-color: #00FF1A;
   --red-color: #FF1F00;
@@ -47,15 +48,15 @@ html, body {
 .btn{
   border-radius: 10px;
   padding: 10px;
-  color:var(--header-color);
   margin-left:10px;
   cursor: pointer;
+  background-color: none;
+  color: var(--header-color);
 }
 
 .primary-btn{
   background-color: var(--primary-button-color);
   color: var(--black-color)
-
 }
 
 .secondary-btn{
