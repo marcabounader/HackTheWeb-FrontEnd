@@ -16,8 +16,8 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab}) => {
                 <h1>{lab.name}</h1>
                 <FontAwesomeIcon icon={faSquareXmark} onClick={handleCloseViewModal} className='w-[30px] h-[30px]' fill="var(--text-and-secondary, #A4B1CD)"/>            
             </div>
-            <div className='lab-content self-stretch gap-[10px] flex'>
-                <div className='flex w-[300px] flex-col gap-[10px] items-stretch justify-between content-start'>
+            <div className='lab-content self-stretch flex-grow gap-[10px] flex'>
+                <div className='flex w-[300px] flex-col gap-[40px] items-stretch justify-start content-start'>
                     <div>
                         <div className='sub-header'>Difficulty: </div>
                         <div>{lab.difficulty_info.difficulty}</div>
@@ -35,7 +35,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab}) => {
                         <div>{`http://localhost{lab.port}:{lab.launch_api}`}</div>
                     </div> */}
                 </div>
-                <div className='p-[10px] flex flex-col items-center gap-[150px] flex-grow self-stretch'>
+                <div className='p-[10px] flex flex-col items-center gap-[150px] flex-grow self-stretch bg-bg-main'>
                     <div className='flex flex-col items-center justify-center flex-grow'>
                     <img src={lab.icon_url} className='' alt='Lab img'/>
                     </div>

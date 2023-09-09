@@ -7,7 +7,8 @@ export default {
       backgroundColor: {
         'bg-main': '#212529',
         'bg-active': 'var(--active-color)',
-        'bg-card': 'var(--card-bg-color)'
+        'bg-card': 'var(--card-bg-color)',
+        'bg-side': '#0D1115'
       },
       textColor: {
         'color-main': '#55ABE0'
