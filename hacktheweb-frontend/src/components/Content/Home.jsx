@@ -22,6 +22,7 @@ const Home = ({token}) => {
       }, []);
     return ( 
         <>
+        <h1 className=" text-start w-full">Home</h1>
         {statistics && 
             Object.keys(statistics).map((key) => {
                 const value = statistics[key];
