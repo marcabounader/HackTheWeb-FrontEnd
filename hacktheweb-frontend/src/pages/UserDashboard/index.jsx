@@ -13,7 +13,7 @@ import './UserDashboard.css';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getLabs, getStatistics } from '../../helpers/user.helpers';
+import { getActiveLabs, getCompletedLabs, getLabs, getStatistics } from '../../helpers/user.helpers';
 
 const falseState = {
   home:false,
@@ -58,23 +58,38 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
           }
 
         };
-    
-        fetchStatistics();
-      }, []);
-
-      useEffect(() => {
-          const fetchLabs = async () => {
-            const {data , errors, message} = await getLabs(token);
+        const fetchLabs = async () => {
+          const {data , errors, message} = await getLabs(token);
             if(message && message=="Unauthenticated."){
               navigate("/");
             }else if (data && data.labs) {
               dispatch(setLabs(data.labs));
             }
   
-          };
-      
-          fetchLabs();
+        };
+        const fetchActiveLabs = async () => {
+          const {data , errors, message} = await getActiveLabs(token);
+            if(message && message=="Unauthenticated."){
+              navigate("/");
+            }else if (data && data.active_labs) {
+              dispatch(setActiveLabs(data.active_labs));
+            }
+  
+        };
+        const fetchCompletedLabs = async () => {
+          const {data , errors, message} = await getCompletedLabs(token);
+            if(message && message=="Unauthenticated."){
+              navigate("/");
+            }else if (data && data.completed_labs) {
+              dispatch(setCompletedLabs(data.completed_labs));
+            }
+        };
+        fetchLabs();
+        fetchStatistics();
+        fetchActiveLabs();
+        fetchCompletedLabs();
         }, []);
+        
 
     const circles = [];
 
@@ -131,7 +146,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
                 {home && <Home token={token}/>}
                 {achievements && <Achievements token={token}/>}
                 {labs_tab && <Labs token={token}/>}
-                {active_labs && <ActiveLabs token={token}/>}
+                {active_labs && <ActiveLabs/>}
                 {completed_labs && <CompletedLabs token={token}/>}
             </div>
         </section>
