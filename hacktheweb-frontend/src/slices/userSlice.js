@@ -7,6 +7,7 @@ const userSlice = createSlice({
     token: null,
     name: null,
     type_id: null,
+    profile_url: null
   },
   reducers: {
     loginUser: (state, action) => {
@@ -14,6 +15,7 @@ const userSlice = createSlice({
         state.token = action.payload.token;
         state.name = action.payload.name;
         state.type_id = action.payload.type_id;
+        state.profile_url = action.payload.profile_url;
     },
   },
 });
