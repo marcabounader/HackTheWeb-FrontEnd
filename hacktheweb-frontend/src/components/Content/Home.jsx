@@ -9,7 +9,7 @@ const Home = ({token}) => {
     useEffect(() => {
         const fetchStatistics = async () => {
           const {data , errors, message} = await getStatistics(token);
-          if(data && data.message=="Unauthenticated."){
+          if(message && message=="Unauthenticated."){
             navigate("/");
           } else if (data && data.message) {
             const {message,...statistics_temp} = data;
