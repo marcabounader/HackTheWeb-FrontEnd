@@ -53,6 +53,13 @@ html, body {
   background-color: none;
   color: var(--header-color);
 }
+.btn-2{
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: none;
+  color: var(--header-color);
+}
 
 .primary-btn{
   background-color: var(--primary-button-color);
@@ -114,6 +121,7 @@ input{
   padding: 5px;
 }
 input::placeholder{
-  font-size:var(--placeholder-size)
+  font-size:var(--placeholder-size);
+  padding-left:2px;
 }
 
