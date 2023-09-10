@@ -13,7 +13,7 @@ import './UserDashboard.css';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getActiveLabs, getCompletedLabs, getLabs, getStatistics } from '../../helpers/user.helpers';
+import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 
 const falseState = {
   home:false,
@@ -84,10 +84,20 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
               dispatch(setCompletedLabs(data.completed_labs));
             }
         };
+        const fetchBadges = async () => {
+          const {data , errors, message} = await getUserBadges(token);
+            if(message && message=="Unauthenticated."){
+              navigate("/");
+            }else if (data && data.badges) {
+              dispatch(setBadges(data.badges));
+              console.log(data.badges);
+            }
+        };
         fetchLabs();
         fetchStatistics();
         fetchActiveLabs();
         fetchCompletedLabs();
+        fetchBadges();
         }, []);
         
 
