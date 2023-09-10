@@ -1,0 +1,11 @@
+.bronze-badge{
+    background-color: var(--bronze-color);
+}
+
+.silver-badge{
+    background-color: #C0C0C0;    ;
+}
+
+.gold-badge{
+    background-color: #Ffd700;    ;
+}
