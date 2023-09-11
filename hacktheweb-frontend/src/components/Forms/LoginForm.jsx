@@ -32,7 +32,7 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
       setErrors(message);
       return;
     }
-    if (data) {
+    if (data && data.user) {
       const user = {
         user_id: data.user.id,
         token: data.token,
