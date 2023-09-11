@@ -4,9 +4,24 @@ import Navbar from './components/Navbar';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import UserDashboard from './pages/UserDashboard';
-
+const falseState = {
+  home:false,
+  achievements:false,
+  labs_tab: false,
+  active_tab: false,
+  completed_tab:false,
+  leaderboard:false
+};
 
 function App() {
+  const [state, setState] = useState({
+    home:true,
+    achievements:false,
+    labs_tab: false,
+    active_tab: false,
+    completed_tab:false,
+    leaderboard:false
+  });
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const handleOpenLoginModal = () => setIsLoginModalOpen(true);
@@ -18,7 +33,9 @@ function App() {
   const circleRefs = useRef([]);
 
   circleRefs.current = [];
-
+  const toggleContent = (page) => {
+    setState({ ...falseState, [page]: true });
+  };
   const onEnter = ({ currentTarget }) => {
         gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--black-color)", scale: 1.2 });
   };
@@ -81,10 +98,10 @@ function App() {
   }, [areCirclesVisible]);
   return (
    <Router>
-        <Navbar onEnter={onEnter} onLeave={onLeave} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
+        <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
-          <Route path="/user-dashboard" element={<UserDashboard addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/user-dashboard" element={<UserDashboard toggleContent={toggleContent} falseState={falseState} state={state} setState={setState} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
         </Routes>
     </Router>
   );

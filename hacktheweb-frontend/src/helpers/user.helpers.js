@@ -4,9 +4,36 @@ const baseUrl = 'http://localhost:8000';
 
 
 
-async function getStatistics(token) {
+  async function getStatistics(token) {
     try {
       const res = await axios.get(`${baseUrl}/api/hacker/statistics`, {headers: { Authorization: `Bearer ${token}` }});
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
+
+  async function getTopTen(token) {
+    try {
+      const res = await axios.get(`${baseUrl}/api/common/top-ten`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
@@ -249,4 +276,5 @@ const getSVG = async (icon_url) => {
   }
 };
 
-  export {getStatistics,getUserBadges,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
+
+  export {getStatistics,getUserBadges,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};

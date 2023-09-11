@@ -14,31 +14,14 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
-
-const falseState = {
-  home:false,
-  achievements:false,
-  labs_tab: false,
-  active_tab: false,
-  completed_tab:false,
-};
+import Leaderboard from '../../components/Content/Leaderboard';
 
 
-const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
+const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
   const completedLabs = useSelector((state) => state.labs.completedLabs);
     const user = useSelector((state) => state.user);
     const { token } = user;
-    const [state, setState] = useState({
-      home:true,
-      achievements:false,
-      labs_tab: false,
-      active_tab: false,
-      completed_tab:false,
-    });
-    const toggleContent = (page) => {
-      setState({ ...falseState, [page]: true });
-    };
 
     const navigate=useNavigate();
 
@@ -110,7 +93,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
       circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
-    const {  home,achievements,labs_tab, active_tab, completed_tab} = state;
+    const {  home,achievements,labs_tab, active_tab, completed_tab,leaderboard} = state;
 
     return ( 
         <section className='main-wrapper'>
@@ -160,6 +143,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
                 {labs_tab && <Labs/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
+                {leaderboard && <Leaderboard/>}
+
             </div>
         </section>
         

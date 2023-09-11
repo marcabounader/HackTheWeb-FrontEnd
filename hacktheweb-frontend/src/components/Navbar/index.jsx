@@ -4,7 +4,7 @@ import mainLogo from '../../assets/logos/main-logo.svg';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLoginModal}) => {
+const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLoginModal, toggleContent}) => {
     const location = useLocation();
     const isLanding = location.pathname === '/';
 
@@ -28,7 +28,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                 :
                     (
                         <div className="buttons-container flex flex-row">       
-                            <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave}>Leaderboard</button>
+                            <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={() => {toggleContent("leaderboard");}}>Leaderboard</button>
                             <button className="btn primary-btn capitalize"  onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>{name ? name :"Profile"}</button>
                             <div className=' flex w-[44px] h-[44px] ml-3 gap-[10px] justify-center items-center bg-white rounded-full'>
                             {

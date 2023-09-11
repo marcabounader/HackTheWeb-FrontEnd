@@ -106,6 +106,7 @@ h6{
   position: relative;
   display: flex;
   flex-wrap: nowrap;
+  max-width:100%;
 }
 .main-wrapper *{
   z-index: 1;
@@ -128,4 +129,3 @@ input::placeholder{
   font-size:var(--placeholder-size);
   padding-left:2px;
 }
-
