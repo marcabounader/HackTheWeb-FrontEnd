@@ -17,8 +17,18 @@ const userSlice = createSlice({
         state.type_id = action.payload.type_id;
         state.profile_url = action.payload.profile_url;
     },
+    updateUser: (state, action) => {
+      const { attributeName, attributeValue } = action.payload;
+      if (state.hasOwnProperty(attributeName)) {
+        state[attributeName] = attributeValue;
+      } else {
+        console.error(`Attribute '${attributeName}' does not exist in the user state.`);
+      }
+    },
+   
+    
   },
 });
 
-export const { loginUser } = userSlice.actions;
+export const { loginUser,updateUser } = userSlice.actions;
 export default userSlice.reducer;
