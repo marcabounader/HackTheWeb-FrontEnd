@@ -13,7 +13,7 @@ const Labs = () => {
                 labs
                 .map((lab, index) => <LabCard lab={lab} key={index} />)
             ) : (
-                <p>No completed labs available.</p>
+                <p>No labs available.</p>
             )}
         </>
      );
