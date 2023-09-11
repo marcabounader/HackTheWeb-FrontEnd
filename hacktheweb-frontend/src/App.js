@@ -20,23 +20,31 @@ function App() {
   circleRefs.current = [];
 
   const onEnter = ({ currentTarget }) => {
-    if(currentTarget.classList.contains("primary-btn")){
-        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.2 });
-    }else{
         gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--black-color)", scale: 1.2 });
-    }
+  };
+  const onPrimaryEnter = ({ currentTarget }) => {
+        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.2 });
+
+  };
+  const onSecondaryEnter = ({ currentTarget }) => {
+    gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.2 });
+
   };
   
   const onLeave = ({ currentTarget }) => {
-    if(currentTarget.classList.contains("primary-btn")){
-        gsap.to(currentTarget, {backgroundColor: "var(--primary-button-color)",color:"var(--black-color)",scale: 1 });
-    } else if(currentTarget.classList.contains("secondary-btn")){
-        gsap.to(currentTarget, {backgroundColor: "var(--secondary-button-color)",scale: 1 });
-    } else{
+
         gsap.to(currentTarget, {backgroundColor: "",color:"var(--header-color)",scale: 1 });
 
-    }
   };
+  const onPrimaryLeave = ({ currentTarget }) => {
+
+        gsap.to(currentTarget, {backgroundColor: "var(--primary-btn-color)",color:"var(--black-color)",scale: 1 });
+  };
+
+  const onSecondaryLeave = ({ currentTarget }) => {
+
+    gsap.to(currentTarget, {backgroundColor: "var(--secondary-btn-color)",color:"var(--black-color)",scale: 1 });
+};
   
   const addCircleRef = ref => {
     if (ref) {
@@ -73,7 +81,7 @@ function App() {
   }, [areCirclesVisible]);
   return (
    <Router>
-        <Navbar onEnter={onEnter} onLeave={onLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
+        <Navbar onEnter={onEnter} onLeave={onLeave} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
           <Route path="/user-dashboard" element={<UserDashboard addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>

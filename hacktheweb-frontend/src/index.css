@@ -6,8 +6,8 @@
 :root {
   --primary-bg-color: #212529; 
   --secondary-bg-color: #A4B1CD;
-  --primary-button-color: #55ABE0;
-  --secondary-button-color: #A4B1CD;
+  --primary-btn-color: #55ABE0;
+  --secondary-btn-color: #A4B1CD;
   --card-bg-color: rgba(0, 0, 0, 0.50);
   --black-color: #000000;
   --green-color: #00FF1A;
@@ -66,12 +66,12 @@ html, body {
   font-size: var(--notice-size);
 }
 .primary-btn{
-  background-color: var(--primary-button-color);
+  background-color: var(--primary-btn-color);
   color: var(--black-color)
 }
 
 .secondary-btn{
-  background-color: var(--secondary-button-color);
+  background-color: var(--secondary-btn-color);
   color: var(--black-color)
 }
 
