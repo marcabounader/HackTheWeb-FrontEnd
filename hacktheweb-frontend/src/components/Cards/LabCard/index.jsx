@@ -27,8 +27,8 @@ const LabCard = ({lab}) => {
     return ( 
         <>
         <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} matchingActiveLab={matchingActiveLab}/>
-        <div className=" flex w-[352] h-[157px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px]">
-            <div className="flex flex-row cursor-pointer" onClick={handleOpenShowLab}>
+        <div className=" flex w-[352] h-[157px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
+            <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
                 <h6 className=" flex-grow self-stretch text-center capitalize">{lab.name}</h6>
             </div>
