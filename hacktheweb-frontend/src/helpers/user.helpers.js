@@ -192,8 +192,8 @@ async function submitFlag(token,lab_id,flag) {
 async function stopLab(token,project_name) {
   try {
     const modifiedString = project_name.replace(/_\d+$/, '');
-
-    const res = await axios.delete(`${baseUrl}hacker/stop-user-lab/${modifiedString}`, {headers: { Authorization: `Bearer ${token}` }});
+    const res = await axios.delete(`${baseUrl}/api/hacker/stop-user-lab/${modifiedString}`, {headers: { Authorization: `Bearer ${token}` }});
+    
     if (res.status === 200) {
       const data = res.data;
       return { data };
@@ -224,7 +224,6 @@ const getSVG = async (icon_url) => {
         'Content-Type': 'image/svg+xml',
       },
     });
-    console.log(res);
     if (res.status === 200) {
       const data = res.data;
       return { data };

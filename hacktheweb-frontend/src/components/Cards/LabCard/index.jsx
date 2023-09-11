@@ -13,11 +13,10 @@ const LabCard = ({lab}) => {
     const handleCloseShowLab = () => setShowLab(false);
     const navigate =useNavigate();
     const matchingActiveLab = active_labs.find((active_lab) => active_lab.lab_id === lab.id);
-
     const user = useSelector((state) => state.user);
     const { token } = user;
     const handleStopLab = async () => {
-        const {data , errors, message} = await stopLab(token,matchingActiveLab.project_name);
+        const {data , errorMessages, message} = await stopLab(token,matchingActiveLab.project_name);
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
@@ -36,8 +35,10 @@ const LabCard = ({lab}) => {
             <div className="flex flex-row justify-between items-center">
                 <p className=" text-green-400">{lab.difficulty_info.difficulty}</p>
                 <p>Reward: {lab.reward}</p>
-                { lab.isActive && <button className="btn-2 secondary-btn" onClick={handleStopLab}>Stop</button>}
+            </div>
+            <div className="flex flex-row justify-end items-center">
                 { lab.isComplete && <p className=" text-color-main font-bold">Done</p> }
+                { lab.isActive && <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>}
             </div>
         </div>
         </>
