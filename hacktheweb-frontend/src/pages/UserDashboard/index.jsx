@@ -19,22 +19,22 @@ const falseState = {
   home:false,
   achievements:false,
   labs_tab: false,
-  active_labs: false,
-  completed_labs:false,
+  active_tab: false,
+  completed_tab:false,
 };
 
 
 const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
   const dispatch = useDispatch();
-
+  const completedLabs = useSelector((state) => state.labs.CompletedLabs);
     const user = useSelector((state) => state.user);
     const { token } = user;
     const [state, setState] = useState({
       home:true,
       achievements:false,
       labs_tab: false,
-      active_labs: false,
-      completed_labs:false,
+      active_tab: false,
+      completed_tab:false,
     });
     const toggleContent = (page) => {
       setState({ ...falseState, [page]: true });
@@ -48,16 +48,20 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
       }
     });
     useEffect(() => {
-        const fetchStatistics = async () => {
-          const {data , errors, message} = await getStatistics(token);
-          if(message && message=="Unauthenticated."){
-            navigate("/");
-          } else if (data && data.message) {
-            const {message,...statistics_temp} = data;
-            dispatch(setStatistics(statistics_temp));
-          }
+      const fetchStatistics = async () => {
+        const {data , errors, message} = await getStatistics(token);
+        if(message && message=="Unauthenticated."){
+          navigate("/");
+        } else if (data && data.message) {
+          const {message,...statistics_temp} = data;
+          dispatch(setStatistics(statistics_temp));
+        }
 
-        };
+      };
+      fetchStatistics();
+    },[completedLabs]);
+    useEffect(() => {
+
         const fetchLabs = async () => {
           const {data , errors, message} = await getLabs(token);
             if(message && message=="Unauthenticated."){
@@ -71,8 +75,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
           const {data , errors, message} = await getActiveLabs(token);
             if(message && message=="Unauthenticated."){
               navigate("/");
-            }else if (data && data.active_labs) {
-              dispatch(setActiveLabs(data.active_labs));
+            }else if (data && data.active_tab) {
+              dispatch(setActiveLabs(data.active_tab));
             }
   
         };
@@ -80,8 +84,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
           const {data , errors, message} = await getCompletedLabs(token);
             if(message && message=="Unauthenticated."){
               navigate("/");
-            }else if (data && data.completed_labs) {
-              dispatch(setCompletedLabs(data.completed_labs));
+            }else if (data && data.completed_tab) {
+              dispatch(setCompletedLabs(data.completed_tab));
             }
         };
         const fetchBadges = async () => {
@@ -94,7 +98,6 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
             }
         };
         fetchLabs();
-        fetchStatistics();
         fetchActiveLabs();
         fetchCompletedLabs();
         fetchBadges();
@@ -108,7 +111,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
       circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
-    const {  home,achievements,labs_tab, active_labs, completed_labs} = state;
+    const {  home,achievements,labs_tab, active_tab, completed_tab} = state;
 
     return ( 
         <section className='main-wrapper'>
@@ -140,24 +143,24 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
                 <SideButton 
                 text="Active"
                 onClick={() => {
-                  toggleContent("active_labs");
+                  toggleContent("active_tab");
                 }}
-                className={`transition-all ${active_labs && "text-black bg-bg-active"}`}
+                className={`transition-all ${active_tab && "text-black bg-bg-active"}`}
                 />
                 <SideButton 
                 text="Completed Labs"
                 onClick={() => {
-                  toggleContent("completed_labs");
+                  toggleContent("completed_tab");
                 }}
-                className={`transition-all ${completed_labs && "text-black bg-bg-active"}`}
+                className={`transition-all ${completed_tab && "text-black bg-bg-active"}`}
                 />
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home token={token}/>}
                 {achievements && <Achievements token={token}/>}
                 {labs_tab && <Labs token={token}/>}
-                {active_labs && <ActiveLabs/>}
-                {completed_labs && <CompletedLabs token={token}/>}
+                {active_tab && <ActiveLabs/>}
+                {completed_tab && <CompletedLabs token={token}/>}
             </div>
         </section>
         

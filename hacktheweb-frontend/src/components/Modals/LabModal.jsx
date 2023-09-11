@@ -37,12 +37,12 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             dispatch(setActiveLabs(updatedActiveLabs));
             dispatch(setLabInactive(lab.id))
             dispatch(setLabComplete(lab.id))
-            dispatch(incrementCompletedLabs());
-            if(data.user_badge){
-                dispatch(incrementBadgeCount());
-                dispatch(addBadge(data.user_badge))
-            }
-            dispatch(incrementRewards(lab.reward));
+            // dispatch(incrementCompletedLabs());
+            // if(data.user_badge){
+            //     dispatch(incrementBadgeCount());
+            //     dispatch(addBadge(data.user_badge))
+            // }
+            // dispatch(incrementRewards(lab.reward));
         } else if (data && data.message=="Flag is correct, lab already completed before") {
             console.log('flag already')
         }
