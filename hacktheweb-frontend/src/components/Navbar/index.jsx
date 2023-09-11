@@ -1,20 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Navbar.css'; 
 import mainLogo from '../../assets/logos/main-logo.svg';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import SideBar from '../Modals/SideBar';
+import PasswordModal from '../Modals/PasswordModal';
+import ProfileModal from '../Modals/ProfileModal';
 
 const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLoginModal, toggleContent}) => {
     const location = useLocation();
     const isLanding = location.pathname === '/';
-
+    const [showSide,setShowSide] = useState(false);
+    const handleOpenSide = () =>{setShowSide(true)};
+    const handleCloseSide = () =>{setShowSide(false)};
+    const [showProfile,setShowProfile] = useState(false);
+    const handleOpenProfile = () =>{setShowProfile(true)};
+    const handleCloseProfile = () =>{setShowProfile(false)};
+    const [showPassword,setShowPassword] = useState(false);
+    const handleOpenPassword = () =>{setShowPassword(true)};
+    const handleClosePassword = () =>{setShowPassword(false)};
     const user = useSelector((state) => state.user);
-    const { user_id, token, name, type_id, rank , profile_url} = user;
+    const { name , profile_url} = user;
 
 
     return (
     
         <div className="navbar flex flex-row justify-between items-center px-5 py-5 shadow-lg">
+        <SideBar isOpen={showSide} onEnter={onEnter} onLeave={onLeave} handleCloseViewModal={handleCloseSide} handleOpenPassword={handleOpenPassword} handleOpenProfile={handleOpenProfile}/>
+        <PasswordModal isOpen={showPassword} handleCloseViewModal={handleClosePassword}/>
+        <ProfileModal isOpen={showProfile} handleCloseViewModal={handleCloseProfile}/>
         <div className="logo-container">
             <img src={mainLogo} alt="Main Logo" />
         </div>
@@ -29,7 +43,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                     (
                         <div className="buttons-container flex flex-row">       
                             <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={() => {toggleContent("leaderboard");}}>Leaderboard</button>
-                            <button className="btn primary-btn capitalize"  onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>{name ? name :"Profile"}</button>
+                            <button className="btn primary-btn capitalize"  onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave} onClick={handleOpenSide}>{name ? name :"Profile"}</button>
                             <div className=' flex w-[44px] h-[44px] ml-3 gap-[10px] justify-center items-center bg-white rounded-full'>
                             {
                                 profile_url ?
