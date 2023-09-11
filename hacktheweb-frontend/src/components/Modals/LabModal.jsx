@@ -14,6 +14,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
+
     const [errors, setErrors] = useState('');
     const [badge,setBadge] = useState('');
     const [showPopup,setShowPopup] = useState(false);
@@ -46,13 +47,13 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
       
             setTimeout(() => {
               setShowPopup(false);
-            }, 2000);
+            }, 3000);
         } else{
             setShowBadgePopup(true);
       
             setTimeout(() => {
               setShowBadgePopup(false);
-            }, 2000);
+            }, 3000);
         }
 
     };
