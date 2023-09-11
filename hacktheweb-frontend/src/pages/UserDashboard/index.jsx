@@ -26,7 +26,7 @@ const falseState = {
 
 const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
   const dispatch = useDispatch();
-  const completedLabs = useSelector((state) => state.labs.CompletedLabs);
+  const completedLabs = useSelector((state) => state.labs.completedLabs);
     const user = useSelector((state) => state.user);
     const { token } = user;
     const [state, setState] = useState({
@@ -75,8 +75,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
           const {data , errors, message} = await getActiveLabs(token);
             if(message && message=="Unauthenticated."){
               navigate("/");
-            }else if (data && data.active_tab) {
-              dispatch(setActiveLabs(data.active_tab));
+            }else if (data && data.active_labs) {
+              dispatch(setActiveLabs(data.active_labs));
             }
   
         };
@@ -84,8 +84,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
           const {data , errors, message} = await getCompletedLabs(token);
             if(message && message=="Unauthenticated."){
               navigate("/");
-            }else if (data && data.completed_tab) {
-              dispatch(setCompletedLabs(data.completed_tab));
+            }else if (data && data.completed_labs) {
+              dispatch(setCompletedLabs(data.completed_labs));
             }
         };
         const fetchBadges = async () => {
@@ -94,7 +94,6 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
               navigate("/");
             }else if (data && data.badges) {
               dispatch(setBadges(data.badges));
-              console.log(data.badges);
             }
         };
         fetchLabs();
@@ -156,11 +155,11 @@ const UserDashboard = ({addCircleRef,areCirclesVisible}) => {
                 />
             </Sidebar>
             <div className='content-wrapper'>
-                {home && <Home token={token}/>}
-                {achievements && <Achievements token={token}/>}
-                {labs_tab && <Labs token={token}/>}
+                {home && <Home/>}
+                {achievements && <Achievements/>}
+                {labs_tab && <Labs/>}
                 {active_tab && <ActiveLabs/>}
-                {completed_tab && <CompletedLabs token={token}/>}
+                {completed_tab && <CompletedLabs/>}
             </div>
         </section>
         
