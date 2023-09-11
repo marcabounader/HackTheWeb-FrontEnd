@@ -190,6 +190,34 @@ async function launchLab(token,lab_id,launch_api) {
     return { message };
   }
 }
+
+async function saveProfile(token,object) {
+  try {
+    const res = await axios.put(`${baseUrl}/api/hacker/modify-profile`,object, {headers: { Authorization: `Bearer ${token}` }});
+    if (res.status === 200) {
+      const data = res.data;
+      return { data };
+    }
+  } catch (error) {
+    const {
+      response: {
+        data: { message, errors },
+      },
+    } = error;
+
+    if (errors) {
+      const errorMessages = Object.keys(errors).map((key) => {
+        const firstError = errors[key][0];
+        if (firstError) {
+          return firstError;
+        }
+      });
+      return { errorMessages };
+    }
+    return { message };
+  }
+}
+
 async function submitFlag(token,lab_id,flag) {
   try {
     const res = await axios.post(`${baseUrl}/api/hacker/submit-flag`,{id:lab_id,flag}, {headers: { Authorization: `Bearer ${token}` }});
@@ -277,4 +305,4 @@ const getSVG = async (icon_url) => {
 };
 
 
-  export {getStatistics,getUserBadges,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
+  export {getStatistics,getUserBadges,saveProfile,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
