@@ -3,7 +3,7 @@ import LabCard from "../Cards/LabCard";
 
 const ActiveLabs = () => {
   const labs = useSelector((state) => state.labs.labs);
-  const active_labs=useSelector((state) => state.labs.ActiveLabs);
+  const active_labs=useSelector((state) => state.labs.activeLabs);
   return (
     <>
       <h1 className="text-start w-full">Active Labs</h1>
