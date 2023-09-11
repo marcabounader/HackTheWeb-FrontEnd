@@ -17,6 +17,7 @@
   --bronze-color: #CD7F32;
   --active-color: rgba(164, 177, 205, 0.35);
   --placeholder-size:13px;
+  --notice-size: 12px;
 
 }
 
@@ -60,7 +61,10 @@ html, body {
   background-color: none;
   color: var(--header-color);
 }
-
+.error{
+  color: var(--red-color);
+  font-size: var(--notice-size);
+}
 .primary-btn{
   background-color: var(--primary-button-color);
   color: var(--black-color)
