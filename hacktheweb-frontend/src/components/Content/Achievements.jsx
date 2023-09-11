@@ -6,7 +6,7 @@ const Achievements = () => {
 
     return ( 
         <>
-        <h1 className="text-start w-full">Active Labs</h1>
+        <h1 className="text-start w-full">Achievements</h1>
         {badges && badges.length > 0 ? (
         badges.map((badge, index) => <BadgeCard badge={badge} key={index} />)
         ) : (
