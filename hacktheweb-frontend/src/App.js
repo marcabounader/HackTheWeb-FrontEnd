@@ -37,14 +37,14 @@ function App() {
     setState({ ...falseState, [page]: true });
   };
   const onEnter = ({ currentTarget }) => {
-        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--black-color)", scale: 1.2 });
+        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--black-color)", scale: 1.1 });
   };
   const onPrimaryEnter = ({ currentTarget }) => {
-        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.2 });
+        gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.1 });
 
   };
   const onSecondaryEnter = ({ currentTarget }) => {
-    gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.2 });
+    gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--white-color)", scale: 1.1 });
 
   };
   
@@ -101,7 +101,7 @@ function App() {
         <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
-          <Route path="/user-dashboard" element={<UserDashboard toggleContent={toggleContent} falseState={falseState} state={state} setState={setState} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} falseState={falseState} state={state} setState={setState} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
         </Routes>
     </Router>
   );
