@@ -9,10 +9,12 @@ const Labs = () => {
     return ( 
         <>
         <h1 className=" text-start w-full">Labs</h1>
-            {labs && labs.map((lab, index) => (
-                <LabCard lab={lab} key={index}/>
-                
-            ))}
+            {labs && labs.length > 0 ? (
+                labs
+                .map((lab, index) => <LabCard lab={lab} key={index} />)
+            ) : (
+                <p>No completed labs available.</p>
+            )}
         </>
      );
 }
