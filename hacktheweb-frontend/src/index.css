@@ -65,6 +65,10 @@ html, body {
   color: var(--red-color);
   font-size: var(--notice-size);
 }
+.confirmation{
+  color: var(--green-color);
+  font-size: var(--notice-size);
+}
 .primary-btn{
   background-color: var(--primary-btn-color);
   color: var(--black-color)
@@ -121,7 +125,7 @@ h6{
   text-align: center;
 }
 
-input{
+input[type="text"]{
   border-radius: 5px;
   padding: 5px;
 }
