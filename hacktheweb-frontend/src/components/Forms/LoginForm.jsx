@@ -42,6 +42,7 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
 
       };
       dispatch(loginUser(user));
+      handleCloseViewModal();
       navigate('/user-dashboard');
     }
   }
