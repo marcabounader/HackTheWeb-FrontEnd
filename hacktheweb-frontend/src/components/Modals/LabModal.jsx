@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { setLabActive, setActiveLabs, setLabInactive, setCompletedLabs, setLabComplete, incrementBadgeCount, incrementCompletedLabs, incrementRewards, addBadge } from '../../slices/labSlice';
 import { useDispatch } from 'react-redux';
 import { launchLab, submitFlag } from '../../helpers/user.helpers';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './LabModal.css';
+import { gsap } from 'gsap';
 
 Modal.setAppElement('#root');
 
 const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_labs,token}) => {
+    const boxRef = useRef();
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
@@ -38,17 +40,28 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             dispatch(setLabActive(lab.id))
         }
     }
+    useLayoutEffect(() => {
+        gsap.to(boxRef.current, {
+          rotation: "+=360",
+          scale: 1.2
+        });
+        return () => { 
+            gsap.to(boxRef.current, {
+                scale: 1
+            })
+        }
+      },[showBadgePopup,showPopup]);
 
     const showCongratulationPopup = (is_badge) => {
         if(!is_badge){
             setShowPopup(true);
-      
+    
             setTimeout(() => {
               setShowPopup(false);
             }, 3000);
         } else{
             setShowBadgePopup(true);
-      
+
             setTimeout(() => {
               setShowBadgePopup(false);
             }, 3000);
@@ -100,10 +113,10 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
                 <h1>{lab.name}</h1>
                 <FontAwesomeIcon icon={faSquareXmark} onClick={handleCloseViewModal} className='w-[30px] h-[30px]' fill="var(--text-and-secondary, #A4B1CD)"/>            
             </div>
-            {showPopup && <div className='congratulation-popup'>
+            {showPopup && <div ref={boxRef} className='congratulation-popup'>
                 Congratulations! Flag is correct.
             </div>}
-            {showBadgePopup && <div className='congratulation-popup'>
+            {showBadgePopup && <div ref={boxRef} className='congratulation-popup'>
                 Congratulations! Flag is correct and {badge.name} earned.
             </div>}
             <div className='lab-content self-stretch flex-grow gap-[10px] flex overflow-y-auto'>
@@ -135,7 +148,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
                     {lab.isActive ?
                         (  
                             <>
-                            <input className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Flag'/>
+                            <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Flag'/>
                             <button className='btn-2 primary-btn' onClick={handleSubmitFlag}>Submit Flag</button>
                             <div className="error text-center">{errors}</div>
                             </>
