@@ -23,13 +23,13 @@ const Leaderboard = () => {
     
     return ( 
         <>
-        <h1 className="text-start self-stretch">Top Ten Hackers</h1>
-        <div className="flex flex-start gap-[10px] h-[64px] w-[70%] justify-evenly items-center bg-black shadow-md">
-            <div className="w-[212.2px] text-center uppercase">Rank</div>
-            <div className="w-[212.2px] uppercase text-center">Name</div>
-            <div className="w-[212.2px] text-center uppercase">Rewards</div>
-            <div className="w-[212.2px] text-center uppercase">Completed Labs</div>
-            <div className="w-[212.2px] text-center uppercase">Badges</div>
+        <h1 className="text-start self-stretch w-full">Top Ten Hackers</h1>
+        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+            <div className="basis-1/5  text-center uppercase">Rank</div>
+            <div className="basis-1/5 uppercase text-center">Name</div>
+            <div className="basis-1/5  text-center uppercase">Rewards</div>
+            <div className="basis-1/5  text-center uppercase">Completed Labs</div>
+            <div className="basis-1/5  text-center uppercase">Badges</div>
         </div>
         {topTen && topTen.length > 0 ? (
           topTen
