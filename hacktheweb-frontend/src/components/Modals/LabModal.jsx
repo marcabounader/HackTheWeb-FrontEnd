@@ -14,13 +14,11 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
 
     const navigate=useNavigate();
     const dispatch=useDispatch();
-
     const [errors, setErrors] = useState('');
     const [badge,setBadge] = useState('');
     const [showPopup,setShowPopup] = useState(false);
     const [showBadgePopup, setShowBadgePopup] = useState(false);
     const [flag,setFlag]=useState('');
-
     function onChange(e) {
         const { value } = e.target;
         setFlag(value);
