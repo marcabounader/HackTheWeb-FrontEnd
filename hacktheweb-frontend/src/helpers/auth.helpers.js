@@ -44,11 +44,9 @@ async function logIn({ email, password }) {
   }
 }
 
-async function logOut() {
+async function logOut(token) {
   try {
-    const res = await axios.post(`${baseUrl}logout`, undefined,
-    Auth()
-    );
+    const res = await axios.post(`${baseUrl}logout`, undefined,{headers: { Authorization: `Bearer ${token}` }});
     console.log(res.data);
     if (res.status === 200) {
       const data = res.data;
@@ -87,7 +85,6 @@ async function register({password,name, email }) {
       return { data };
     }
   } catch (error) {
-    console.log(error);
     const {
       response: {
         data: { message, errors },
