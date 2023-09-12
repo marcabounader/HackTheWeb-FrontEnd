@@ -3,7 +3,7 @@ import LabModal from "../../Modals/LabModal";
 import { stopLab } from "../../../helpers/user.helpers";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { setLabInactive } from '../../../slices/labSlice'; 
+import { setActiveLabs, setLabInactive } from '../../../slices/labSlice'; 
 import { useNavigate } from "react-router-dom";
 const LabCard = ({lab}) => {
     const dispatch= useDispatch();
@@ -20,8 +20,8 @@ const LabCard = ({lab}) => {
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
-            // dispatch(setActiveLabs(activeLabs.filter((activeLab) => activeLab.id !== lab.id)));
-            dispatch(setLabInactive(lab.id))
+            dispatch(setActiveLabs(active_labs.filter((activeLab) => activeLab.lab_id !== lab.id)));
+            dispatch(setLabInactive(lab.id));
         }
     }
     return ( 
