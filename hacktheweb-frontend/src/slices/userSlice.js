@@ -25,10 +25,17 @@ const userSlice = createSlice({
         console.error(`Attribute '${attributeName}' does not exist in the user state.`);
       }
     },
+    resetUserState: (state) => {
+      state.user_id = null;
+      state.token = null;
+      state.name = null;
+      state.type_id = null;
+      state.profile_url = null;
+    },
    
     
   },
 });
 
-export const { loginUser,updateUser } = userSlice.actions;
+export const { loginUser,updateUser,resetUserState } = userSlice.actions;
 export default userSlice.reducer;
