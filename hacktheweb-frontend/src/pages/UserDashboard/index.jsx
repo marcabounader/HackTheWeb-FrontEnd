@@ -24,66 +24,94 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
     const { token } = user;
 
     const navigate=useNavigate();
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+      setIsMounted(true);
       if (!token) {
         navigate('/');
       }
-    });
+    }, []);
+  
     useEffect(() => {
-      const fetchStatistics = async () => {
-        const {data , errors, message} = await getStatistics(token);
-        if(message && message=="Unauthenticated."){
-          navigate("/");
-        } else if (data && data.message) {
-          const {message,...statistics_temp} = data;
-          dispatch(setStatistics(statistics_temp));
-        }
-
-      };
-      fetchStatistics();
-    },[completedLabs]);
-    useEffect(() => {
-
-        const fetchLabs = async () => {
-          const {data , errors, message} = await getLabs(token);
-            if(message && message=="Unauthenticated."){
+      if (isMounted) {
+        const fetchStatistics = async () => {
+          try {
+            const { data, message, errorMessages } = await getStatistics(token);
+            if (message && message === "Unauthenticated.") {
               navigate("/");
-            }else if (data && data.labs) {
+            } else if (data && data.message) {
+              const { message, ...statistics_temp } = data;
+              dispatch(setStatistics(statistics_temp));
+            }
+          } catch (error) {
+            console.error("Error fetching statistics:", error);
+          }
+        };
+        fetchStatistics();
+      }
+    }, [completedLabs, isMounted]);
+  
+    useEffect(() => {
+      if (isMounted) {
+        const fetchLabs = async () => {
+          try {
+            const { data, message, errorMessages } = await getLabs(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.labs) {
               dispatch(setLabs(data.labs));
             }
-  
+          } catch (error) {
+            console.error("Error fetching labs:", error);
+          }
         };
+  
         const fetchActiveLabs = async () => {
-          const {data , errors, message} = await getActiveLabs(token);
-            if(message && message=="Unauthenticated."){
+          try {
+            const { data, message, errorMessages } = await getActiveLabs(token);
+            if (message && message === "Unauthenticated.") {
               navigate("/");
-            }else if (data && data.active_labs) {
+            } else if (data && data.active_labs) {
               dispatch(setActiveLabs(data.active_labs));
             }
-  
+          } catch (error) {
+            console.error("Error fetching active labs:", error);
+          }
         };
+  
         const fetchCompletedLabs = async () => {
-          const {data , errors, message} = await getCompletedLabs(token);
-            if(message && message=="Unauthenticated."){
+          try {
+            const { data, message, errorMessages } = await getCompletedLabs(token);
+            if (message && message === "Unauthenticated.") {
               navigate("/");
-            }else if (data && data.completed_labs) {
+            } else if (data && data.completed_labs) {
               dispatch(setCompletedLabs(data.completed_labs));
             }
+          } catch (error) {
+            console.error("Error fetching completed labs:", error);
+          }
         };
+  
         const fetchBadges = async () => {
-          const {data , errors, message} = await getUserBadges(token);
-            if(message && message=="Unauthenticated."){
+          try {
+            const { data, message, errorMessages } = await getUserBadges(token);
+            if (message && message === "Unauthenticated.") {
               navigate("/");
-            }else if (data && data.badges) {
+            } else if (data && data.badges) {
               dispatch(setBadges(data.badges));
             }
+          } catch (error) {
+            console.error("Error fetching badges:", error);
+          }
         };
+  
         fetchLabs();
         fetchActiveLabs();
         fetchCompletedLabs();
         fetchBadges();
-        }, []);
+      }
+    }, [isMounted]);
         
 
     const circles = [];
