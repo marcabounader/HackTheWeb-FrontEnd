@@ -21,6 +21,12 @@ const PasswordModal = ({isOpen,handleCloseViewModal}) => {
       setInputState((prev) => ({ ...prev, [name]: value }));
     }
 
+    useEffect(() => {
+        setInputState(initialState);
+        setErrors('');
+        setConfirmation('');
+    }, [isOpen]);
+
     const handleChangePassword = async () =>{
         if(new_re_password==new_password)
         {
