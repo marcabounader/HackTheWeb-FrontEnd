@@ -116,8 +116,9 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             {showPopup && <div ref={boxRef} className='congratulation-popup'>
                 Congratulations! Flag is correct.
             </div>}
-            {showBadgePopup && <div ref={boxRef} className='congratulation-popup'>
+            {showBadgePopup && <div ref={boxRef} className='congratulation-popup flex items-center'>
                 Congratulations! Flag is correct and {badge.name} earned.
+                <img src={badge.icon_url} className='w-[100px] h-[100px]'></img>
             </div>}
             <div className='lab-content self-stretch flex-grow gap-[10px] flex overflow-y-auto'>
                 <div className='flex w-[300px] flex-col gap-[40px] items-stretch justify-start content-start'>
