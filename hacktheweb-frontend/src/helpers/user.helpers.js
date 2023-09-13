@@ -111,6 +111,34 @@ async function getLabs(token) {
     return { message };
   }
 }
+
+async function getAllLabs(token) {
+  try {
+    const res = await axios.get(`${baseUrl}/api/common/get-all-labs`, {headers: { Authorization: `Bearer ${token}` }});
+    if (res.status === 200) {
+      const data = res.data;
+      return { data };
+    }
+  } catch (error) {
+    const {
+      response: {
+        data: { message, errors },
+      },
+    } = error;
+
+    if (errors) {
+      const errorMessages = Object.keys(errors).map((key) => {
+        const firstError = errors[key][0];
+        if (firstError) {
+          return firstError;
+        }
+      });
+      return { errorMessages };
+    }
+    return { message };
+  }
+}
+
 async function getActiveLabs(token) {
   try {
     const res = await axios.get(`${baseUrl}/api/hacker/get-active-labs`, {headers: { Authorization: `Bearer ${token}` }});
@@ -272,6 +300,33 @@ async function stopLab(token,project_name) {
     return { message };
   }
 }
+async function deleteLab(token,lab_id) {
+  try {
+    const res = await axios.delete(`${baseUrl}/api/admin/delete-lab/${lab_id}`, {headers: { Authorization: `Bearer ${token}` }});
+    
+    if (res.status === 200) {
+      const data = res.data;
+      return { data };
+    }
+  } catch (error) {
+    const {
+      response: {
+        data: { message, errors },
+      },
+    } = error;
+
+    if (errors) {
+      const errorMessages = Object.keys(errors).map((key) => {
+        const firstError = errors[key][0];
+        if (firstError) {
+          return firstError;
+        }
+      });
+      return { errorMessages };
+    }
+    return { message };
+  }
+}
 const getSVG = async (icon_url) => {
   try {
     const res = await axios.get(`${icon_url}`, {
@@ -305,4 +360,4 @@ const getSVG = async (icon_url) => {
 };
 
 
-  export {getStatistics,getUserBadges,saveProfile,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
+  export {getStatistics,getUserBadges,getAllLabs,saveProfile,deleteLab,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
