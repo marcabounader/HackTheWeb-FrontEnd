@@ -2,13 +2,14 @@ import { createChatBotMessage } from 'react-chatbot-kit';
 
 const config = { 
   botName: "HackerBot",
-  initialMessages: [createChatBotMessage("Hi, I'm here to help. What do you want to learn?")],
+  initialMessages: [createChatBotMessage("Hi, I'm here to help. What attack do you need to implement?")],
+  lang:'en',
   customStyles: {
     botMessageBox: {
-      backgroundColor: "#376B7E",
+      backgroundColor: '#55ABE0',
     },
     chatButton: {
-      backgroundColor: "#376B7E",
+      backgroundColor: '#55ABE0',
     },
   },
 }
