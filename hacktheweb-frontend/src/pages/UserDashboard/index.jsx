@@ -16,6 +16,7 @@ import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } fr
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Chatbot from 'react-chatbot-kit'
+import ActionProvider from './ActionProvider';
 
 
 const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
