@@ -8,6 +8,7 @@ const CustomInput = ({
   type = 'text',
   className,
   error,
+  placeholder
 }) => {
   return (
     <div className="input-container flex flex-col gap-2 font-normal">
@@ -22,6 +23,7 @@ const CustomInput = ({
         } ${className}`}
         type={type}
         onChange={onChange}
+        placeholder={placeholder}
       />
     </div>
   );
