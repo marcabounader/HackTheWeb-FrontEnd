@@ -12,7 +12,7 @@ import './AdminDashboard.css';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
+import { getActiveLabs, getAllLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 
 
@@ -32,19 +32,19 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
     }, []);
   
     useEffect(() => {
-    //   if (isMounted) {
-    //     const fetchLabs = async () => {
-    //       try {
-    //         const { data, message, errorMessages } = await getLabs(token);
-    //         if (message && message === "Unauthenticated.") {
-    //           navigate("/");
-    //         } else if (data && data.labs) {
-    //           dispatch(setLabs(data.labs));
-    //         }
-    //       } catch (error) {
-    //         console.error("Error fetching labs:", error);
-    //       }
-    //     };
+      if (isMounted) {
+        const fetchLabs = async () => {
+          try {
+            const { data, message, errorMessages } = await getAllLabs(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.labs) {
+              dispatch(setLabs(data.labs));
+            }
+          } catch (error) {
+            console.error("Error fetching labs:", error);
+          }
+        };
   
     //     const fetchActiveLabs = async () => {
     //       try {
@@ -85,11 +85,11 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
     //       }
     //     };
   
-    //     fetchLabs();
+        fetchLabs();
     //     fetchActiveLabs();
     //     fetchCompletedLabs();
     //     fetchBadges();
-    //   }
+      }
     }, [isMounted]);
         
 
@@ -143,6 +143,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 {labs_tab && <Labs/>}
                 {active_tab && <ActiveLabs/>}
                 {users_tab && <Users/>} */}
+                {labs_tab && <Labs/>}
+
                 {leaderboard && <Leaderboard/>}
 
             </div>
