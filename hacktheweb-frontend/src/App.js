@@ -4,12 +4,22 @@ import Navbar from './components/Navbar';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 const falseState = {
   home:false,
   achievements:false,
   labs_tab: false,
   active_tab: false,
   completed_tab:false,
+  leaderboard:false
+};
+const adminFalseState = {
+  home:false,
+  achievements:false,
+  labs_tab: false,
+  active_tab: false,
+  completed_tab:false,
+  users_tab:false,
   leaderboard:false
 };
 
@@ -20,8 +30,10 @@ function App() {
     labs_tab: false,
     active_tab: false,
     completed_tab:false,
+    users_tab:false,
     leaderboard:false
   });
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const handleOpenLoginModal = () => setIsLoginModalOpen(true);
@@ -29,13 +41,13 @@ function App() {
   const handleOpenRegisterModal = () => setIsRegisterModalOpen(true);
   const handleCloseRegisterModal = () => setIsRegisterModalOpen(false);
   const [areCirclesVisible, setAreCirclesVisible] = useState(true);
-
   const circleRefs = useRef([]);
 
   circleRefs.current = [];
   const toggleContent = (page) => {
     setState({ ...falseState, [page]: true });
   };
+
   const onEnter = ({ currentTarget }) => {
         gsap.to(currentTarget, { backgroundColor: "rgba(164, 177, 205, 0.35)",color:"var(--black-color)", scale: 1.1 });
   };
@@ -101,7 +113,9 @@ function App() {
         <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
-          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} falseState={falseState} state={state} setState={setState} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/admin-dashboard" element={<AdminDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+
         </Routes>
     </Router>
   );
