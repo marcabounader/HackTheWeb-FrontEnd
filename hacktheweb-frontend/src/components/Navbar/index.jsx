@@ -20,7 +20,8 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
     const handleOpenPassword = () =>{setShowPassword(true)};
     const handleClosePassword = () =>{setShowPassword(false)};
     const user = useSelector((state) => state.user);
-    const { name , profile_url} = user;
+    const { name , profile_url, type_id} = user;
+
 
 
     return (
