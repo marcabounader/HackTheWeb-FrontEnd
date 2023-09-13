@@ -102,4 +102,5 @@ async function register({password,name, email }) {
     return { message };
   }
 }
+
 export { logIn, Auth ,register,logOut};
