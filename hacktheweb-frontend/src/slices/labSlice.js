@@ -8,7 +8,8 @@ const labSlice = createSlice({
     completedLabs: [],
     badges: [],
     statistics: {},
-    labCategries: []
+    labCategories: [],
+    labDifficulties: []
   },
   reducers: {
     resetLabState: (state) => {
@@ -25,7 +26,10 @@ const labSlice = createSlice({
       state.activeLabs = action.payload;
     },
     setLabCategories: (state, action) => {
-      state.labCategries = action.payload;
+      state.labCategories = action.payload;
+    },
+    setLabDifficulties: (state, action) => {
+      state.labDifficulties = action.payload;
     },
     setCompletedLabs: (state, action) => {
       state.completedLabs = action.payload;
@@ -104,7 +108,8 @@ export const {
   addBadge,
   resetLabState,
   modifyLab,
-  setLabCategories
+  setLabCategories,
+  setLabDifficulties
 } = labSlice.actions;
 
 export default labSlice.reducer;
