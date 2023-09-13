@@ -10,7 +10,7 @@ import ActiveLabs from '../../components/Content/ActiveLabs';
 import CompletedLabs from '../../components/Content/CompletedLabs';
 import Home from '../../components/Content/Home';
 import './UserDashboard.css';
-import { faFlask, faHome, faMedal } from '@fortawesome/free-solid-svg-icons';
+import { faFlask, faHome, faMedal, faRunning } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
@@ -129,6 +129,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 />
                 <SideButton 
                 text="Active"
+                icon={faRunning}
+                icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("active_tab");
                 }}
