@@ -1,4 +1,8 @@
 import Modal from 'react-modal';
+import Chatbot from 'react-chatbot-kit'
+import ActionProvider from './ActionProvider';
+import MessageParser from './MessageParser';
+import config from './config';
 Modal.setAppElement('#root');
 
 const ChatBotModal = ({isOpen,handleCloseViewModal}) => {
