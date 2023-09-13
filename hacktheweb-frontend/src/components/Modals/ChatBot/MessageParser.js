@@ -1,6 +1,8 @@
+import ActionProvider from "./ActionProvider";
+
 class MessageParser {
     constructor(actionProvider) {
-      this.actionProvider = actionProvider;
+      this.actionProvider = ActionProvider;
     }
   
     parse(message) {
