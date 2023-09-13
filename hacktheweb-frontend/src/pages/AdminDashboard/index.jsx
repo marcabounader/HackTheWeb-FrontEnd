@@ -9,7 +9,7 @@ import ActiveLabs from '../../components/Content/ActiveLabs';
 import CompletedLabs from '../../components/Content/CompletedLabs';
 import Home from '../../components/Content/Home';
 import './AdminDashboard.css';
-import { faFlask, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faFlask, faHome, faRunning } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getAllLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
@@ -127,6 +127,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 />
                 <SideButton 
                 text="Active"
+                icon={faRunning}
+                icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("active_tab");
                 }}
