@@ -11,14 +11,14 @@ const CustomInput = ({
   placeholder
 }) => {
   return (
-    <div className="input-container flex flex-col gap-2 font-normal">
-      <label className=".label">
+    <div className="input-container flex flex-col gap-2">
+      <label className=".label uppercase">
         {label}
       </label>
       <input
         name={name}
         value={value}
-        className={` shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={` shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline ${
           error && 'border-red-500'
         } ${className}`}
         type={type}
