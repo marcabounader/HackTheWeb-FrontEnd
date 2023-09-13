@@ -27,19 +27,26 @@ const LabCard = ({lab}) => {
     return ( 
         <>
         <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} matchingActiveLab={matchingActiveLab}/>
-        <div className=" flex w-[352px] h-[157px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
+        <div className=" flex w-[352px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
             <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
                 <h6 className=" flex-grow self-stretch text-center capitalize">{lab.name}</h6>
             </div>
-            <div className="flex flex-row justify-between items-center">
-                <p className=" text-green-400">{lab.difficulty_info.difficulty}</p>
+            <div className="flex flex-row justify-between">
+            <div className="flex flex-col justify-between items-start ">
+                <p className=" text-green-400">Difficulty: {lab.difficulty_info.difficulty}</p>
                 <p>Reward: {lab.reward}</p>
+                { lab.isComplete ? 
+                <p className=" text-color-main font-bold">Status: Completed</p> 
+                :
+                <p className=" text-color-main font-bold">Status: Incomplete</p> 
+                }
             </div>
-            <div className="flex flex-row justify-end items-center">
-                { lab.isComplete && <p className=" text-color-main font-bold">Done</p> }
+            <div className="flex flex-row justify-end items-end">
                 { lab.isActive && <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>}
             </div>
+            </div>
+
         </div>
         </>
      );
