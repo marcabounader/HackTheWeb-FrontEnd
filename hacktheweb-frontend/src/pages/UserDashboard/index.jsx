@@ -10,7 +10,7 @@ import ActiveLabs from '../../components/Content/ActiveLabs';
 import CompletedLabs from '../../components/Content/CompletedLabs';
 import Home from '../../components/Content/Home';
 import './UserDashboard.css';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faMedal } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
@@ -68,32 +68,6 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
           }
         };
   
-        const fetchActiveLabs = async () => {
-          try {
-            const { data, message, errorMessages } = await getActiveLabs(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.active_labs) {
-              dispatch(setActiveLabs(data.active_labs));
-            }
-          } catch (error) {
-            console.error("Error fetching active labs:", error);
-          }
-        };
-  
-        const fetchCompletedLabs = async () => {
-          try {
-            const { data, message, errorMessages } = await getCompletedLabs(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.completed_labs) {
-              dispatch(setCompletedLabs(data.completed_labs));
-            }
-          } catch (error) {
-            console.error("Error fetching completed labs:", error);
-          }
-        };
-  
         const fetchBadges = async () => {
           try {
             const { data, message, errorMessages } = await getUserBadges(token);
@@ -108,8 +82,6 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
         };
   
         fetchLabs();
-        fetchActiveLabs();
-        fetchCompletedLabs();
         fetchBadges();
       }
     }, [isMounted]);
@@ -139,6 +111,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 />
                 <SideButton 
                 text="Achievements"
+                icon={faMedal}
+                icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("achievements");
                 }}
