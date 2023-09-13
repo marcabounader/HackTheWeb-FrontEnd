@@ -11,7 +11,8 @@ export default {
         'bg-side': '#0D1115'
       },
       textColor: {
-        'color-main': '#55ABE0'
+        'color-main': '#55ABE0',
+        'color-secondary': '#A4B1CD'
       },
     },
   },
