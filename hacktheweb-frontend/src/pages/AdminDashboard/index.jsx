@@ -63,8 +63,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
             const { data, message, errorMessages } = await getLabCategory(token);
             if (message && message === "Unauthenticated.") {
               navigate("/");
-            } else if (data && data.categories) {
-              dispatch(setLabCategories(data.categories));     
+            } else if (data && data.lab_categories) {
+              dispatch(setLabCategories(data.lab_categories));     
             }
           } catch (error) {
             console.error("Error fetching categories:", error);
