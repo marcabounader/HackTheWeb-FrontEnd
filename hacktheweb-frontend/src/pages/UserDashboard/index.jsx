@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
-import ChatBotModal from '../../components/Modals/ChatBotModal';
+import ChatBotModal from '../../components/Modals/ChatBot/ChatBotModal';
 
 const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
