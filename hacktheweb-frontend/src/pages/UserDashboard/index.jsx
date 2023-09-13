@@ -17,7 +17,7 @@ import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges 
 import Leaderboard from '../../components/Content/Leaderboard';
 import Chatbot from 'react-chatbot-kit'
 import ActionProvider from './ActionProvider';
-
+import MessageParser from './MessageParser';
 
 const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
