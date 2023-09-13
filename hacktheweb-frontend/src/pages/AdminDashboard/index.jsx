@@ -8,8 +8,8 @@ import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
 import { faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setLabs, setStatistics  } from '../../slices/labSlice'; 
-import { getAdminStatistics, getAllLabs, getLabCategory } from '../../helpers/admin.helpers';
+import { setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
+import { getAdminStatistics, getAllLabs, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 
@@ -63,13 +63,26 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
             const { data, message, errorMessages } = await getLabCategory(token);
             if (message && message === "Unauthenticated.") {
               navigate("/");
-            } else if (data && data.cate) {
-              dispatch(setLabCategories(statistics_temp));     
+            } else if (data && data.categories) {
+              dispatch(setLabCategories(data.categories));     
             }
           } catch (error) {
             console.error("Error fetching categories:", error);
           }
         };
+        const fetchLabDifficulties = async () => {
+          try {
+            const { data, message, errorMessages } = await getLabDifficulty(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.difficulties) {
+              dispatch(setLabDifficulties(data.difficulties));     
+            }
+          } catch (error) {
+            console.error("Error fetching categories:", error);
+          }
+        };
+        fetchLabDifficulties();
         fetchLabs();
         fetchStatistics();
         fetchLabCategories
