@@ -11,7 +11,7 @@ import { gsap } from 'gsap';
 
 Modal.setAppElement('#root');
 
-const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_labs,token}) => {
+const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const boxRef = useRef();
 
     const navigate=useNavigate();
@@ -36,11 +36,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
           navigate("/");
         } else if (data && data.active_lab) {
             const active_lab=data.active_lab;
-            const updatedActiveLabs = [...active_labs, data.active_lab];
             const updatedLab={...lab,isActive:true,active_lab};
-            console.log(updatedLab);
-            dispatch(setActiveLabs(updatedActiveLabs));
-            // dispatch(setLabActive(lab.id))
             dispatch(modifyLab(updatedLab));
         }
     }
@@ -75,7 +71,6 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
 
     const handleSubmitFlag = async () => {
         const {data , message, errorMessages} = await submitFlag(token,lab.id,flag);
-        const updatedActiveLabs = active_labs.filter((activeLab) => activeLab.id !== matchingActiveLab.id);
         if (errorMessages) {
             setErrors(errorMessages[0]);
         } else if (message && message=="Unauthenticated."){
@@ -84,7 +79,6 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             console.log(message);
             setErrors(message);
         } else if (data && data.message=="Flag is correct") {
-            dispatch(setActiveLabs(updatedActiveLabs));
             dispatch(setLabInactive(lab.id))
             dispatch(setLabComplete(lab.id))
             showCongratulationPopup(false);
@@ -99,7 +93,6 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             }
             // dispatch(incrementRewards(lab.reward));
         } else if (data && data.message=="Flag is correct, lab already completed before") {
-            dispatch(setActiveLabs(updatedActiveLabs));
             dispatch(setLabInactive(lab.id))
             showCongratulationPopup();
             setFlag('');
@@ -140,7 +133,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
                     </div>
                     {lab.isActive &&
                     <div>
-                        <a className='btn-2 secondary-btn m-0' target="_blank" href={`http://localhost:${matchingActiveLab.port}`}>Open Lab</a>
+                        <a className='btn-2 secondary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
                     </div>
                     }
                 </div>
