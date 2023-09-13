@@ -9,16 +9,15 @@ const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
     const labs = useSelector((state) => state.labs.labs);
-
+    console.log(labs);
     const [showLab,setShowLab]=useState(false);
     const handleOpenShowLab = () => setShowLab(true);
     const handleCloseShowLab = () => setShowLab(false);
     const navigate =useNavigate();
-    const matchingActiveLab = active_labs.find((active_lab) => active_lab.lab_id === lab.id);
     const user = useSelector((state) => state.user);
     const { token ,type_id} = user;
     const handleStopLab = async () => {
-        const {data , errorMessages, message} = await stopLab(token,matchingActiveLab.project_name);
+        const {data , errorMessages, message} = await stopLab(token,lab.active_lab.project_name);
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
@@ -36,7 +35,7 @@ const LabCard = ({lab}) => {
     }
     return ( 
         <>
-        <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} matchingActiveLab={matchingActiveLab}/>
+        <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
         { type_id =="3" ?
         (
         <div className=" flex w-[352px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
