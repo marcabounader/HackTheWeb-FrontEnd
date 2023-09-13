@@ -11,12 +11,14 @@ Modal.setAppElement('#root');
 
 const SideBar = ({isOpen,handleCloseViewModal,handleOpenProfile, handleOpenPassword ,onEnter,onLeave}) => {
     const user = useSelector((state) => state.user);
-    const { token } = user;
+    const { token ,type_id} = user;
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const handleLogOut = async () =>{
-        const {data,error,errorMessages} = await logOut(token);
-        if (data && data.message=="Successfully logged out"){
+        const {data,message,errorMessages} = await logOut(token);
+        if (message && message === "Unauthenticated.") {
+            navigate("/");
+         } else if (data && data.message=="Successfully logged out"){
             dispatch(resetUserState()); // Reset the user state
             dispatch(resetLabState()); // Reset the labs state
                   navigate('/');
@@ -30,8 +32,8 @@ const SideBar = ({isOpen,handleCloseViewModal,handleOpenProfile, handleOpenPassw
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
         >   
             <FontAwesomeIcon icon={faSquareXmark} onClick={handleCloseViewModal} className=' self-end w-[30px] h-[30px]' fill="var(--text-and-secondary, #A4B1CD)"/>            
-            <button onMouseEnter={onEnter} onMouseLeave={onLeave} className="btn-2 self-stretch" onClick={()=>{handleCloseViewModal(); handleOpenProfile();}}>Profile</button>
-            <button onMouseEnter={onEnter} onMouseLeave={onLeave} className="btn-2 self-stretch" onClick={()=>{handleCloseViewModal(); handleOpenPassword();}}>Settings</button>
+            { type_id=='3' && <button onMouseEnter={onEnter} onMouseLeave={onLeave} className="btn-2 self-stretch" onClick={()=>{handleCloseViewModal(); handleOpenProfile();}}>Profile</button>}
+            { type_id=='3' && <button onMouseEnter={onEnter} onMouseLeave={onLeave} className="btn-2 self-stretch" onClick={()=>{handleCloseViewModal(); handleOpenPassword();}}>Settings</button>}
             <button onMouseEnter={onEnter} onMouseLeave={onLeave} className="btn-2 self-stretch" onClick={()=>{handleLogOut(); handleCloseViewModal();}}>Logout</button>
 
         </Modal>
