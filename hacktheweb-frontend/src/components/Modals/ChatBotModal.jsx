@@ -3,8 +3,11 @@ Modal.setAppElement('#root');
 
 const ChatBotModal = () => {
     return ( 
-      <Modal  
-    );
+        <Modal
+
+        >       
+        </Modal>
+        );
 }
  
 export default ChatBotModal;
