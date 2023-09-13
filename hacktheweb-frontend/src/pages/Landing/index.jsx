@@ -33,7 +33,7 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
                 <p>Here is where you'll uncover the secrets to safeguarding digital fortresses in an ever-evolving digital landscape.</p>
             </div>
             <div className="my-5">
-                <input placeholder="Email" className="" value={myEmail} onChange={onChange}/>
+                <input type="text" placeholder="Email" className="" value={myEmail} onChange={onChange}/>
                 <button className="btn primary-btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={handleOpenRegisterModal}>Start Hacking</button>
             </div>   
             <Footer/>
