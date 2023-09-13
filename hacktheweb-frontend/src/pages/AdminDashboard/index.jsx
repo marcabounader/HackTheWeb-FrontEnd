@@ -5,15 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import SideButton from '../../components/Sidebar/SideButton';
 import Labs from '../../components/Content/Labs';
-import ActiveLabs from '../../components/Content/ActiveLabs';
-import CompletedLabs from '../../components/Content/CompletedLabs';
-import Home from '../../components/Content/Home';
 import './AdminDashboard.css';
-import { faFlask, faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getActiveLabs, getAllLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
+import { setLabs, setStatistics  } from '../../slices/labSlice'; 
+import { getAdminStatistics, getAllLabs } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
+import Home from '../../components/Content/Home';
 
 
 const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
@@ -46,49 +44,21 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
           }
         };
   
-    //     const fetchActiveLabs = async () => {
-    //       try {
-    //         const { data, message, errorMessages } = await getActiveLabs(token);
-    //         if (message && message === "Unauthenticated.") {
-    //           navigate("/");
-    //         } else if (data && data.active_labs) {
-    //           dispatch(setActiveLabs(data.active_labs));
-    //         }
-    //       } catch (error) {
-    //         console.error("Error fetching active labs:", error);
-    //       }
-    //     };
-  
-    //     const fetchCompletedLabs = async () => {
-    //       try {
-    //         const { data, message, errorMessages } = await getCompletedLabs(token);
-    //         if (message && message === "Unauthenticated.") {
-    //           navigate("/");
-    //         } else if (data && data.completed_labs) {
-    //           dispatch(setCompletedLabs(data.completed_labs));
-    //         }
-    //       } catch (error) {
-    //         console.error("Error fetching completed labs:", error);
-    //       }
-    //     };
-  
-    //     const fetchBadges = async () => {
-    //       try {
-    //         const { data, message, errorMessages } = await getUserBadges(token);
-    //         if (message && message === "Unauthenticated.") {
-    //           navigate("/");
-    //         } else if (data && data.badges) {
-    //           dispatch(setBadges(data.badges));
-    //         }
-    //       } catch (error) {
-    //         console.error("Error fetching badges:", error);
-    //       }
-    //     };
-  
+        const fetchStatistics = async () => {
+          try {
+            const { data, message, errorMessages } = await getAdminStatistics(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data) {
+              const { message, ...statistics_temp } = data;
+              dispatch(setStatistics(statistics_temp));     
+            }
+          } catch (error) {
+            console.error("Error fetching active labs:", error);
+          }
+        };
         fetchLabs();
-    //     fetchActiveLabs();
-    //     fetchCompletedLabs();
-    //     fetchBadges();
+        fetchStatistics();
       }
     }, [isMounted]);
         
@@ -149,6 +119,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 {labs_tab && <Labs/>}
                 {active_tab && <ActiveLabs/>}
                 {users_tab && <Users/>} */}
+                {home && <Home/>}
                 {labs_tab && <Labs/>}
 
                 {leaderboard && <Leaderboard/>}
