@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
+import {hackerBot} from '../../assets/logos/hacker-bot.svg';
 
 const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -171,7 +172,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}
-
+                <button >
             </div>
         </section>
         
