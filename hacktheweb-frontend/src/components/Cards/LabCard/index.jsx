@@ -9,7 +9,6 @@ const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
     const labs = useSelector((state) => state.labs.labs);
-    console.log(labs);
     const [showLab,setShowLab]=useState(false);
     const handleOpenShowLab = () => setShowLab(true);
     const handleCloseShowLab = () => setShowLab(false);
