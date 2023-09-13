@@ -3,7 +3,9 @@ const MessageParser = ({ children, actions }) => {
     const parse = (message) => {
         if (message.includes('hello')) {
             actions.handleHello();
-        }    
+        } else  {
+            actions.handleRequest(message);
+        }
     };
   
     return (
