@@ -1,6 +1,9 @@
+
+Modal.setAppElement('#root');
+
 const ChatBotModal = () => {
     return ( 
-        
+      <Modal  
     );
 }
  
