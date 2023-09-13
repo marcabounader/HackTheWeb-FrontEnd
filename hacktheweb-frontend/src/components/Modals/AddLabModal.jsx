@@ -1,15 +1,17 @@
 import Modal from 'react-modal';
 import CustomInput from '../Inputs/CustomInput';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TextArea from '../Inputs/TextArea';
 import { useEffect, useState } from 'react';
 import { addLab } from '../../helpers/admin.helpers';
+import Select from 'react-select';
+
 const initial_state=
 { 
 name: '',
 objective:'',
-difficulty_id: '',
-category_id: '',
+difficulty_id: 1,
+category_id: 1,
 launch_api: '',
 reward: '',
 icon_url: ''
@@ -19,7 +21,10 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
     const dispatch = useDispatch();
-
+    const categories = useSelector((state) => state.labs.labCategories);
+    const difficulties = useSelector((state) => state.labs.labDifficulties);
+    const category_options = categories.map(category => ({ value: category.id, label: category.category }));
+    const difficulty_options = difficulties.map(difficulty => ({ value: difficulty.id, label: difficulty.difficulty }));
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
@@ -29,6 +34,7 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
       const { value, name } = e.target;
       setInputState((prev) => ({ ...prev, [name]: value }));
     }
+
     const handleSave = async () => {
         const { data, message, errorMessages } = await addLab(token, inputState);
         // if (data && data.changes) {
@@ -57,15 +63,14 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
       >
         <h4 className="p-4">Add Lab</h4>
-        <div className="form-container flex flex-col gap-5 p-6 pb-0">
-          <CustomInput
+        <div className="flex flex-row gap-5 p-6 pb-0">
+        <div className='flex flex-col gap-5 basis-[50%]'>
+        <CustomInput
             label="Name"
             name="name"
             type="text"
             onChange={onChange}
             value={name}
-            className={'w-[300px]'}
-            labelStyle={{ color: 'white' }}
             placeholder="Name"
           />
         <CustomInput
@@ -73,9 +78,7 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
             name="reward"
             type="number"
             onChange={onChange}
-            value={name}
-            className={'w-[300px]'}
-            labelStyle={{ color: 'white' }}
+            value={reward}
             placeholder="Reward"
           />
             <CustomInput
@@ -84,32 +87,55 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
             type="text"
             onChange={onChange}
             value={launch_api}
-            className={'w-[300px]'}
-            labelStyle={{ color: 'white' }}
             placeholder="Launch API"
           />
-            <select name="difficulty_id" onChange={onChange}>
-                <option value="1">Hard</option>
-                <option value="2">Medium</option>
-                <option value="3">Easy</option>
-            </select>       
-            <select name="category_id" onChange={onChange}>
-                <option value="1">1</option>
-            </select>     
+          <div className='flex flex-col basis-full self-stretch justify-end'>
+          <label className="btn-2 secondary-btn self-start">
+            Upload File
+            <input type="file" name="icon_url" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
+            </label>
+          </div>
+
+        </div>
+        <div className='flex flex-col gap-5 basis-[50%]'>
+            <div className='flex flex-col gap-2'>
+            <label className='uppercase'>
+            Difficulty   
+            </label>
+            <Select 
+            name="difficulty_id" 
+            value={difficulty_options.find(option => option.value === difficulty_id)}
+            onChange={(selectedOption) => setInputState((prev) => ({ ...prev, difficulty_id: selectedOption.value }))}
+            options={difficulty_options} 
+            placeholder='Select a category'
+            >
+            </Select> 
+            </div>
+ 
+            <div className='flex flex-col gap-2'>
+            <label  className='uppercase'>
+                Category   
+            </label>
+            <Select 
+            name="category_id" 
+            value={category_options.find(option => option.value === category_id)}
+            onChange={(selectedOption) => setInputState((prev) => ({ ...prev, category_id: selectedOption.value }))}
+            options={category_options} 
+            placeholder='Select a difficulty'
+            >
+            </Select> 
+            </div>
+        
             <TextArea
             label="Objective"
             name="objective"
             onChange={onChange}
             value={objective}
-            className={'w-[300px]'}
-            labelStyle={{ color: 'white' }}
             placeholder="Objective"
-          />
-        <label className="btn secondary-btn self-end">
-          Upload File
-          <input type="file" name="icon_url" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
-        </label>
+            />
         </div>
+        </div>
+
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
           <button onClick={() => handleSave()} className="btn primary-btn">
