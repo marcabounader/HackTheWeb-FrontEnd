@@ -43,7 +43,11 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
       };
       dispatch(loginUser(user));
       handleCloseViewModal();
-      navigate('/user-dashboard');
+      if(user.type_id=='3'){
+        navigate('/user-dashboard');
+      } else if(user.type_id=='1'){
+        navigate('/admin-dashboard');
+      }
     }
   }
 
