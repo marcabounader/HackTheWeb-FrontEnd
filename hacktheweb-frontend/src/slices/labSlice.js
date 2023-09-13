@@ -35,10 +35,15 @@ const labSlice = createSlice({
     setLabInactive: (state, action) => {
       const lab_id = action.payload;
       const labToDeactivate = state.labs.find((lab) => lab.id === lab_id);
+      
       if (labToDeactivate) {
+        delete labToDeactivate.active_lab;
         labToDeactivate.isActive = false;
       }
+    
     },
+    
+    
     setLabActive: (state, action) => {
       const lab_id = action.payload;
       const labToDeactivate = state.labs.find((lab) => lab.id === lab_id);
