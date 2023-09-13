@@ -53,6 +53,18 @@ const labSlice = createSlice({
         labToDeactivate.isComplete = true;
       }
     },
+    modifyLab: (state, action) => {
+      const lab = action.payload;
+      const labIndex = state.labs.findIndex((old_lab) => old_lab.id === lab.id);
+    
+      if (labIndex !== -1) {
+        state.labs = [
+          ...state.labs.slice(0, labIndex),
+          lab,
+          ...state.labs.slice(labIndex + 1),
+        ];
+      }
+    },
     addBadge: (state,action) => {
       state.badges = [...state.badges,action.payload];
     },
@@ -81,7 +93,8 @@ export const {
   incrementCompletedLabs,
   incrementRewards,
   addBadge,
-  resetLabState
+  resetLabState,
+  modifyLab
 } = labSlice.actions;
 
 export default labSlice.reducer;
