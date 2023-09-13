@@ -85,7 +85,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
         fetchLabDifficulties();
         fetchLabs();
         fetchStatistics();
-        fetchLabCategories
+        fetchLabCategories();
       }
     }, [isMounted]);
         
