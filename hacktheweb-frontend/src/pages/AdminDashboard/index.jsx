@@ -9,7 +9,7 @@ import './AdminDashboard.css';
 import { faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setStatistics  } from '../../slices/labSlice'; 
-import { getAdminStatistics, getAllLabs } from '../../helpers/admin.helpers';
+import { getAdminStatistics, getAllLabs, getLabCategory } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 
@@ -54,11 +54,25 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
               dispatch(setStatistics(statistics_temp));     
             }
           } catch (error) {
-            console.error("Error fetching active labs:", error);
+            console.error("Error fetching statistics:", error);
+          }
+        };
+          
+        const fetchLabCategories = async () => {
+          try {
+            const { data, message, errorMessages } = await getLabCategory(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.cate) {
+              dispatch(setLabCategories(statistics_temp));     
+            }
+          } catch (error) {
+            console.error("Error fetching categories:", error);
           }
         };
         fetchLabs();
         fetchStatistics();
+        fetchLabCategories
       }
     }, [isMounted]);
         
