@@ -149,7 +149,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
                     {lab.isActive ?
                         (  
                             <>
-                            <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Flag'/>
+                            <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Enter Flag'/>
                             <button className='btn-2 primary-btn' onClick={handleSubmitFlag}>Submit Flag</button>
                             <div className="error text-center">{errors}</div>
                             </>
