@@ -57,7 +57,7 @@ async function getAllLabs(token) {
   }
   async function getLabDifficulty(token) {
     try {
-      const res = await axios.get(`${baseUrl}/api/admin/get-lab-difficulty`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/admin/get-lab-difficulties`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
