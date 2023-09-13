@@ -53,7 +53,6 @@ async function logOut(token) {
       return { data };
     }
   } catch (error) {
-    console.log(error);
     const {
       response: {
         data: { message, errors },
