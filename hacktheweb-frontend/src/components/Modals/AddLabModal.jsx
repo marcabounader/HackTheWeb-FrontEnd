@@ -2,7 +2,8 @@ import Modal from 'react-modal';
 import CustomInput from '../Inputs/CustomInput';
 import { useDispatch } from 'react-redux';
 import TextArea from '../Inputs/TextArea';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { addLab } from '../../helpers/admin.helpers';
 const initial_state=
 { 
 name: '',
@@ -11,10 +12,10 @@ difficulty_id: '',
 category_id: '',
 launch_api: '',
 reward: '',
-icon_url
+icon_url: ''
 };
 
-const AddLabModal = ({isOpen,handleCloseViewModal}) => {
+const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const AddLabModal = ({isOpen,handleCloseViewModal}) => {
       setInputState((prev) => ({ ...prev, [name]: value }));
     }
     const handleSave = async () => {
-        const { data, message, errorMessages } = await addLab(token, state);
+        const { data, message, errorMessages } = await addLab(token, inputState);
         // if (data && data.changes) {
 
         // }
