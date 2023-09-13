@@ -180,7 +180,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                   width="75px"
                   height="75px"
                   className="fixed bottom-2 right-2"
-                  onCanPlay={handleOpenBot}
+                  onClick={handleOpenBot}
                 >
                   <g>
                     <path fill="#55ABE0" d="M73.142 40.869c0-.084.003-.166.003-.25 0-14.843-6.384-26.875-14.259-26.875-2.438 0-4.733 1.156-6.739 3.191a2.997 2.997 0 0 1-4.294 0c-2.007-2.035-4.301-3.191-6.739-3.191-7.875 0-14.26 12.032-14.26 26.875 0 .084.003.166.003.25C15.209 43.914 7.5 49.186 7.5 55.185c0 9.429 19.028 14.476 42.5 14.476s42.5-5.047 42.5-14.476c0-5.999-7.709-11.271-19.358-14.316z" />
