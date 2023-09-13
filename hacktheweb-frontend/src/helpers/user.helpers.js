@@ -362,4 +362,4 @@ const getSVG = async (icon_url) => {
 };
 
 
-  export {getStatistics,getBotResponse,getUserBadges,getAllLabs,saveProfile,deleteLab,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
+  export {getStatistics,getBotResponse,getUserBadges,saveProfile,deleteLab,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
