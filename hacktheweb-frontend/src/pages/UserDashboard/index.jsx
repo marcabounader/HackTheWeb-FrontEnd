@@ -16,16 +16,18 @@ import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } fr
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import {hackerBot} from '../../assets/logos/hacker-bot.svg';
+import ChatBotModal from '../../components/Modals/ChatBotModal';
 
 const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
   const completedLabs = useSelector((state) => state.labs.completedLabs);
     const user = useSelector((state) => state.user);
     const { token } = user;
-
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
-
+    const [showBot,setShowBot]=useState(false);
+    const handleOpenBot = () => setShowBot(true);
+    const handleCloseBot =() => setShowBot(false);
     useEffect(() => {
       setIsMounted(true);
       if (!token) {
@@ -172,7 +174,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}
-                <button >
+
             </div>
         </section>
         
