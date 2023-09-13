@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { setLabActive, setActiveLabs, setLabInactive, setCompletedLabs, setLabComplete, incrementBadgeCount, incrementCompletedLabs, incrementRewards, addBadge } from '../../slices/labSlice';
+import { setLabActive, setActiveLabs, setLabInactive, setCompletedLabs, setLabComplete, incrementBadgeCount, incrementCompletedLabs, incrementRewards, addBadge, modifyLab } from '../../slices/labSlice';
 import { useDispatch } from 'react-redux';
 import { launchLab, submitFlag } from '../../helpers/user.helpers';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -34,10 +34,14 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab, matchingActiveLab,active_la
             setErrors(message);
         } else if (message && message=="Unauthenticated."){
           navigate("/");
-        } else if (data && data.message) {
+        } else if (data && data.active_lab) {
+            const active_lab=data.active_lab;
             const updatedActiveLabs = [...active_labs, data.active_lab];
+            const updatedLab={...lab,isActive:true,active_lab};
+            console.log(updatedLab);
             dispatch(setActiveLabs(updatedActiveLabs));
-            dispatch(setLabActive(lab.id))
+            // dispatch(setLabActive(lab.id))
+            dispatch(modifyLab(updatedLab));
         }
     }
     useLayoutEffect(() => {
