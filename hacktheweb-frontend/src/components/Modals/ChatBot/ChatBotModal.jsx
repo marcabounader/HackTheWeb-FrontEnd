@@ -4,8 +4,9 @@ import 'react-chatbot-kit/build/main.css';
 import ActionProvider from './ActionProvider';
 import MessageParser from './MessageParser';
 import config from './config';
-Modal.setAppElement('#root');
+import './chat.css'
 
+Modal.setAppElement('#root');
 const ChatBotModal = ({isOpen,handleCloseViewModal}) => {
     return ( 
         <Modal
