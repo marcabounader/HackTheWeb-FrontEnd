@@ -1,23 +1,28 @@
-class ActionProvider {
-    constructor(createChatBotMessage, setStateFunc) {
-      this.createChatBotMessage = createChatBotMessage;
-      this.setState = setStateFunc;
-    }
-    
-    greet() {
-      const greetingMessage = this.createChatBotMessage("Hi, friend.")
-      this.updateChatbotState(greetingMessage)
-    }
-    
-    updateChatbotState(message) {
-   
-  // NOTE: This function is set in the constructor, and is passed in      // from the top level Chatbot component. The setState function here     // actually manipulates the top level state of the Chatbot, so it's     // important that we make sure that we preserve the previous state.
-   
-      
-     this.setState(prevState => ({
-          ...prevState, messages: [...prevState.messages, message]
-      }))
-    }
-  }
-  
-  export default ActionProvider
+// in ActionProvider.jsx
+import React from 'react';
+
+const ActionProvider = ({ createChatBotMessage, setState, children }) => {
+  const handleHello = () => {
+    const botMessage = createChatBotMessage('Hello. Nice to meet you.');
+
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
+  // Put the handleHello function in the actions object to pass to the MessageParser
+  return (
+    <div>
+      {React.Children.map(children, (child) => {
+        return React.cloneElement(child, {
+          actions: {
+            handleHello,
+          },
+        });
+      })}
+    </div>
+  );
+};
+
+export default ActionProvider;
