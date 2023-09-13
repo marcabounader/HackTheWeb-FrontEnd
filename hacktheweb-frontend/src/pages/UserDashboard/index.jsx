@@ -175,7 +175,7 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}
                 <hackerBot className="fixed bottom-1 right-1" onClick={handleOpenBot}/>
-
+                <ChatBotModal isOpen={showBot} handleCloseViewModal={handleCloseBot}/>
             </div>
         </section>
         
