@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setLabInactive, setLabs } from '../../../slices/labSlice'; 
 import { useNavigate } from "react-router-dom";
+import AddLabModal from "../../Modals/AddLabModal";
 const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
@@ -12,6 +13,9 @@ const LabCard = ({lab}) => {
     const [showLab,setShowLab]=useState(false);
     const handleOpenShowLab = () => setShowLab(true);
     const handleCloseShowLab = () => setShowLab(false);
+    const [showModifyLab,setShowModifyLab] = useState(false);
+    const handleOpenModifyLab = () => setShowModifyLab(true);
+    const handleCloseModifyLab = () =>setShowModifyLab(false);
     const navigate =useNavigate();
     const user = useSelector((state) => state.user);
     const { token ,type_id} = user;
@@ -35,6 +39,8 @@ const LabCard = ({lab}) => {
     return ( 
         <>
         <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
+        <AddLabModal lab={lab} isOpen={showModifyLab} token={token} handleCloseViewModal={handleCloseModifyLab}></AddLabModal>
+
         { type_id =="3" ?
         (
         <div className=" flex w-[352px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
@@ -61,7 +67,7 @@ const LabCard = ({lab}) => {
         :
         (
         <div className=" flex w-[352px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
-            <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
+            <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenModifyLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
                 <h6 className=" flex-grow self-stretch text-center capitalize">{lab.name}</h6>
             </div>
