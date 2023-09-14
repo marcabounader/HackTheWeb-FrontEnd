@@ -52,6 +52,7 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
           navigate("/");
         } else if (data && data.lab) {
             dispatch(setLabs([...labs,data.lab]));
+            handleCloseViewModal();
         }
       };
       function fileHandler(e) {
@@ -69,7 +70,6 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
         };
         reader.readAsDataURL(selectedImage);
       }
-      console.log(labs);
 
     const { name,objective,difficulty_id,category_id,launch_api,reward,icon}=inputState;
     return ( 
