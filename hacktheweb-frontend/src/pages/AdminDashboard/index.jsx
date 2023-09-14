@@ -127,7 +127,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 }}
                 className={`transition-all ${home && " text-black bg-bg-active"}`}
                 />
-                                <SideButton 
+                <SideButton 
                 text="Badges"
                 icon={faMedal}
                 icon_style="text-color-secondary"
