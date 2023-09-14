@@ -40,19 +40,40 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
       setInputState((prev) => ({ ...prev, [name]: value }));
     }
 
-    const handleAdd = async () => {
-        const { data, message, errorMessages } = await addLab(token, inputState);
-        if (errorMessages) {
+    const handleAction = async () => {
+        if (lab) {
+          const { data, message, errorMessages } = await modifyLab(token, lab.id, inputState);
+          if (errorMessages) {
             setErrors(errorMessages[0]);
-        } else if (message) {
+          } else if (message) {
             setErrors(message);
-        } else if (message && message=="Unauthenticated."){
-          navigate("/");
-        } else if (data && data.lab) {
-            dispatch(setLabs([...labs,data.lab]));
+          } else if (message && message === "Unauthenticated.") {
+            navigate("/");
+          } else if (data && data.lab) {
+            const modifiedLabIndex = labs.findIndex((l) => l.id === data.lab.id);
+            if (modifiedLabIndex !== -1) {
+              const updatedLabs = [...labs];
+              updatedLabs[modifiedLabIndex] = data.lab;
+              dispatch(setLabs(updatedLabs));
+              handleCloseViewModal();
+            }
+          }
+        } else {
+          // Add a new lab
+          const { data, message, errorMessages } = await addLab(token, inputState);
+          if (errorMessages) {
+            setErrors(errorMessages[0]);
+          } else if (message) {
+            setErrors(message);
+          } else if (message && message === "Unauthenticated.") {
+            navigate("/");
+          } else if (data && data.lab) {
+            dispatch(setLabs([...labs, data.lab]));
             handleCloseViewModal();
-        }
-      };
+          }
+    }
+}
+
       function fileHandler(e) {
         let selectedImage = e.target.files[0];
         if (!selectedImage) {
@@ -154,9 +175,15 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
 
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-          <button onClick={() => handleAdd()} className="btn primary-btn">
+          { lab ? 
+          <button onClick={() => handleAction()} className="btn primary-btn">
             Add
           </button>
+          : 
+          <button onClick={() => handleAction()} className="btn primary-btn">
+            Modify
+          </button>
+          }
           <button onClick={handleCloseViewModal} className="btn">
             Cancel
           </button>
