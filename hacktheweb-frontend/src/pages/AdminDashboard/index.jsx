@@ -6,7 +6,7 @@ import Sidebar from '../../components/Sidebar';
 import SideButton from '../../components/Sidebar/SideButton';
 import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
-import { faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
 import { getActiveLabs, getAdminStatistics, getAllLabs, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
@@ -112,7 +112,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
 
-    const {  home,labs_tab, active_tab, users_tab,leaderboard} = state;
+    const {  home,labs_tab, active_tab, users_tab,leaderboard,badges} = state;
 
     return ( 
         <section className='main-wrapper'>
@@ -126,6 +126,15 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                   toggleContent("home");
                 }}
                 className={`transition-all ${home && " text-black bg-bg-active"}`}
+                />
+                                <SideButton 
+                text="Badges"
+                icon={faMedal}
+                icon_style="text-color-secondary"
+                onClick={() => {
+                  toggleContent("badges");
+                }}
+                className={`transition-all ${badges && "text-black bg-bg-active"}`}
                 />
                 <SideButton 
                 icon={faFlaskVial}
