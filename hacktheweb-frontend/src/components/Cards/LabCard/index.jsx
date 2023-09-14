@@ -50,7 +50,7 @@ const LabCard = ({lab}) => {
             </div>
             <div className="flex flex-row justify-between">
             <div className="flex flex-col justify-between items-start ">
-                <p className=" text-green-400">Difficulty: {lab.difficulty_info.difficulty}</p>
+                <p className={` ${lab.difficulty_id=='1' && "text-red-400"} ${lab.difficulty_id=='2' && "text-orange-400"} ${lab.difficulty_id=='3' && "text-green-400"}`}>Difficulty: {lab.difficulty_info.difficulty}</p>
                 <p>Reward: {lab.reward}</p>
                 { lab.isComplete ? 
                 <p className=" text-color-main font-bold">Status: Complete</p> 
@@ -73,7 +73,7 @@ const LabCard = ({lab}) => {
             </div>
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-between items-start ">
-                    <p className=" text-green-400">Difficulty: {lab.difficulty_info.difficulty}</p>
+                <p className={` ${lab.difficulty_id=='1' && "text-red-400"} ${lab.difficulty_id=='2' && "text-orange-400"} ${lab.difficulty_id=='3' && "text-green-400"}`}>Difficulty: {lab.difficulty_info.difficulty}</p>
                     <p>Reward: {lab.reward}</p>
                 </div>
             </div>
