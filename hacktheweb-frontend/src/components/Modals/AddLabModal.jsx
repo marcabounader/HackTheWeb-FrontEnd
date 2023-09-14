@@ -3,7 +3,7 @@ import CustomInput from '../Inputs/CustomInput';
 import { useDispatch, useSelector } from 'react-redux';
 import TextArea from '../Inputs/TextArea';
 import { useEffect, useState } from 'react';
-import { addLab } from '../../helpers/admin.helpers';
+import { addLab, updateLab } from '../../helpers/admin.helpers';
 import Select from 'react-select';
 import { modifyLab, setLabs } from '../../slices/labSlice';
 import { useNavigate } from 'react-router-dom';
@@ -65,7 +65,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
           return;
         }
         if (lab) {
-          const { data, message, errorMessages } = await modifyLab(token, lab.id, modifiedInput);
+          const { data, message, errorMessages } = await updateLab(token, lab.id, modifiedInput);
           if (errorMessages) {
             setErrors(errorMessages[0]);
           } else if (message) {
@@ -73,13 +73,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
           } else if (message && message === "Unauthenticated.") {
             navigate("/");
           } else if (data && data.lab) {
-            const modifiedLabIndex = labs.findIndex((l) => l.id === data.lab.id);
-            if (modifiedLabIndex !== -1) {
-              const updatedLabs = [...labs];
-              updatedLabs[modifiedLabIndex] = data.lab;
-              dispatch(setLabs(updatedLabs));
-              handleCloseViewModal();
-            }
+            dispatch(modifyLab())
           }
         } else {
           const { data, message, errorMessages } = await addLab(token, inputState);
