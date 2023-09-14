@@ -73,7 +73,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
           } else if (message && message === "Unauthenticated.") {
             navigate("/");
           } else if (data && data.lab) {
-            dispatch(modifyLab())
+            dispatch(modifyLab(data.lab));
           }
         } else {
           const { data, message, errorMessages } = await addLab(token, inputState);
