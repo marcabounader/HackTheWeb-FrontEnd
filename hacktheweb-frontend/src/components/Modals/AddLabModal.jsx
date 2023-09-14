@@ -5,7 +5,7 @@ import TextArea from '../Inputs/TextArea';
 import { useEffect, useState } from 'react';
 import { addLab } from '../../helpers/admin.helpers';
 import Select from 'react-select';
-import { setLabs } from '../../slices/labSlice';
+import { modifyLab, setLabs } from '../../slices/labSlice';
 import { useNavigate } from 'react-router-dom';
 
 const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
@@ -16,7 +16,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         category_id: lab ? lab.category_id : 1,
         launch_api: lab ? lab.launch_api : '',
         reward: lab ? lab.reward : '',
-        icon: lab ? lab.icon : '',
+        icon: '',
       };
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
@@ -27,8 +27,15 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
     const labs = useSelector((state) => state.labs.labs);
     const [selectedImageName, setSelectedImageName] = useState('');
 
-    const category_options = categories.map(category => ({ value: category.id, label: category.category }));
-    const difficulty_options = difficulties.map(difficulty => ({ value: difficulty.id, label: difficulty.difficulty }));
+    const category_options = categories.map((category) => ({
+        value: category.id,
+        label: category.category,
+      }));
+      const difficulty_options = difficulties.map((difficulty) => ({
+        value: difficulty.id,
+        label: difficulty.difficulty,
+      }));
+
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
@@ -37,12 +44,28 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
   
     function onChange(e) {
       const { value, name } = e.target;
-      setInputState((prev) => ({ ...prev, [name]: value }));
+        setInputState((prev) => ({ ...prev, [name]: value }));
     }
 
     const handleAction = async () => {
+        const modifiedInput = {};
+
         if (lab) {
-          const { data, message, errorMessages } = await modifyLab(token, lab.id, inputState);
+          for (const key in inputState) {
+            if (inputState[key] !== initial_state[key]) {
+              modifiedInput[key] = inputState[key];
+            }
+          }
+        } else {
+          modifiedInput = { ...inputState };
+        }
+      
+        if (Object.keys(modifiedInput).length === 0) {
+          console.log("No changes to submit.");
+          return;
+        }
+        if (lab) {
+          const { data, message, errorMessages } = await modifyLab(token, lab.id, modifiedInput);
           if (errorMessages) {
             setErrors(errorMessages[0]);
           } else if (message) {
@@ -59,7 +82,6 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             }
           }
         } else {
-          // Add a new lab
           const { data, message, errorMessages } = await addLab(token, inputState);
           if (errorMessages) {
             setErrors(errorMessages[0]);
@@ -82,9 +104,9 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         }
         const reader = new FileReader();
         reader.onloadend = function () {
-          const base64Image = reader.result.split(',')[1];
-          setInputState((prev) => ({ ...prev, [e.target.name]: base64Image }));
-          setSelectedImageName(selectedImage.name);
+            const base64Image = reader.result.split(',')[1];
+            setInputState((prev) => ({ ...prev, [e.target.name]: base64Image }));
+            setSelectedImageName(selectedImage.name);
 
         };
         reader.readAsDataURL(selectedImage);
@@ -175,15 +197,10 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
 
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-          { lab ? 
           <button onClick={() => handleAction()} className="btn primary-btn">
-            Add
+            {lab ? 'Modify' : 'Add'}
           </button>
-          : 
-          <button onClick={() => handleAction()} className="btn primary-btn">
-            Modify
-          </button>
-          }
+
           <button onClick={handleCloseViewModal} className="btn">
             Cancel
           </button>
