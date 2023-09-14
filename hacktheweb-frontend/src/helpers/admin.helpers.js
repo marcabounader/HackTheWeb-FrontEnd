@@ -133,7 +133,7 @@ async function getAllLabs(token) {
       return { message };
     }
   }
-  async function modifyLab(token,lab_id,lab) {
+  async function updateLab(token,lab_id,lab) {
     try {
       const res = await axios.put(`${baseUrl}/api/admin/modify-lab/${lab_id}`,lab, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
@@ -159,4 +159,4 @@ async function getAllLabs(token) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,addLab,modifyLab,getLabCategory,getLabDifficulty};
+  export {getAllLabs,getAdminStatistics,addLab,updateLab,getLabCategory,getLabDifficulty};
