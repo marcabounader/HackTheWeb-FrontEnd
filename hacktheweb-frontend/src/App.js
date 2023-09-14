@@ -8,18 +8,10 @@ import AdminDashboard from './pages/AdminDashboard';
 const falseState = {
   home:false,
   achievements:false,
+  badges:false,
   labs_tab: false,
   active_tab: false,
   completed_tab:false,
-  leaderboard:false
-};
-const adminFalseState = {
-  home:false,
-  achievements:false,
-  labs_tab: false,
-  active_tab: false,
-  completed_tab:false,
-  users_tab:false,
   leaderboard:false
 };
 
@@ -27,6 +19,7 @@ function App() {
   const [state, setState] = useState({
     home:true,
     achievements:false,
+    badges:false,
     labs_tab: false,
     active_tab: false,
     completed_tab:false,
