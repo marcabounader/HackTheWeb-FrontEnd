@@ -8,10 +8,11 @@ import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
 import { faFlaskVial, faHome, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
-import { getAdminStatistics, getAllLabs, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
+import { setActiveLabs, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
+import { getActiveLabs, getAdminStatistics, getAllLabs, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
+import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 
 
 const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
@@ -82,10 +83,23 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
             console.error("Error fetching categories:", error);
           }
         };
+        const fetchActiveLabs = async () => {
+          try {
+            const { data, message, errorMessages } = await getActiveLabs(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.active_labs) {
+              dispatch(setActiveLabs(data.active_labs));  
+            }
+          } catch (error) {
+            console.error("Error fetching categories:", error);
+          }
+        };
         fetchLabDifficulties();
         fetchLabs();
         fetchStatistics();
         fetchLabCategories();
+        fetchActiveLabs();
       }
     }, [isMounted]);
         
@@ -148,7 +162,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 {users_tab && <Users/>} */}
                 {home && <Home/>}
                 {labs_tab && <Labs/>}
-
+                {active_tab && <AdminActiveLabs/>}
                 {leaderboard && <Leaderboard/>}
 
             </div>
