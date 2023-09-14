@@ -5,6 +5,8 @@ import TextArea from '../Inputs/TextArea';
 import { useEffect, useState } from 'react';
 import { addLab } from '../../helpers/admin.helpers';
 import Select from 'react-select';
+import { setLabs } from '../../slices/labSlice';
+import { useNavigate } from 'react-router-dom';
 
 const initial_state=
 { 
@@ -14,20 +16,25 @@ difficulty_id: 1,
 category_id: 1,
 launch_api: '',
 reward: '',
-icon_url: ''
+icon: ''
 };
 
 const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
     const dispatch = useDispatch();
+    const navigate=useNavigate();
     const categories = useSelector((state) => state.labs.labCategories);
     const difficulties = useSelector((state) => state.labs.labDifficulties);
+    const labs = useSelector((state) => state.labs.labs);
+    const [selectedImageName, setSelectedImageName] = useState('');
+
     const category_options = categories.map(category => ({ value: category.id, label: category.category }));
     const difficulty_options = difficulties.map(difficulty => ({ value: difficulty.id, label: difficulty.difficulty }));
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
+        setSelectedImageName('');
     }, [isOpen]);
   
     function onChange(e) {
@@ -35,11 +42,17 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
       setInputState((prev) => ({ ...prev, [name]: value }));
     }
 
-    const handleSave = async () => {
+    const handleAdd = async () => {
         const { data, message, errorMessages } = await addLab(token, inputState);
-        // if (data && data.changes) {
-
-        // }
+        if (errorMessages) {
+            setErrors(errorMessages[0]);
+        } else if (message) {
+            setErrors(message);
+        } else if (message && message=="Unauthenticated."){
+          navigate("/");
+        } else if (data && data.lab) {
+            dispatch(setLabs([...labs,data.lab]));
+        }
       };
       function fileHandler(e) {
         let selectedImage = e.target.files[0];
@@ -51,10 +64,14 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
         reader.onloadend = function () {
           const base64Image = reader.result.split(',')[1];
           setInputState((prev) => ({ ...prev, [e.target.name]: base64Image }));
+          setSelectedImageName(selectedImage.name);
+
         };
         reader.readAsDataURL(selectedImage);
       }
-    const { name,objective,difficulty_id,category_id,launch_api,reward,icon_url}=inputState;
+      console.log(labs);
+
+    const { name,objective,difficulty_id,category_id,launch_api,reward,icon}=inputState;
     return ( 
         <Modal
         isOpen={isOpen}
@@ -90,9 +107,10 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
             placeholder="Launch API"
           />
           <div className='flex flex-col basis-full self-stretch justify-end'>
+          {selectedImageName && <p>Selected Image: {selectedImageName}</p>}
           <label className="btn-2 secondary-btn self-start">
             Upload File
-            <input type="file" name="icon_url" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
+            <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
             </label>
           </div>
 
@@ -138,8 +156,8 @@ const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
 
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-          <button onClick={() => handleSave()} className="btn primary-btn">
-            Save
+          <button onClick={() => handleAdd()} className="btn primary-btn">
+            Add
           </button>
           <button onClick={handleCloseViewModal} className="btn">
             Cancel
