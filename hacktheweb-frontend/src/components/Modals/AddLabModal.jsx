@@ -48,23 +48,19 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
     }
 
     const handleAction = async () => {
-        const modifiedInput = {};
+        setErrors('');
+        if (lab) {
+            const modifiedInput = {};
 
-        if (lab) {
-          for (const key in inputState) {
-            if (inputState[key] !== initial_state[key]) {
-              modifiedInput[key] = inputState[key];
-            }
-          }
-        } else {
-          modifiedInput = { ...inputState };
-        }
-      
-        if (Object.keys(modifiedInput).length === 0) {
-          console.log("No changes to submit.");
-          return;
-        }
-        if (lab) {
+            for (const key in inputState) {
+                if (inputState[key] !== initial_state[key]) {
+                  modifiedInput[key] = inputState[key];
+                }
+              }
+              if (Object.keys(modifiedInput).length === 0) {
+                console.log("No changes to submit.");
+                return;
+              }
           const { data, message, errorMessages } = await updateLab(token, lab.id, modifiedInput);
           if (errorMessages) {
             setErrors(errorMessages[0]);
@@ -105,7 +101,6 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         };
         reader.readAsDataURL(selectedImage);
       }
-
     const { name,objective,difficulty_id,category_id,launch_api,reward,icon}=inputState;
     return ( 
         <Modal
