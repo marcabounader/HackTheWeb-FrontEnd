@@ -11,10 +11,10 @@ const Labs = () => {
     const [showLabAdd,setShowLabAdd] = useState(false);
     const handleOpenLab = () => setShowLabAdd(true);
     const handleCloseLab = () =>setShowLabAdd(false);
-    const { type_id} = user;    
+    const { type_id,token} = user;    
     return ( 
         <>
-        <AddLabModal isOpen={showLabAdd} handleCloseViewModal={handleCloseLab}></AddLabModal>
+        <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
         {type_id=="3" ?
         <h1 className=" text-start w-full">Labs</h1>
         :
