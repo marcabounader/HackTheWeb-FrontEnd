@@ -8,18 +8,16 @@ import Select from 'react-select';
 import { setLabs } from '../../slices/labSlice';
 import { useNavigate } from 'react-router-dom';
 
-const initial_state=
-{ 
-name: '',
-objective:'',
-difficulty_id: 1,
-category_id: 1,
-launch_api: '',
-reward: '',
-icon: ''
-};
-
-const AddLabModal = ({token,isOpen,handleCloseViewModal}) => {
+const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
+    const initial_state = {
+        name: lab ? lab.name : '',
+        objective: lab ? lab.objective : '',
+        difficulty_id: lab ? lab.difficulty_id : 1,
+        category_id: lab ? lab.category_id : 1,
+        launch_api: lab ? lab.launch_api : '',
+        reward: lab ? lab.reward : '',
+        icon: lab ? lab.icon : '',
+      };
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
     const dispatch = useDispatch();
