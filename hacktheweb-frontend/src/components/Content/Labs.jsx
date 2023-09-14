@@ -11,9 +11,6 @@ const Labs = () => {
     const [showLabAdd,setShowLabAdd] = useState(false);
     const handleOpenLab = () => setShowLabAdd(true);
     const handleCloseLab = () =>setShowLabAdd(false);
-    const [showModifyLab,setShowModifyLab] = useState(false);
-    const handleOpenModifyLab = () => setShowModifyLab(true);
-    const handleCloseModifyLab = () =>setShowModifyLab(false);
     const { type_id,token} = user;    
     return ( 
         <>
@@ -23,11 +20,7 @@ const Labs = () => {
         :
         <div className="flex flex-row basis-full justify-between items-center">
             <h1 className=" text-start ">Labs</h1>
-            {type_id=="3" ? 
             <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
-            :
-            <FontAwesomeIcon onClick={handleOpenModifyLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
-            }
         </div>
         }
             {labs && labs.length > 0 ? (
