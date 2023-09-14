@@ -15,9 +15,10 @@ const ActiveLabCard = ({lab}) => {
             <div className="basis-1/5 capitalize text-center">{lab.user_info.name}</div>
             <div className="basis-1/5 text-center">{lab.user_info.email}</div>
             <div className="basis-1/5 text-center">{lab.project_name}</div>
-            <div className="basis-1/5 text-center">{lab.launch_time}</div>
-            <div className="basis-1/5 text-center">{lab.port}</div>
             <div className="basis-1/5 text-center">{lab.flag}</div>
+            <div className="basis-1/5 text-center">{lab.port}</div>
+            <div className="basis-1/5 text-center">{lab.launch_time}</div>
+
         </div>
     );
 }
