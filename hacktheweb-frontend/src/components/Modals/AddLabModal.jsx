@@ -16,7 +16,6 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         category_id: lab ? lab.category_id : 1,
         launch_api: lab ? lab.launch_api : '',
         reward: lab ? lab.reward : '',
-        icon: '',
       };
     const [inputState, setInputState] = useState(initial_state);
     const [errors, setErrors] = useState('');
@@ -101,7 +100,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         };
         reader.readAsDataURL(selectedImage);
       }
-    const { name,objective,difficulty_id,category_id,launch_api,reward,icon}=inputState;
+    const { name,objective,difficulty_id,category_id,launch_api,reward}=inputState;
     return ( 
         <Modal
         isOpen={isOpen}
