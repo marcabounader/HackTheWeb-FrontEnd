@@ -56,7 +56,7 @@ async function getAllLabs(token) {
   }
   async function getBadges(token) {
     try {
-      const res = await axios.get(`${baseUrl}/api/admin/get-badges`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/common/get-badges`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
