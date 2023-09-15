@@ -21,6 +21,12 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
         label: category.category,
       }));
       
+      useEffect(() => {
+        setInputState(initial_state);
+        setErrors('');
+        setSelectedImageName('');
+    }, [isOpen]);
+    
     return ( 
         <Modal
         isOpen={isOpen}
