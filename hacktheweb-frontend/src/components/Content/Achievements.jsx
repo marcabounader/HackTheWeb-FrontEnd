@@ -10,7 +10,10 @@ const Achievements = () => {
         { type_id=="3" ?
         <h1 className="text-start w-full">Achievements</h1>
         :
-        <h1 className="text-start w-full">Badges</h1>
+        <div className="flex flex-row basis-full justify-between items-center">
+        <h1 className="text-start">Badges</h1>
+        </div>
+
         }
         {badges && badges.length > 0 ? (
         badges.map((badge, index) => <BadgeCard badge={badge} key={index} />)
