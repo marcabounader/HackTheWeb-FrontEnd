@@ -398,4 +398,4 @@ async function getAllLabs(token) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,addBadge,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
+  export {getAllLabs,getAdminStatistics,getUsers,addBadge,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
