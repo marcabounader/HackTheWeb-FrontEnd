@@ -211,6 +211,32 @@ async function getAllLabs(token) {
       return { message };
     }
   }
+  async function addBadge(token,badge) {
+    try {
+      const res = await axios.post(`${baseUrl}/api/admin/add-badge`,badge, {headers: { Authorization: `Bearer ${token}` }});
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
   async function updateLab(token,lab_id,lab) {
     try {
       const res = await axios.put(`${baseUrl}/api/admin/modify-lab/${lab_id}`,lab, {headers: { Authorization: `Bearer ${token}` }});
@@ -237,4 +263,4 @@ async function getAllLabs(token) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
+  export {getAllLabs,getAdminStatistics,addBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
