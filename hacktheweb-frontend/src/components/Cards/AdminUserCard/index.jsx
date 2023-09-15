@@ -1,17 +1,36 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { restrict } from "../../../helpers/admin.helpers";
-import { setRestriction } from "../../../slices/labSlice";
 
-const AdminUsercard = ({user,token}) => {
+const AdminUsercard = ({setUsers,user,token}) => {
         const navigate=useNavigate();
         const dispatch=useDispatch();
         const handleRestrict = async () =>{
             const {data,message,errorMessages} = await restrict(token,user.id);
             if(message && message=="Unauthenticated."){
             navigate("/");
-            } else if (data && data.message) {
-                dispatch(setRestriction(user.id));
+            } else if (data) {
+                if (data.message === "unrestricted") {
+                    setUsers((prev) => {
+                        const updatedUsers = prev.map((u) => {
+                            if (u.id === user.id) {
+                                return { ...u, is_restricted: 0 };
+                            }
+                            return u;
+                        });
+                        return updatedUsers;
+                    });
+                } else if (data.message === "restricted") {
+                    setUsers((prev) => {
+                        const updatedUsers = prev.map((u) => {
+                            if (u.id === user.id) {
+                                return { ...u, is_restricted: 1 };
+                            }
+                            return u;
+                        });
+                        return updatedUsers;
+                    });
+                }
             }
         }
     return ( 
