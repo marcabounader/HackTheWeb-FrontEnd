@@ -14,6 +14,7 @@ import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 import Achievements from '../../components/Content/Achievements'
+import Users from '../../components/Content/Users';
 
 const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -191,10 +192,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 />
             </Sidebar>
             <div className='content-wrapper'>
-                {/* {home && <Home/>}
-                {labs_tab && <Labs/>}
-                {active_tab && <ActiveLabs/>}
-                {users_tab && <Users/>} */}
+
+                {users_tab && <Users token={token}/>}
                 {home && <Home/>}
                 {labs_tab && <Labs/>}
                 {active_tab && <AdminActiveLabs/>}
