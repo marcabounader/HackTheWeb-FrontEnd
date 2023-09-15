@@ -8,13 +8,13 @@ import AddBadgeModal from "../Modals/AddBadgeModal";
 const Achievements = () => {
     const badges = useSelector((state) => state.labs.badges);
     const user = useSelector((state) => state.user);
-    const { type_id } = user;
+    const { type_id ,token } = user;
     const [showAddBadge,setShowAddBadge]=useState(false);
     const handleCloseAddBadge = () => setShowAddBadge(false);
     const handleOpenAddBadge = () => setShowAddBadge(true);
     return ( 
         <>
-        <AddBadgeModal isOpen={showAddBadge} handleCloseViewModal={handleCloseAddBadge}/>
+        <AddBadgeModal isOpen={showAddBadge} handleCloseViewModal={handleCloseAddBadge} token={token}/>
         { type_id=="3" ?
         <h1 className="text-start w-full">Achievements</h1>
         :
