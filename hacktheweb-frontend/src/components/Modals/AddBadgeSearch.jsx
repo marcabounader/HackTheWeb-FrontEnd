@@ -1,9 +1,9 @@
 import Modal from 'react-modal';
 
-const AddBadgeSearch = ({setSelectedLabId,labs}) => {
+const AddBadgeSearch = ({labs,setInputState,setFilteredLabs,filteredLabs,isOpen,handleCloseViewModal}) => {
     const handleLabSearch = (e) => {
         const searchInput = e.target.value;
-        if(searchInput!='')
+        if(searchInput!=='')
         {
             const filtered = labs.filter((lab) =>
             lab.name.toLowerCase().includes(searchInput.toLowerCase())
@@ -12,7 +12,8 @@ const AddBadgeSearch = ({setSelectedLabId,labs}) => {
         }
       };
       const handleLabSelect = (lab_id) => {
-        setSelectedLabId(lab_id);
+        setInputState((prev) => ({ ...prev, lab_id: lab_id }));
+        handleCloseViewModal();
       };
     return ( 
         <Modal
@@ -36,21 +37,9 @@ const AddBadgeSearch = ({setSelectedLabId,labs}) => {
               </li>
             ))}
           </ul>
-        <div className='flex flex-col basis-full self-stretch justify-end'>
-          {selectedImageName && <p>Selected Image: {selectedImageName}</p>}
-          <label className="btn-2 secondary-btn self-start">
-            Upload File
-            <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
-            </label>
           </div>
           </div>
-          </div>
-          <div className="error font-normal text-red-700 text-sm">{errors}</div>
-        <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-          <button onClick={() => handleAction()} className="btn primary-btn">
-            {badge ? 'Modify' : 'Add'}
-          </button>
-
+            <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
           <button onClick={handleCloseViewModal} className="btn">
             Cancel
           </button>
