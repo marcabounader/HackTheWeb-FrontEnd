@@ -8,7 +8,7 @@ import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setActiveLabs, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
+import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
 import { getActiveLabs, getAdminStatistics, getAllLabs, getBadges, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
@@ -107,12 +107,25 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
             console.error("Error fetching categories:", error);
           }
         };
+        const fetchBadgeCategories = async () => {
+          try {
+            const { data, message, errorMessages } = await getBadgeCategories(token);
+            if (message && message === "Unauthenticated.") {
+              navigate("/");
+            } else if (data && data.categories) {
+              dispatch(setBadgeCategories(data.categories));  
+            }
+          } catch (error) {
+            console.error("Error fetching categories:", error);
+          }
+        };
         fetchLabDifficulties();
         fetchLabs();
         fetchStatistics();
         fetchLabCategories();
         fetchActiveLabs();
         fetchBadges();
+        fetchBadgeCategories();
       }
     }, [isMounted]);
         
