@@ -3,9 +3,11 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addBadge } from '../../helpers/admin.helpers';
-import { setBadges } from '../../slices/labSlice';
+import { modifyBadge, setBadges } from '../../slices/labSlice';
+import CustomInput from '../Inputs/CustomInput';
+import Select from 'react-select/dist/declarations/src/Select';
 
-const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
+const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
     const initial_state = {
         name: badge ? badge.name : '',
         category_id: badge ? badge.category_id : '',
@@ -36,7 +38,7 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
 
     const handleAction = async () => {
         setErrors('');
-        if (lab) {
+        if (badge) {
             const modifiedInput = {};
 
             for (const key in inputState) {
@@ -48,15 +50,15 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
                 console.log("No changes to submit.");
                 return;
               }
-          const { data, message, errorMessages } = await updateLab(token, lab.id, modifiedInput);
+          const { data, message, errorMessages } = await updateBadge(token, badge.id, modifiedInput);
           if (errorMessages) {
             setErrors(errorMessages[0]);
           } else if (message) {
             setErrors(message);
           } else if (message && message === "Unauthenticated.") {
             navigate("/");
-          } else if (data && data.lab) {
-            dispatch(modifyLab(data.lab));
+          } else if (data && data.badge) {
+            dispatch(modifyBadge(data.badge));
           }
         } else {
           const { data, message, errorMessages } = await addBadge(token, inputState);
