@@ -54,8 +54,13 @@ const labSlice = createSlice({
       }
     
     },
-    
-    
+    removeActiveLab: (state, action) => {
+      const lab_id = action.payload;
+      const activeLabIndex = state.activeLabs.findIndex((old_lab) => old_lab.id === lab_id);
+      if (activeLabIndex !== -1) {
+        state.activeLabs.splice(activeLabIndex, 1);
+      }
+    },
     setLabActive: (state, action) => {
       const lab_id = action.payload;
       const labToDeactivate = state.labs.find((lab) => lab.id === lab_id);
@@ -118,6 +123,7 @@ export const {
   setLabActive,
   setLabInactive,
   setLabComplete,
+  removeActiveLab,
   incrementBadgeCount,
   incrementCompletedLabs,
   incrementRewards,
