@@ -25,7 +25,7 @@ const Users = ({token}) => {
         </div>
         {users && users.length > 0 ? (
             users
-            .map((user, index) => <AdminUsercard user={user} token={token} key={index} />)
+            .map((user, index) => <AdminUsercard setUsers={setUsers} user={user} token={token} key={index} />)
         ) : (
           <p>No Users.</p>
         )}
