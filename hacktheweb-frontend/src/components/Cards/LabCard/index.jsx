@@ -25,7 +25,6 @@ const LabCard = ({lab}) => {
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
-            dispatch(setActiveLabs(active_labs.filter((activeLab) => activeLab.lab_id !== lab.id)));
             dispatch(setLabInactive(lab.id));
         }
     }
