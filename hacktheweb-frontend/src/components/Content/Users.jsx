@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminUsercard from "../Cards/AdminUserCard";
+import { getUsers } from "../../helpers/admin.helpers";
 
 const Users = ({token}) => {
     const [users,setUsers] = useState('');
