@@ -1,11 +1,12 @@
 import { useState } from "react";
 import LabModal from "../../Modals/LabModal";
-import { deleteLab, stopLab } from "../../../helpers/user.helpers";
+import { stopLab } from "../../../helpers/user.helpers";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setLabInactive, setLabs } from '../../../slices/labSlice'; 
 import { useNavigate } from "react-router-dom";
 import AddLabModal from "../../Modals/AddLabModal";
+import { deleteLab } from "../../../helpers/admin.helpers";
 const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
