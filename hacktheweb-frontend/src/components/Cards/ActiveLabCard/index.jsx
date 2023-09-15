@@ -11,7 +11,6 @@ const ActiveLabCard = ({lab}) => {
     const { token ,type_id} = user;
     const handleStopLab = async () => {
         const {data , errorMessages, message} = await stopLab(token,lab.project_name);
-        console.log(data);
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
