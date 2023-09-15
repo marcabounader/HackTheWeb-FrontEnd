@@ -316,4 +316,33 @@ async function getAllLabs(token) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,addBadge,updatedBadge,deleteLab,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
+
+  async function deleteBadge(token,badge_id) {
+    try {
+      const res = await axios.delete(`${baseUrl}/api/admin/delete-badge/${badge_id}`, {headers: { Authorization: `Bearer ${token}` }});
+      
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
+
+  export {getAllLabs,getAdminStatistics,addBadge,updatedBadge,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
