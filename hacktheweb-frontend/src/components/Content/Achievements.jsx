@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 import BadgeCard from "../Cards/BadgeCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Achievements = () => {
     const badges = useSelector((state) => state.labs.badges);
@@ -12,6 +14,8 @@ const Achievements = () => {
         :
         <div className="flex flex-row basis-full justify-between items-center">
         <h1 className="text-start">Badges</h1>
+        <FontAwesomeIcon icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
+
         </div>
 
         }
