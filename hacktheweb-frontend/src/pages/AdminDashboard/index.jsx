@@ -9,7 +9,7 @@ import './AdminDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
-import { getActiveLabs, getAdminStatistics, getAllLabs, getBadges, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
+import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
