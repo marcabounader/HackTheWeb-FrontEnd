@@ -13,6 +13,10 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
       const badges = useSelector((state) => state.labs.badges);
       const [selectedImageName, setSelectedImageName] = useState('');
 
+      const category_options = categories.map((category) => ({
+        value: category.id,
+        label: category.category,
+      }));
       
     return ( 
         <Modal
