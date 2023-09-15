@@ -3,16 +3,18 @@ import BadgeCard from "../Cards/BadgeCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import AddBadgeModal from "../Modals/AddBadgeModal";
 
 const Achievements = () => {
     const badges = useSelector((state) => state.labs.badges);
     const user = useSelector((state) => state.user);
     const { type_id } = user;
     const [showAddBadge,setShowAddBadge]=useState(false);
-    handleCloseAddBadge = () => setShowAddBadge(false);
-    handleOpenAddBadge = () => setShowAddBadge(true);
+    const handleCloseAddBadge = () => setShowAddBadge(false);
+    const handleOpenAddBadge = () => setShowAddBadge(true);
     return ( 
         <>
+        <AddBadgeModal isOpen={showAddBadge} handleCloseViewModal={handleCloseAddBadge}/>
         { type_id=="3" ?
         <h1 className="text-start w-full">Achievements</h1>
         :
