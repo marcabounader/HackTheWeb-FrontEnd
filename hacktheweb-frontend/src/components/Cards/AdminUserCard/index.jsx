@@ -44,7 +44,7 @@ const AdminUsercard = ({setUsers,user,token}) => {
             <div className="basis-1/5 flex-grow capitalize text-center">Not restricted</div>
             }
             <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Restrict</button></div>
-            <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn">Delete</button></div>
+            {/* <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" >Delete</button></div> */}
         </div>
     );
 }
