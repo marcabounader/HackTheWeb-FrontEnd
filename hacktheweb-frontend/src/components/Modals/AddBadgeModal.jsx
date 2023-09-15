@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 
-const AddBadgeModal = () => {
+const AddBadgeModal = ({isOpen,handleCloseViewModal}) => {
     return ( 
         <Modal
         isOpen={isOpen}
@@ -13,5 +13,4 @@ const AddBadgeModal = () => {
     );
 }
  
-export default AddBadgeMod
-al;
+export default AddBadgeModal;
