@@ -1,6 +1,19 @@
 import Modal from 'react-modal';
 
-const AddBadgeModal = ({isOpen,handleCloseViewModal}) => {
+const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
+    const initial_state = {
+        name: badge ? badge.name : '',
+        category_id: badge ? badge.category_id : '',
+      };
+      const [inputState, setInputState] = useState(initial_state);
+      const [errors, setErrors] = useState('');
+      const dispatch = useDispatch();
+      const navigate=useNavigate();
+      const categories = useSelector((state) => state.labs.badgeCategories);
+      const badges = useSelector((state) => state.labs.badges);
+      const [selectedImageName, setSelectedImageName] = useState('');
+
+      
     return ( 
         <Modal
         isOpen={isOpen}
