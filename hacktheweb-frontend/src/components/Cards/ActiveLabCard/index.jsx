@@ -18,6 +18,10 @@ const ActiveLabCard = ({lab}) => {
             <div className="basis-1/5 text-center">{lab.flag}</div>
             <div className="basis-1/5 text-center">{lab.port}</div>
             <div className="basis-1/5 text-center">{lab.launch_time}</div>
+            <div className="basis-1/5 text-center">
+                <button className="btn-2 secondary-btn" onClick={handleStopLab}>Stop</button>
+            </div>
+
 
         </div>
     );
