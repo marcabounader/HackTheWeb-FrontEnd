@@ -18,6 +18,7 @@ const Users = ({token}) => {
             <div className="basis-1/5  text-center uppercase">Rank</div>
             <div className="basis-1/5 uppercase text-center">Name</div>
             <div className="basis-1/5  text-center uppercase">Email</div>
+            <div className="basis-1/5  text-center uppercase">Status</div>
             <div className="basis-1/5  text-center uppercase">Restrict</div>
             <div className="basis-1/5  text-center uppercase">Delete</div>
 
