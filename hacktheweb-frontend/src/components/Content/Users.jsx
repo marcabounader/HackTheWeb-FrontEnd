@@ -7,10 +7,10 @@ const Users = ({token}) => {
     useEffect(()=>{
         const fetchUsers = async () =>{
             const {data,message,errorMessages} = await getUsers(token);
-            console.log(data);
+            setUsers(data.users);
         };
         fetchUsers();
-    })
+    },[])
     return ( 
         <>
         <h1 className="text-start self-stretch w-full">Top Ten Hackers</h1>
@@ -18,9 +18,8 @@ const Users = ({token}) => {
             <div className="basis-1/5  text-center uppercase">Rank</div>
             <div className="basis-1/5 uppercase text-center">Name</div>
             <div className="basis-1/5  text-center uppercase">Email</div>
-            <div className="basis-1/5  text-center uppercase">Actions</div>
-            <div className="basis-1/5  text-center uppercase"></div>
-            <div className="basis-1/5  text-center uppercase"></div>
+            <div className="basis-1/5  text-center uppercase">Restrict</div>
+            <div className="basis-1/5  text-center uppercase">Delete</div>
 
         </div>
         {users && users.length > 0 ? (
