@@ -154,7 +154,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             value={difficulty_options.find(option => option.value === difficulty_id)}
             onChange={(selectedOption) => setInputState((prev) => ({ ...prev, difficulty_id: selectedOption.value }))}
             options={difficulty_options} 
-            placeholder='Select a category'
+            placeholder='Select a difficulty'
             >
             </Select> 
             </div>
@@ -168,7 +168,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             value={category_options.find(option => option.value === category_id)}
             onChange={(selectedOption) => setInputState((prev) => ({ ...prev, category_id: selectedOption.value }))}
             options={category_options} 
-            placeholder='Select a difficulty'
+            placeholder='Select a category'
             >
             </Select> 
             </div>
