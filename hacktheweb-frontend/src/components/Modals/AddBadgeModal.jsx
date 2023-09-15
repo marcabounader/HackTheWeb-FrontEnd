@@ -11,6 +11,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
     const initial_state = {
         name: badge ? badge.name : '',
         category_id: badge ? badge.category_id : '',
+        lab_id: badge ? badge.lab_id: '',
       };
       const [inputState, setInputState] = useState(initial_state);
       const [errors, setErrors] = useState('');
@@ -18,17 +19,35 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
       const navigate=useNavigate();
       const categories = useSelector((state) => state.labs.badgeCategories);
       const badges = useSelector((state) => state.labs.badges);
-      const [selectedImageName, setSelectedImageName] = useState('');
+      const labs = useSelector((state) => state.labs.labs);
 
+      const [selectedImageName, setSelectedImageName] = useState('');
+      const [selectedLabId, setSelectedLabId] = useState(initial_state.lab_id); 
+      const [filteredLabs,setFilteredLabs] = useState([]);
+      const handleLabSelect = (lab_id) => {
+
+        setSelectedLabId(lab_id);
+      };
       const category_options = categories.map((category) => ({
         value: category.id,
         label: category.category,
       }));
-      
+      const handleLabSearch = (e) => {
+        const searchInput = e.target.value;
+        if(searchInput!='')
+        {
+            const filtered = labs.filter((lab) =>
+            lab.name.toLowerCase().includes(searchInput.toLowerCase())
+          );
+          setFilteredLabs(filtered);
+        }
+
+      };
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
         setSelectedImageName('');
+        setFilteredLabs([]);
     }, [isOpen]);
 
     function onChange(e) {
@@ -120,6 +139,18 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             placeholder='Select a category'
             >
             </Select> 
+            <input
+            type="text"
+            placeholder="Search for a lab"
+            onChange={handleLabSearch}
+          />
+        <ul className=' cursor-pointer'>
+            {filteredLabs.map((lab) => (
+              <li key={lab.id} onClick={() => handleLabSelect(lab.id)}>
+                {lab.name}
+              </li>
+            ))}
+          </ul>
         <div className='flex flex-col basis-full self-stretch justify-end'>
           {selectedImageName && <p>Selected Image: {selectedImageName}</p>}
           <label className="btn-2 secondary-btn self-start">
