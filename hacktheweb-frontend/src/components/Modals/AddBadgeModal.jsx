@@ -87,6 +87,8 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
         };
         reader.readAsDataURL(selectedImage);
     }
+    const { name,category_id}=inputState;
+
     return ( 
         <Modal
         isOpen={isOpen}
@@ -94,7 +96,32 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
         className="z-30 transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border dark:bg-slate-900 dark:text-slate-200 signIn-container flex flex-col items-center gap-5 rounded-2xl shadow-lg"
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
       >
-
+        <CustomInput
+            label="Name"
+            name="name"
+            type="text"
+            onChange={onChange}
+            value={name}
+            placeholder="Name"
+          />
+            <label  className='uppercase'>
+                Category   
+            </label>
+            <Select 
+            name="category_id" 
+            value={category_options.find(option => option.value === category_id)}
+            onChange={(selectedOption) => setInputState((prev) => ({ ...prev, category_id: selectedOption.value }))}
+            options={category_options} 
+            placeholder='Select a difficulty'
+            >
+            </Select> 
+        <div className='flex flex-col basis-full self-stretch justify-end'>
+          {selectedImageName && <p>Selected Image: {selectedImageName}</p>}
+          <label className="btn-2 secondary-btn self-start">
+            Upload File
+            <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
+            </label>
+          </div>
       </Modal>
     );
 }
