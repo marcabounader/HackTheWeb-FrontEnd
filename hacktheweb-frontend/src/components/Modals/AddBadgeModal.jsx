@@ -26,7 +26,10 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
         setErrors('');
         setSelectedImageName('');
     }, [isOpen]);
-    
+    function onChange(e) {
+        const { value, name } = e.target;
+          setInputState((prev) => ({ ...prev, [name]: value }));
+      }
     return ( 
         <Modal
         isOpen={isOpen}
