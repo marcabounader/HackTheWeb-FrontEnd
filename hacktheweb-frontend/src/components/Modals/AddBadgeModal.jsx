@@ -71,7 +71,22 @@ const AddBadgeModal = ({token,isOpen,handleCloseViewModal}) => {
             handleCloseViewModal();
           }
     }
-}
+    }
+    function fileHandler(e) {
+        let selectedImage = e.target.files[0];
+        if (!selectedImage) {
+        console.log('Please select an image.');
+        return;
+        }
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const base64Image = reader.result.split(',')[1];
+            setInputState((prev) => ({ ...prev, [e.target.name]: base64Image }));
+            setSelectedImageName(selectedImage.name);
+
+        };
+        reader.readAsDataURL(selectedImage);
+    }
     return ( 
         <Modal
         isOpen={isOpen}
