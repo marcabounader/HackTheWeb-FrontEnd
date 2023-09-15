@@ -4,6 +4,7 @@ import AddBadgeModal from '../../Modals/AddBadgeModal';
 import { setBadges } from '../../../slices/labSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { deleteBadge } from '../../../helpers/admin.helpers';
 const BadgeCard = ({type_id,badges,badge,token}) => {
     const [showModifyBadge,setShowModifyBadge]=useState(false);
     const handleCloseModifyBadge = () => setShowModifyBadge(false);
@@ -29,9 +30,9 @@ const BadgeCard = ({type_id,badges,badge,token}) => {
             </div>        
         </div>
         :
-        <div className="flex w-[277px] h-[370px] p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg cursor-pointer" onClick={handleOpenModifyBadge}>
-            <h4>{badge.name}</h4>
-            <div className='flex flex-row justify-center flex-grow items-center'>
+        <div className="flex w-[277px] h-[370px] p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg">
+            <h4 className=' cursor-pointer'>{badge.name}</h4>
+            <div className='flex flex-row justify-center flex-grow items-center cursor-pointer' onClick={handleOpenModifyBadge}>
             <img src={badge.icon_url} alt={`${badge.name} icon`} className='w-[139px] h-[137px]'/>
             </div>
             <button className='btn-2 secondary-btn self-end' onClick={handleDelete}>Delete</button>
