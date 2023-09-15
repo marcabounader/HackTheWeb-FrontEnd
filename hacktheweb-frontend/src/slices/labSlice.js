@@ -54,6 +54,15 @@ const labSlice = createSlice({
       }
     
     },
+    setRestriction: (state, action) => {
+      const user_id = action.payload;
+      const user = state.labs.find((user) => user.id === user_id);
+      console.log(user);
+      if (user) {
+        user.is_restricted = false;
+      }
+    
+    },
     removeActiveLab: (state, action) => {
       const lab_id = action.payload;
       const activeLabIndex = state.activeLabs.findIndex((old_lab) => old_lab.id === lab_id);
@@ -133,7 +142,8 @@ export const {
   setLabCategories,
   setLabDifficulties,
   setBadgeCategories,
-  modifyBadge
+  modifyBadge,
+  setRestriction
 } = labSlice.actions;
 
 export default labSlice.reducer;
