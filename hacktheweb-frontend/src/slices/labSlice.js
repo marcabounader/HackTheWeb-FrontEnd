@@ -82,6 +82,18 @@ const labSlice = createSlice({
         ];
       }
     },
+    modifyBadge: (state, action) => {
+      const badge = action.payload;
+      const badgeIndex = state.badges.findIndex((old_badge) => old_badge.id === badge.id);
+    
+      if (badgeIndex !== -1) {
+        state.badges = [
+          ...state.badges.slice(0, badgeIndex),
+          badge,
+          ...state.badges.slice(badgeIndex + 1),
+        ];
+      }
+    },
     addBadge: (state,action) => {
       state.badges = [...state.badges,action.payload];
     },
@@ -114,7 +126,8 @@ export const {
   modifyLab,
   setLabCategories,
   setLabDifficulties,
-  setBadgeCategories
+  setBadgeCategories,
+  modifyBadge
 } = labSlice.actions;
 
 export default labSlice.reducer;
