@@ -25,7 +25,6 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
       const [selectedLabId, setSelectedLabId] = useState(initial_state.lab_id); 
       const [filteredLabs,setFilteredLabs] = useState([]);
       const handleLabSelect = (lab_id) => {
-
         setSelectedLabId(lab_id);
       };
       const category_options = categories.map((category) => ({
@@ -41,13 +40,20 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
           );
           setFilteredLabs(filtered);
         }
-
       };
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
         setSelectedImageName('');
         setFilteredLabs([]);
+        if(initial_state.lab_id!='')
+        {
+            console.log(initial_state.lab_id);
+            const filtered = labs.filter((lab) =>
+            lab.id==initial_state.lab_id
+          );
+          setFilteredLabs(filtered);
+        }
     }, [isOpen]);
 
     function onChange(e) {
