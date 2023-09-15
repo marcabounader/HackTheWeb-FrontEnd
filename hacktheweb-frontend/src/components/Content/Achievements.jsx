@@ -25,7 +25,7 @@ const Achievements = () => {
 
         }
         {badges && badges.length > 0 ? (
-        badges.map((badge, index) => <BadgeCard type_id={type_id} badge={badge} key={index} />)
+        badges.map((badge, index) => <BadgeCard type_id={type_id} badge={badge} key={index} token={token} />)
         ) : (
           <p>No Badges available.</p>
         )}
