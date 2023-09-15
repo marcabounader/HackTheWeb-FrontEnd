@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBadge } from '../../helpers/admin.helpers';
+import { addBadge, updatedBadge } from '../../helpers/admin.helpers';
 import { modifyBadge, setBadges } from '../../slices/labSlice';
 import CustomInput from '../Inputs/CustomInput';
 import Select from 'react-select/dist/declarations/src/Select';
@@ -50,7 +50,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
                 console.log("No changes to submit.");
                 return;
               }
-          const { data, message, errorMessages } = await updateBadge(token, badge.id, modifiedInput);
+          const { data, message, errorMessages } = await updatedBadge(token, badge.id, modifiedInput);
           if (errorMessages) {
             setErrors(errorMessages[0]);
           } else if (message) {
