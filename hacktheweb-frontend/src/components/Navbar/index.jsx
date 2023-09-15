@@ -37,7 +37,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                 isLanding ? 
                     (
                         <div className="buttons-container flex flex-row">
-                        <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
+                            <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
                         </div>
                     )
                 :
