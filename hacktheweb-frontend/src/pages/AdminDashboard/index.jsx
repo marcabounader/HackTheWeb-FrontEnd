@@ -13,7 +13,7 @@ import { getActiveLabs, getAdminStatistics, getAllLabs, getLabCategory, getLabDi
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
-
+import Achievements from '../../components/Content/Achievements'
 
 const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -173,6 +173,7 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 {labs_tab && <Labs/>}
                 {active_tab && <AdminActiveLabs/>}
                 {leaderboard && <Leaderboard/>}
+                {badges && <Achievements/> }
 
             </div>
         </section>
