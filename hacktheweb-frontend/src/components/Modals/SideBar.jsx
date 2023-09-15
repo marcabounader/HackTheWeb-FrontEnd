@@ -19,8 +19,8 @@ const SideBar = ({isOpen,handleCloseViewModal,handleOpenProfile, handleOpenPassw
         if (message && message === "Unauthenticated.") {
             navigate("/");
          } else if (data && data.message=="Successfully logged out"){
-            dispatch(resetUserState()); // Reset the user state
-            dispatch(resetLabState()); // Reset the labs state
+            dispatch(resetUserState());
+            dispatch(resetLabState());
                   navigate('/');
         }
     }
