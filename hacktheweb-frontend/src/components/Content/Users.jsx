@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminUsercard from "../Cards/AdminUserCard";
 
-const Users = () => {
+const Users = ({token}) => {
     const [users,setUsers] = useState('');
+    useEffect(()=>{
+        const fetchUsers = async () =>{
+            const {data,message,errorMessages} = await getUsers(token);
+            console.log(data);
+        };
+        fetchUsers();
+    })
     return ( 
         <>
         <h1 className="text-start self-stretch w-full">Top Ten Hackers</h1>
@@ -15,8 +22,8 @@ const Users = () => {
             <div className="basis-1/5  text-center uppercase"></div>
 
         </div>
-        {topTen && topTen.length > 0 ? (
-          topTen
+        {users && users.length > 0 ? (
+            users
             .map((user, index) => <AdminUsercard user={user} key={index} />)
         ) : (
           <p>No Users.</p>
