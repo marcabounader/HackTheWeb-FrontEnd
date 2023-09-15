@@ -102,5 +102,31 @@ async function register({password,name, email }) {
     return { message };
   }
 }
+async function stopLab(token,project_name) {
+  try {
+    const res = await axios.delete(`${baseUrl}/api/admin/stop-user-lab/${project_name}`, {headers: { Authorization: `Bearer ${token}` }});
+    
+    if (res.status === 200) {
+      const data = res.data;
+      return { data };
+    }
+  } catch (error) {
+    const {
+      response: {
+        data: { message, errors },
+      },
+    } = error;
 
-export { logIn, Auth ,register,logOut};
+    if (errors) {
+      const errorMessages = Object.keys(errors).map((key) => {
+        const firstError = errors[key][0];
+        if (firstError) {
+          return firstError;
+        }
+      });
+      return { errorMessages };
+    }
+    return { message };
+  }
+}
+export { logIn, Auth ,register,logOut,stopLab};
