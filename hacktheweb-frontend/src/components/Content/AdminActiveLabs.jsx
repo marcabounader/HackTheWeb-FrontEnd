@@ -14,6 +14,8 @@ const AdminActiveLabs = ({}) => {
             <div className="basis-1/5  text-center uppercase">Flag</div>
             <div className="basis-1/5  text-center uppercase">Port</div>
             <div className="basis-1/5  text-center uppercase">Launch Time</div>
+            <div className="basis-1/5  text-center uppercase">Action</div>
+
         </div>
         {active_labs && active_labs.length > 0 ? (
             active_labs
