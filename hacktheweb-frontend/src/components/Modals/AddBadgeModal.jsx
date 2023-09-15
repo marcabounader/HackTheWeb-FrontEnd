@@ -108,8 +108,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
       >
         <AddBadgeSearch setFilteredLabs={setFilteredLabs} filteredLabs={filteredLabs} isOpen={openSearch} handleCloseViewModal={handleCloseSearch} labs={labs} setInputState={setInputState} />
         <h4 className="p-4">Add Badge</h4>
-        <div className="flex flex-row gap-5 p-6 pb-0">
-        <div className='flex flex-col gap-5 basis-[50%]'>
+        <div className="flex flex-col gap-3 w-full px-5 pb-5">
         <CustomInput
             label="Name"
             name="name"
@@ -146,10 +145,9 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             </label>
           </div>
           </div>
-          </div>
           <div className="error font-normal text-red-700 text-sm">{errors}</div>
-        <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-          <button onClick={() => handleAction()} className="btn primary-btn">
+        <div className="flex justify-between gap-3 w-full px-5 pb-5">
+          <button onClick={() => handleAction()} className="btn-2 primary-btn">
             {badge ? 'Modify' : 'Add'}
           </button>
           <button onClick={handleOpenSearch} className="btn secondary-btn">
