@@ -27,7 +27,16 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
         const { value } = e.target;
         setFlag(value);
     }
+    useEffect(()=>{
+        setErrors('');
+        setIsLoading(false);
+        setFlag('');
+        setBadge('')
+    },[isOpen])
+    
     const handleLabLaunch = async () => {
+        setIsLoading(true); 
+
         const {data , errorMessages, message} = await launchLab(token,lab.id,lab.launch_api);
         setErrors('')
         if (errorMessages) {
@@ -37,6 +46,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
         } else if (message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.active_lab) {
+            setIsLoading(false);
             const active_lab=data.active_lab;
             const updatedLab={...lab,isActive:true,active_lab};
             dispatch(modifyLab(updatedLab));
