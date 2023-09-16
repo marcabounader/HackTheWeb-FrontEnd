@@ -67,7 +67,7 @@ const LabCard = ({lab}) => {
                 { lab.isActive ?
                 (
                     isLoading ?
-                    <SpinningIcon/>
+                    <SpinningIcon className="w-[25px] h-[25px]"/>
                     :
                     <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>
                 )
