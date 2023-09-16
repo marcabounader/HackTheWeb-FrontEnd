@@ -17,7 +17,7 @@ import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges 
 import Leaderboard from '../../components/Content/Leaderboard';
 import ChatBotModal from '../../components/Modals/ChatBot/ChatBotModal';
 
-const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
+const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
   const completedLabs = useSelector((state) => state.labs.completedLabs);
     const user = useSelector((state) => state.user);
@@ -102,6 +102,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
             <Sidebar>
                 <SideButton 
                 icon={faHome}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-main"
                 text="Home"
                 onClick={() => {
@@ -112,6 +114,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 <SideButton 
                 text="Achievements"
                 icon={faMedal}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("achievements");
@@ -121,6 +125,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 <SideButton 
                 text="Labs"
                 icon={faFlaskVial}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("labs_tab");
@@ -130,6 +136,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 <SideButton 
                 text="Active"
                 icon={faRunning}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("active_tab");
@@ -139,6 +147,8 @@ const UserDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => 
                 <SideButton 
                 text="Completed Labs"
                 icon={faVialCircleCheck}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("completed_tab");
