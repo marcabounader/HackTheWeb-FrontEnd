@@ -43,7 +43,7 @@ const LabCard = ({lab}) => {
     }
     return ( 
         <>
-        <LabModal handleStopLab={handleStopLab} isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
+        <LabModal isStopLoading={isStopLoading} handleStopLab={handleStopLab} isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
         <AddLabModal lab={lab} isOpen={showModifyLab} token={token} handleCloseViewModal={handleCloseModifyLab}></AddLabModal>
 
         { type_id =="3" ?
