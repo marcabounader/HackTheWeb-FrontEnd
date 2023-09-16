@@ -23,7 +23,9 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const [showBadgePopup, setShowBadgePopup] = useState(false);
     const [flag,setFlag]=useState('');
     const [isLoading, setIsLoading] = useState(false);
-
+    const updateTimer = () => {
+        setLaunchTime((prevTime) => prevTime +1000);
+    }
     function onChange(e) {
         const { value } = e.target;
         setFlag(value);
