@@ -15,11 +15,7 @@ Modal.setAppElement('#root');
 
 const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,token}) => {
     const boxRef = useRef();
-    const [launchTime, setLaunchTime] = useState(
-        lab.active_lab && lab.active_lab.launch_time
-          ? Date.parse(lab.active_lab.launch_time)
-          : null
-      );
+    const [launchTime, setLaunchTime] = useState('');
     const [elapsedTime, setElapsedTime] = useState(0);
     const navigate=useNavigate();
     const dispatch=useDispatch();
@@ -32,10 +28,6 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
     useEffect(() => {
         const calculateElapsedTime = () => {
             const currentTime = new Date().getTime();
-            console.log('marc');
-            console.log(launchTime);
-            console.log(currentTime);
-
             const timeElapsed = currentTime - launchTime;
             if (timeElapsed >= 0) 
             {
@@ -43,15 +35,19 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
             }
         };
         if (lab.isActive && isOpen) {
+        setLaunchTime(   
+            lab.active_lab && lab.active_lab.launch_time
+            ? Date.parse(lab.active_lab.launch_time)
+            : null
+        );
         calculateElapsedTime();
-        
         const intervalId = setInterval(calculateElapsedTime, 1000);
         
         return () => {
           clearInterval(intervalId);
         };
       }
-    }, [isOpen,lab.is_active]);
+    }, [isOpen,lab.isActive]);
 
     const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
     const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
