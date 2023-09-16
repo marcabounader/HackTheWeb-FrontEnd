@@ -8,6 +8,7 @@ import { launchLab, submitFlag } from '../../helpers/user.helpers';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './LabModal.css';
 import { gsap } from 'gsap';
+import SpinningIcon from '../Animation/Spinner';
 
 Modal.setAppElement('#root');
 
@@ -155,7 +156,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
                     </div>
                     <div className='flex-grow flex flex-col gap-3 justify-center box-border' >
                     {isLoading ? (
-                    <div className="loader">Loading...</div>
+                    <SpinningIcon/>
                     ) : 
                     lab.isActive ?
                         (  
