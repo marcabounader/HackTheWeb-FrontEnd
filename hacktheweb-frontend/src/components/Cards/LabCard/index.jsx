@@ -7,6 +7,7 @@ import { setActiveLabs, setLabInactive, setLabs } from '../../../slices/labSlice
 import { useNavigate } from "react-router-dom";
 import AddLabModal from "../../Modals/AddLabModal";
 import { deleteLab } from "../../../helpers/admin.helpers";
+import SpinningIcon from "../../Animation/Spinner";
 const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
@@ -23,10 +24,12 @@ const LabCard = ({lab}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleStopLab = async () => {
+        setIsLoading(true);
         const {data , errorMessages, message} = await stopLab(token,lab.active_lab.project_name);
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
+            setIsLoading(false);
             dispatch(setLabInactive(lab.id));
         }
     }
@@ -61,7 +64,16 @@ const LabCard = ({lab}) => {
                 }
             </div>
             <div className="flex flex-row justify-end items-end">
-                { lab.isActive && <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>}
+                { lab.isActive ?
+                (
+                    isLoading ?
+                    <SpinningIcon/>
+                    :
+                    <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>
+                )
+                :
+                <></>
+                }
             </div>
             </div>
         </div>
