@@ -9,14 +9,18 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './LabModal.css';
 import { gsap } from 'gsap';
 import SpinningIcon from '../Animation/Spinner';
+import { current } from '@reduxjs/toolkit';
 
 Modal.setAppElement('#root');
 
-const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
+const LabModal = ({ isOpen,handleCloseViewModal,lab,token}) => {
     const boxRef = useRef();
-    const [launchTime, setLaunchTime] = useState(new Date(lab.launch_time).getTime());
+    const [launchTime, setLaunchTime] = useState(
+        lab.active_lab && lab.active_lab.launch_time
+          ? Date.parse(lab.active_lab.launch_time)
+          : null
+      );
     const [elapsedTime, setElapsedTime] = useState(0);
-
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const [errors, setErrors] = useState('');
@@ -28,22 +32,26 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     useEffect(() => {
         const calculateElapsedTime = () => {
             const currentTime = new Date().getTime();
+            console.log('marc');
+            console.log(launchTime);
+            console.log(currentTime);
+
             const timeElapsed = currentTime - launchTime;
-      
-            if (timeElapsed >= 0) {
+            if (timeElapsed >= 0) 
+            {
               setElapsedTime(timeElapsed);
             }
         };
-        if (lab.is_active) {
+        if (lab.isActive && isOpen) {
         calculateElapsedTime();
-  
+        
         const intervalId = setInterval(calculateElapsedTime, 1000);
         
         return () => {
           clearInterval(intervalId);
         };
       }
-    }, [lab.is_active,launchTime]);
+    }, [isOpen,lab.is_active]);
 
     const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
     const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
@@ -188,7 +196,9 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
                             <>
                             <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Enter Flag'/>
                             <button className='btn-2 primary-btn' onClick={handleSubmitFlag}>Submit Flag</button>
-                            <p>Launch Time: {hours}h {minutes}m {seconds}s</p>
+                            <p>
+                            Launch Time:{` ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`}
+                            </p>
                             <div className="error text-center">{errors}</div>
                             </>
                         )
