@@ -33,15 +33,17 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
         <div className="logo-container">
             <img src={mainLogo} alt="Main Logo" />
         </div>
+        <>
             {
                 isLanding ? 
                     (
                         <div className="buttons-container flex flex-row">
-                            <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
+                        <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
                         </div>
                     )
                 :
                     (
+
                         <div className="buttons-container flex flex-row">       
                             <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={() => {toggleContent("leaderboard");}}>Leaderboard</button>
                             <button className="btn primary-btn capitalize"  onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave} onClick={handleOpenSide}>{name ? name :"Profile"}</button>
@@ -70,6 +72,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                         </div>
                     )
             }
+            </>
     </div>
   );
 };
