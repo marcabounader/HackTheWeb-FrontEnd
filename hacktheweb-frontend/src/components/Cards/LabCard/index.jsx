@@ -21,15 +21,15 @@ const LabCard = ({lab}) => {
     const navigate =useNavigate();
     const user = useSelector((state) => state.user);
     const { token ,type_id} = user;
-    const [isLoading, setIsLoading] = useState(false);
+    const [isStopLoading, setisStopLoading] = useState(false);
 
     const handleStopLab = async () => {
-        setIsLoading(true);
+        setisStopLoading(true);
         const {data , errorMessages, message} = await stopLab(token,lab.active_lab.project_name);
         if(message && message=="Unauthenticated."){
           navigate("/");
         } else if (data && data.message) {
-            setIsLoading(false);
+            setisStopLoading(false);
             dispatch(setLabInactive(lab.id));
         }
     }
@@ -43,7 +43,7 @@ const LabCard = ({lab}) => {
     }
     return ( 
         <>
-        <LabModal isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
+        <LabModal handleStopLab={handleStopLab} isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
         <AddLabModal lab={lab} isOpen={showModifyLab} token={token} handleCloseViewModal={handleCloseModifyLab}></AddLabModal>
 
         { type_id =="3" ?
@@ -66,7 +66,7 @@ const LabCard = ({lab}) => {
             <div className="flex flex-row justify-end items-end">
                 { lab.isActive ?
                 (
-                    isLoading ?
+                    isStopLoading ?
                     <SpinningIcon className="w-[25px] h-[25px]"/>
                     :
                     <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>
