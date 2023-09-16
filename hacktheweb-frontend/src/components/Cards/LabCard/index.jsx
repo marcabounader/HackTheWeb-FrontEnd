@@ -20,6 +20,8 @@ const LabCard = ({lab}) => {
     const navigate =useNavigate();
     const user = useSelector((state) => state.user);
     const { token ,type_id} = user;
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleStopLab = async () => {
         const {data , errorMessages, message} = await stopLab(token,lab.active_lab.project_name);
         if(message && message=="Unauthenticated."){
