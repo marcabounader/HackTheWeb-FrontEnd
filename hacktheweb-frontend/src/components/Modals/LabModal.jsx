@@ -14,7 +14,9 @@ Modal.setAppElement('#root');
 
 const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const boxRef = useRef();
-    const [launchTime,setLaunchTime] = useState(lab.launch_time);
+    const [launchTime, setLaunchTime] = useState(new Date(lab.launch_time).getTime());
+    const [elapsedTime, setElapsedTime] = useState(0);
+
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const [errors, setErrors] = useState('');
@@ -23,9 +25,30 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const [showBadgePopup, setShowBadgePopup] = useState(false);
     const [flag,setFlag]=useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const updateTimer = () => {
-        setLaunchTime((prevTime) => prevTime +1000);
-    }
+    useEffect(() => {
+        const calculateElapsedTime = () => {
+            const currentTime = new Date().getTime();
+            const timeElapsed = currentTime - launchTime;
+      
+            if (timeElapsed >= 0) {
+              setElapsedTime(timeElapsed);
+            }
+        };
+        if (lab.is_active) {
+        calculateElapsedTime();
+  
+        const intervalId = setInterval(calculateElapsedTime, 1000);
+        
+        return () => {
+          clearInterval(intervalId);
+        };
+      }
+    }, [lab.is_active,launchTime]);
+
+    const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+    const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
     function onChange(e) {
         const { value } = e.target;
         setFlag(value);
@@ -165,6 +188,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
                             <>
                             <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Enter Flag'/>
                             <button className='btn-2 primary-btn' onClick={handleSubmitFlag}>Submit Flag</button>
+                            <p>Launch Time: {hours}h {minutes}m {seconds}s</p>
                             <div className="error text-center">{errors}</div>
                             </>
                         )
