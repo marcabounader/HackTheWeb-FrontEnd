@@ -14,7 +14,7 @@ Modal.setAppElement('#root');
 
 const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const boxRef = useRef();
-
+    const [launchTime,setLaunchTime] = useState(lab.launch_time);
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const [errors, setErrors] = useState('');
