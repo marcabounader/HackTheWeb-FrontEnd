@@ -33,7 +33,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
         setFlag('');
         setBadge('')
     },[isOpen])
-    
+
     const handleLabLaunch = async () => {
         setIsLoading(true); 
 
@@ -154,8 +154,10 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
                     <img src={lab.icon_url} className='w-[365px] h-[255px]' alt='Lab img'/>
                     </div>
                     <div className='flex-grow flex flex-col gap-3 justify-center box-border' >
-                    
-                    {lab.isActive ?
+                    {isLoading ? (
+                    <div className="loader">Loading...</div>
+                    ) : 
+                    lab.isActive ?
                         (  
                             <>
                             <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Enter Flag'/>
