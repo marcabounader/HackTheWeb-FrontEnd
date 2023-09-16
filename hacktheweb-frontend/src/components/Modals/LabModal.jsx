@@ -13,7 +13,7 @@ import { current } from '@reduxjs/toolkit';
 
 Modal.setAppElement('#root');
 
-const LabModal = ({ isOpen,handleCloseViewModal,lab,token}) => {
+const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,token}) => {
     const boxRef = useRef();
     const [launchTime, setLaunchTime] = useState(
         lab.active_lab && lab.active_lab.launch_time
@@ -178,10 +178,13 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,token}) => {
                         <div>{lab.objective}</div>
                     </div>
                     {lab.isActive &&
-                    <div>
-                        <a className='btn-2 primary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
-                        <a className='btn secondary-btn m-0' >Stop Lab</a>
-
+                    <div className='flex flex-row items-center gap-3'>
+                        <button className='btn-2 primary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</button>
+                        {isStopLoading ?
+                            <SpinningIcon className="w-[25px] h-[25px]"/>
+                        :
+                            <button className='btn-2 secondary-btn m-0' onClick={handleStopLab}>Stop Lab</button>
+                        }
                     </div>
                     }
                 </div>
