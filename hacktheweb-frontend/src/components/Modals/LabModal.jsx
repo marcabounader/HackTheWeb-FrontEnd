@@ -156,7 +156,7 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
                     </div>
                     <div className='flex-grow flex flex-col gap-3 justify-center box-border' >
                     {isLoading ? (
-                    <SpinningIcon/>
+                    <SpinningIcon className="w-[50px] h-[50px]"/>
                     ) : 
                     lab.isActive ?
                         (  
