@@ -53,6 +53,11 @@ function App() {
 
   };
   
+  const onSideLeave = ({ currentTarget }) => {
+
+    gsap.to(currentTarget, {backgroundColor: "",color:"var(--text-color)",scale: 1 });
+
+  };
   const onLeave = ({ currentTarget }) => {
 
         gsap.to(currentTarget, {backgroundColor: "",color:"var(--header-color)",scale: 1 });
@@ -106,8 +111,8 @@ function App() {
         <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
-          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
-          <Route path="/admin-dashboard" element={<AdminDashboard onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/admin-dashboard" element={<AdminDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
 
         </Routes>
     </Router>
