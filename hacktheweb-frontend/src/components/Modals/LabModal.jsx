@@ -21,6 +21,8 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,active_labs,token}) => {
     const [showPopup,setShowPopup] = useState(false);
     const [showBadgePopup, setShowBadgePopup] = useState(false);
     const [flag,setFlag]=useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
     function onChange(e) {
         const { value } = e.target;
         setFlag(value);
