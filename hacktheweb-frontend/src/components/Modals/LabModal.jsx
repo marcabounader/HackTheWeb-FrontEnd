@@ -179,7 +179,9 @@ const LabModal = ({ isOpen,handleCloseViewModal,lab,token}) => {
                     </div>
                     {lab.isActive &&
                     <div>
-                        <a className='btn-2 secondary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
+                        <a className='btn-2 primary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
+                        <a className='btn secondary-btn m-0' >Stop Lab</a>
+
                     </div>
                     }
                 </div>
