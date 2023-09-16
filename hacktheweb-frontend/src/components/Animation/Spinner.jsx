@@ -7,7 +7,7 @@ const SpinningIcon = () => {
         <div>
             <FontAwesomeIcon
                 icon={faSpinner}
-                className="icon spinning"
+                className="icon spinning w-[50px] h-[50px]"
             />
         </div>
     );
