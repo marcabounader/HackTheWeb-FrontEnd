@@ -16,7 +16,7 @@ import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 import Achievements from '../../components/Content/Achievements'
 import Users from '../../components/Content/Users';
 
-const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) => {
+const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const { token } = user;
@@ -149,6 +149,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 icon={faHome}
                 icon_style="text-color-main"
                 text="Home"
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 onClick={() => {
                   toggleContent("home");
                 }}
@@ -156,6 +158,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 />
                 <SideButton 
                 text="Badges"
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon={faMedal}
                 icon_style="text-color-secondary"
                 onClick={() => {
@@ -165,6 +169,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 />
                 <SideButton 
                 icon={faFlaskVial}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 text="Labs"
                 onClick={() => {
@@ -175,6 +181,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 <SideButton 
                 text="Active"
                 icon={faRunning}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("active_tab");
@@ -184,6 +192,8 @@ const AdminDashboard = ({addCircleRef,areCirclesVisible,state,toggleContent}) =>
                 <SideButton 
                 text="Users"
                 icon={faUsers}
+                onEnter={onEnter} 
+                onLeave={onLeave}
                 icon_style="text-color-secondary"
                 onClick={() => {
                   toggleContent("users_tab");
