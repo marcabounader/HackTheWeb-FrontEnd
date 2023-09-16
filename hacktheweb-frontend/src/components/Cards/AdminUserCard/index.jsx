@@ -39,11 +39,16 @@ const AdminUsercard = ({setUsers,user,token}) => {
             <div className="basis-1/5 flex-grow capitalize text-center">{user.name}</div>
             <div className="basis-1/5 flex-grow capitalize text-center">{user.email}</div>
             {user.is_restricted ?
+            <>
             <div className="basis-1/5 flex-grow capitalize text-center">Restricted</div>
+            <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Unrestrict</button></div>
+            </>
             :
+            <>
             <div className="basis-1/5 flex-grow capitalize text-center">Not restricted</div>
-            }
             <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Restrict</button></div>
+            </>
+            }
             {/* <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" >Delete</button></div> */}
         </div>
     );
