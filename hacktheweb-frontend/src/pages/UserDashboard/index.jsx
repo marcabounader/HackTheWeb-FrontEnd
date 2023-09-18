@@ -33,6 +33,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
 
     useEffect(() => {
       setIsMounted(true);
+      toggleContent('home');
       if (!token) {
         navigate('/');
       }
