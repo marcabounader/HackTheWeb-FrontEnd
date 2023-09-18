@@ -29,6 +29,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
 
     useEffect(() => {
       setIsMounted(true);
+      toggleContent('home');
       if (!token) {
         navigate('/');
       }
