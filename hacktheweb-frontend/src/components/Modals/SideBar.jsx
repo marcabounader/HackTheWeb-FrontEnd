@@ -28,7 +28,7 @@ const SideBar = ({isOpen,handleCloseViewModal,handleOpenProfile, handleOpenPassw
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 bg-[#0D1115] w-[30%] h-[100%] transition-opacity fixed top-0 right-0 transform dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
+        className="z-30 bg-[#0D1115] w-[15%] h-[100%] transition-opacity fixed top-0 right-0 transform dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
         >   
             <FontAwesomeIcon icon={faSquareXmark} onClick={handleCloseViewModal} className=' self-end w-[30px] h-[30px]' fill="var(--text-and-secondary, #A4B1CD)"/>            
