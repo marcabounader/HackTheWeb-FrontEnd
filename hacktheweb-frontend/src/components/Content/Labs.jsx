@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import AddLabModal from "../Modals/AddLabModal";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
-const Labs = () => {
+const Labs = ({currentPage,totalPages,handlePageChange}) => {
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
     const [showLabAdd,setShowLabAdd] = useState(false);
@@ -23,6 +25,14 @@ const Labs = () => {
             <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
         </div>
         }
+        <Stack className="basis-full flex flex-col items-center">
+                <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                />
+            </Stack>
             {labs && labs.length > 0 ? (
                 labs
                 .map((lab, index) => <LabCard lab={lab} key={index} />)
