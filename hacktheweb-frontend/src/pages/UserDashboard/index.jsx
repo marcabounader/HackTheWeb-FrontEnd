@@ -27,6 +27,10 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [showBot,setShowBot]=useState(false);
     const handleOpenBot = () => setShowBot(true);
     const handleCloseBot =() => setShowBot(false);
+    const [perPage] = useState(9);
+    const [currentPage,setCurrentPage]=useState(1);
+    const [totalPages,setTotalPages]=useState(1);
+
     useEffect(() => {
       setIsMounted(true);
       if (!token) {
@@ -52,22 +56,21 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
         fetchStatistics();
       }
     }, [completedLabs, isMounted]);
-  
+    const fetchLabs = async () => {
+      try {
+        const { data, message, errorMessages } = await getLabs(token,currentPage,perPage);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.labs) {
+          dispatch(setLabs(data.labs));
+          setTotalPages(data.total_pages);
+        }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    };
     useEffect(() => {
-      if (isMounted) {
-        const fetchLabs = async () => {
-          try {
-            const { data, message, errorMessages } = await getLabs(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.labs) {
-              dispatch(setLabs(data.labs));
-            }
-          } catch (error) {
-            console.error("Error fetching labs:", error);
-          }
-        };
-  
+      if (isMounted) {  
         const fetchBadges = async () => {
           try {
             const { data, message, errorMessages } = await getUserBadges(token);
@@ -80,13 +83,22 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             console.error("Error fetching badges:", error);
           }
         };
-  
+
         fetchLabs();
         fetchBadges();
       }
     }, [isMounted]);
         
+    useEffect (()=>{
 
+
+
+    },[isMounted,currentPage])
+
+    const handlePageChange = (event, page) => {
+      setCurrentPage(page);
+      fetchLabs();
+    };
     const circles = [];
 
     if (areCirclesVisible) {
@@ -159,7 +171,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             <div className='content-wrapper'>
                 {home && <Home/>}
                 {achievements && <Achievements/>}
-                {labs_tab && <Labs/>}
+                {labs_tab && <Labs totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}
