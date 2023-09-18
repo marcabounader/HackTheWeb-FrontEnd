@@ -136,11 +136,15 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             placeholder="Launch API"
           />
           <div className='flex flex-col basis-full self-stretch justify-end'>
-          {selectedImageName && <p>Selected Image: {selectedImageName}</p>}
+          {selectedImageName && (
+            <p style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {selectedImageName}
+            </p>
+          )}          
           <label className="btn-2 secondary-btn self-start">
             Upload File
             <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
-            </label>
+          </label>
           </div>
 
         </div>
