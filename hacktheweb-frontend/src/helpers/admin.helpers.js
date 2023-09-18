@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseUrl = 'http://localhost:8000';
+// const baseUrl = 'http://3.248.194.204';
 
 async function getAllLabs(token) {
     try {
