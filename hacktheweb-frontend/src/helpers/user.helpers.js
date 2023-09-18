@@ -112,9 +112,9 @@ const baseUrl = 'http://localhost:8000';
     }
   }
 
-async function getLabs(token) {
+async function getLabs(token,page,labs_per_page) {
   try {
-    const res = await axios.get(`${baseUrl}/api/hacker/get-labs`, {headers: { Authorization: `Bearer ${token}` }});
+    const res = await axios.get(`${baseUrl}/api/hacker/get-labs/${page}/${labs_per_page}`, {headers: { Authorization: `Bearer ${token}` }});
     if (res.status === 200) {
       const data = res.data;
       return { data };
