@@ -20,6 +20,9 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
   const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const { token } = user;
+    const [perPage] = useState(9);
+    const [currentPage,setCurrentPage]=useState(1);
+    const [totalPages,setTotalPages]=useState(1);
 
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
@@ -31,20 +34,23 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
       }
     }, []);
   
+    const fetchLabs = async () => {
+      try {
+        const { data, message, errorMessages } = await getAllLabs(token,currentPage,perPage);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.labs) {
+          dispatch(setLabs(data.labs));
+          setTotalPages(data.total_pages);
+        }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    };
+
     useEffect(() => {
       if (isMounted) {
-        const fetchLabs = async () => {
-          try {
-            const { data, message, errorMessages } = await getAllLabs(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.labs) {
-              dispatch(setLabs(data.labs));
-            }
-          } catch (error) {
-            console.error("Error fetching labs:", error);
-          }
-        };
+
   
         const fetchStatistics = async () => {
           try {
@@ -130,7 +136,10 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
       }
     }, [isMounted]);
         
-
+    const handlePageChange = (event, page) => {
+      setCurrentPage(page);
+      fetchLabs();
+    };
     const circles = [];
 
     if (areCirclesVisible) {
@@ -205,7 +214,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
 
                 {users_tab && <Users token={token}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs/>}
+                {labs_tab && <Labs totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange}/>}
                 {active_tab && <AdminActiveLabs/>}
                 {leaderboard && <Leaderboard/>}
                 {badges && <Achievements/> }
