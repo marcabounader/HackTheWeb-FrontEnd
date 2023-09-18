@@ -247,9 +247,9 @@ async function saveProfile(token,object) {
   }
 }
 
-async function submitFlag(token,lab_id,flag) {
+async function submitFlag(token,lab_id,flag,project_name) {
   try {
-    const res = await axios.post(`${baseUrl}/api/hacker/submit-flag`,{id:lab_id,flag}, {headers: { Authorization: `Bearer ${token}` }});
+    const res = await axios.post(`${baseUrl}/api/hacker/submit-flag`,{id:lab_id,flag,project_name}, {headers: { Authorization: `Bearer ${token}` }});
     if (res.status === 200) {
       const data = res.data;
       return { data };
