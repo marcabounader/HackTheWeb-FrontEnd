@@ -42,9 +42,9 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
         );
         calculateElapsedTime();
         const intervalId = setInterval(calculateElapsedTime, 1000);
-        
         return () => {
           clearInterval(intervalId);
+          setElapsedTime(0);
         };
       }
     }, [isOpen,lab.isActive]);
@@ -112,7 +112,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
     };
 
     const handleSubmitFlag = async () => {
-        const {data , message, errorMessages} = await submitFlag(token,lab.id,flag);
+        const {data , message, errorMessages} = await submitFlag(token,lab.id,flag,lab.active_lab.project_name);
         if (errorMessages) {
             setErrors(errorMessages[0]);
         } else if (message && message=="Unauthenticated."){
@@ -175,7 +175,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                     </div>
                     {lab.isActive &&
                     <div className='flex flex-row items-center gap-3'>
-                        <button className='btn-2 primary-btn m-0' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</button>
+                        <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
                         {isStopLoading ?
                             <SpinningIcon className="w-[25px] h-[25px]"/>
                         :
