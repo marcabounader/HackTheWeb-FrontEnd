@@ -24,7 +24,7 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
     return ( 
-        <section className="main-wrapper flex flex-col justify-center items-center flex-grow-1 flex-wrap">
+        <section className="hero-wrapper flex flex-col justify-center items-center flex-grow-1 flex-wrap">
             <LoginForm isOpen={isLoginModalOpen} handleCloseViewModal={handleCloseLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
             <RegisterForm isOpen={isRegisterModalOpen} handleCloseViewModal={handleCloseRegisterModal} handleOpenLoginModal={handleOpenLoginModal} setMyEmail={setMyEmail} myEmail={myEmail}/>
             {circles}
