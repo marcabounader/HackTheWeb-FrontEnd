@@ -23,13 +23,14 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const [perPage,setPerPage]=useState(9);
     const [usersPerPage,setUsersPerPage]=useState(5);
     const [badgesPerPage,setBadgesPerPage]=useState(5);
+    const [activePerPage,setActivePerPage]=useState(5);
 
     const [currentPage,setCurrentPage]=useState(1);
     const [totalPages,setTotalPages]=useState(1);
     const [totalLabs,setTotalLabs] = useState('');
     const [totalUsers,setTotalUsers] = useState('');
     const [totalBadges,setTotalBadges] = useState('');
-
+    const [totalActive,setTotalActive] = useState('');
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
 
@@ -77,11 +78,26 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         if (message && message === "Unauthenticated.") {
           navigate("/");
         } else if (data && data.badges) {
-          console.log(data.badges);
           dispatch(setBadges(data.badges.data)); 
           setTotalPages(data.badges.last_page);
           setBadgesPerPage(data.badges.per_page);
           setTotalBadges(data.badges.total); 
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    const fetchActiveLabs = async () => {
+      try {
+        const { data, message, errorMessages } = await getActiveLabs(token,currentPage);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.active_labs) {
+          console.log(data);
+          dispatch(setActiveLabs(data.active_labs.data));  
+          setTotalPages(data.active_labs.last_page);
+          setActivePerPage(data.active_labs.per_page);
+          setTotalActive(data.active_labs.total); 
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -129,18 +145,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             console.error("Error fetching categories:", error);
           }
         };
-        const fetchActiveLabs = async () => {
-          try {
-            const { data, message, errorMessages } = await getActiveLabs(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.active_labs) {
-              dispatch(setActiveLabs(data.active_labs));  
-            }
-          } catch (error) {
-            console.error("Error fetching categories:", error);
-          }
-        };
 
         const fetchBadgeCategories = async () => {
           try {
@@ -157,7 +161,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         fetchLabDifficulties();
         fetchStatistics();
         fetchLabCategories();
-        fetchActiveLabs();
         fetchBadgeCategories();
       }
     }, [isMounted]);
@@ -237,7 +240,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
                 {users_tab && <Users fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {home && <Home/>}
                 {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
-                {active_tab && <AdminActiveLabs/>}
+                {active_tab && <AdminActiveLabs fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {leaderboard && <Leaderboard/>}
                 {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/> }
 
