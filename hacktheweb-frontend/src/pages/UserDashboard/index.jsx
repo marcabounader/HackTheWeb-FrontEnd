@@ -164,7 +164,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home/>}
-                {achievements && <Achievements/>}
+                {achievements && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
