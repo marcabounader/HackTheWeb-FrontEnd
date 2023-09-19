@@ -27,6 +27,10 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [showBot,setShowBot]=useState(false);
     const handleOpenBot = () => setShowBot(true);
     const handleCloseBot =() => setShowBot(false);
+    const [currentPage,setCurrentPage]=useState(1);
+    const [totalPages,setTotalPages]=useState(1);
+    const [perPage,setPerPage]=useState(9);
+    const [totalLabs,setTotalLabs] = useState('');
 
     useEffect(() => {
       setIsMounted(true);
@@ -35,7 +39,22 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
         navigate('/');
       }
     }, []);
-  
+    const fetchLabs = async () => {
+      try {
+        const { data, message, errorMessages } = await getLabs(token,currentPage);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.labs) {
+          dispatch(setLabs(data.labs.data));
+          setTotalPages(data.labs.last_page);
+          setPerPage(data.labs.per_page);
+          setTotalLabs(data.labs.total);
+        }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    };
+
     useEffect(() => {
       if (isMounted) {
         const fetchStatistics = async () => {
@@ -73,6 +92,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
         fetchBadges();
       }
     }, [isMounted]);
+    
 
     const circles = [];
 
@@ -146,7 +166,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             <div className='content-wrapper'>
                 {home && <Home/>}
                 {achievements && <Achievements/>}
-                {labs_tab && <Labs labs_tab={labs_tab}/>}
+                {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}

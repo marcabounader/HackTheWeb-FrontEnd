@@ -10,34 +10,15 @@ import { useNavigate } from "react-router-dom";
 import { getLabs } from "../../helpers/user.helpers";
 import { setLabs } from "../../slices/labSlice";
 
-const Labs = ({labs_tab}) => {
-    const [currentPage,setCurrentPage]=useState(1);
-    const [totalPages,setTotalPages]=useState(1);
-    const [perPage,setPerPage]=useState(9);
-    const [totalLabs,setTotalLabs] = useState('');
-    const dispatch=useDispatch();
-    const navigate=useNavigate();
+const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
+
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
     const [showLabAdd,setShowLabAdd] = useState(false);
     const handleOpenLab = () => setShowLabAdd(true);
     const handleCloseLab = () =>setShowLabAdd(false);
     const { type_id,token} = user;   
-    const fetchLabs = async () => {
-        try {
-          const { data, message, errorMessages } = await getLabs(token,currentPage);
-          if (message && message === "Unauthenticated.") {
-            navigate("/");
-          } else if (data && data.labs) {
-            dispatch(setLabs(data.labs.data));
-            setTotalPages(data.labs.last_page);
-            setPerPage(data.labs.per_page);
-            setTotalLabs(data.labs.total);
-          }
-        } catch (error) {
-          console.error("Error fetching labs:", error);
-        }
-      };
+
       const handlePageChange = (event,page) => {
         setCurrentPage(page);
         fetchLabs();
