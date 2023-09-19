@@ -6,7 +6,24 @@ import { useEffect, useState } from "react";
 import AddLabModal from "../Modals/AddLabModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { createTheme } from '@mui/material/styles';
 
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       light: '#757ce8',
+//       main: '#55ABE0',
+//       dark: '#002884',
+//       contrastText: '#fff',
+//     },
+//     secondary: {
+//       light: '#ff7961',
+//       main: '#f44336',
+//       dark: '#ba000d',
+//       contrastText: '#000',
+//     },
+//   },
+// });
 const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
@@ -21,6 +38,7 @@ const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
         fetchLabs();
     };
     useEffect(() => {
+        setCurrentPage(1);
         fetchLabs();
     }, [labs_tab]); 
     return ( 
