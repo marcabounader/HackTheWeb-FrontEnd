@@ -22,10 +22,14 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const { token } = user;
     const [perPage,setPerPage]=useState(9);
     const [usersPerPage,setUsersPerPage]=useState(5);
+    const [badgesPerPage,setBadgesPerPage]=useState(5);
+
     const [currentPage,setCurrentPage]=useState(1);
     const [totalPages,setTotalPages]=useState(1);
     const [totalLabs,setTotalLabs] = useState('');
     const [totalUsers,setTotalUsers] = useState('');
+    const [totalBadges,setTotalBadges] = useState('');
+
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
 
@@ -58,7 +62,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
       if (message && message === "Unauthenticated.") {
         navigate("/");
       } else if (data && data.users) {
-        console.log(data.users.data);
         dispatch(setUsers(data.users.data));
         setTotalPages(data.users.last_page);
         setUsersPerPage(data.users.per_page);
@@ -67,6 +70,22 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     } catch (error) {
       console.error("Error fetching labs:", error);
     }
+    };
+    const fetchBadges = async () => {
+      try {
+        const { data, message, errorMessages } = await getBadges(token,currentPage);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.badges) {
+          console.log(data.badges);
+          dispatch(setBadges(data.badges.data)); 
+          setTotalPages(data.badges.last_page);
+          setBadgesPerPage(data.badges.per_page);
+          setTotalBadges(data.badges.total); 
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
     };
     useEffect(() => {
       if (isMounted) {
@@ -122,18 +141,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             console.error("Error fetching categories:", error);
           }
         };
-        const fetchBadges = async () => {
-          try {
-            const { data, message, errorMessages } = await getBadges(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.badges) {
-              dispatch(setBadges(data.badges));  
-            }
-          } catch (error) {
-            console.error("Error fetching categories:", error);
-          }
-        };
+
         const fetchBadgeCategories = async () => {
           try {
             const { data, message, errorMessages } = await getBadgeCategories(token);
@@ -147,11 +155,9 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           }
         };
         fetchLabDifficulties();
-        // fetchLabs();
         fetchStatistics();
         fetchLabCategories();
         fetchActiveLabs();
-        fetchBadges();
         fetchBadgeCategories();
       }
     }, [isMounted]);
@@ -233,7 +239,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
                 {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {active_tab && <AdminActiveLabs/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements/> }
+                {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/> }
 
             </div>
         </section>
