@@ -8,8 +8,8 @@ import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics  } from '../../slices/labSlice'; 
-import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty } from '../../helpers/admin.helpers';
+import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics, setUsers } from '../../slices/labSlice'; 
+import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty, getUsers } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
@@ -21,10 +21,11 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const user = useSelector((state) => state.user);
     const { token } = user;
     const [perPage,setPerPage]=useState(9);
+    const [usersPerPage,setUsersPerPage]=useState(5);
     const [currentPage,setCurrentPage]=useState(1);
     const [totalPages,setTotalPages]=useState(1);
     const [totalLabs,setTotalLabs] = useState('');
-
+    const [totalUsers,setTotalUsers] = useState('');
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
 
@@ -51,7 +52,22 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         console.error("Error fetching labs:", error);
       }
     };
-
+    const fetchUsers = async () =>{
+      try{
+      const {data,message,errorMessages} = await getUsers(token,currentPage);
+      if (message && message === "Unauthenticated.") {
+        navigate("/");
+      } else if (data && data.users) {
+        console.log(data.users.data);
+        dispatch(setUsers(data.users.data));
+        setTotalPages(data.users.last_page);
+        setUsersPerPage(data.users.per_page);
+        setTotalUsers(data.users.total);
+      }
+    } catch (error) {
+      console.error("Error fetching labs:", error);
+    }
+    };
     useEffect(() => {
       if (isMounted) {
 
@@ -212,7 +228,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users token={token}/>}
+                {users_tab && <Users fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {home && <Home/>}
                 {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {active_tab && <AdminActiveLabs/>}
