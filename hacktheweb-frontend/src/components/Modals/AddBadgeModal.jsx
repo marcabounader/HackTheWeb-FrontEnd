@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBadge, updatedBadge } from '../../helpers/admin.helpers';
+import { addBadge, getLabsInfo, updatedBadge } from '../../helpers/admin.helpers';
 import { modifyBadge, setBadges } from '../../slices/labSlice';
 import CustomInput from '../Inputs/CustomInput';
 import Select from 'react-select';
@@ -13,6 +13,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         name: badge ? badge.name : '',
         category_id: badge ? badge.category_id : '',
         lab_id: badge ? badge.lab_id: '',
+        lab_name: '',
       };
       const [inputState, setInputState] = useState(initial_state);
       const [errors, setErrors] = useState('');
@@ -20,7 +21,8 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
       const navigate=useNavigate();
       const categories = useSelector((state) => state.labs.badgeCategories);
       const badges = useSelector((state) => state.labs.badges);
-      const labs = useSelector((state) => state.labs.labs);
+      const [labs,setLabs]=useState([]);
+      const { name,category_id,lab_id,lab_name}=inputState;
 
       const [selectedImageName, setSelectedImageName] = useState('');
       const [filteredLabs,setFilteredLabs] = useState([]);
@@ -37,6 +39,21 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         setErrors('');
         setSelectedImageName('');
         setFilteredLabs([]);
+        const fetchLabInfo = async () =>{
+          const {data,message,errorMessages} = await getLabsInfo(token);
+          if(message && message=="Unauthenticated."){
+            navigate("/");
+          } else if (data && data.labs) {
+              setLabs(data.labs);
+          }
+        }
+        fetchLabInfo();
+        if(lab_id!='' && labs){
+          const filtered = labs.filter((lab) =>
+            lab.id==lab_id
+          );
+          setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
+        }
     }, [isOpen]);
 
     function onChange(e) {
@@ -97,7 +114,6 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         };
         reader.readAsDataURL(selectedImage);
     }
-    const { name,category_id,lab_id}=inputState;
 
     return ( 
         <Modal
@@ -110,7 +126,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         <h4 className="p-4">Add Badge</h4>
         <div className="flex flex-col gap-3 w-full px-5 pb-5">
         <CustomInput
-            label="Name"
+            label="Badge Name"
             name="name"
             type="text"
             onChange={onChange}
@@ -125,6 +141,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             value={lab_id}
             placeholder="Lab ID"
           />
+          <div>Select Lab: {lab_name}</div>
             <label  className='uppercase'>
                 Category   
             </label>
