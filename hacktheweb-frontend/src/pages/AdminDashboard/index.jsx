@@ -20,9 +20,10 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
   const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const { token } = user;
-    const [perPage] = useState(9);
+    const [perPage,setPerPage]=useState(9);
     const [currentPage,setCurrentPage]=useState(1);
     const [totalPages,setTotalPages]=useState(1);
+    const [totalLabs,setTotalLabs] = useState('');
 
     const navigate=useNavigate();
     const [isMounted, setIsMounted] = useState(false);
@@ -37,12 +38,14 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
   
     const fetchLabs = async () => {
       try {
-        const { data, message, errorMessages } = await getAllLabs(token,currentPage,perPage);
+        const { data, message, errorMessages } = await getAllLabs(token,currentPage);
         if (message && message === "Unauthenticated.") {
           navigate("/");
         } else if (data && data.labs) {
-          dispatch(setLabs(data.labs));
-          setTotalPages(data.total_pages);
+          dispatch(setLabs(data.labs.data));
+          setTotalPages(data.labs.last_page);
+          setPerPage(data.labs.per_page);
+          setTotalLabs(data.labs.total);
         }
       } catch (error) {
         console.error("Error fetching labs:", error);
@@ -128,7 +131,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           }
         };
         fetchLabDifficulties();
-        fetchLabs();
+        // fetchLabs();
         fetchStatistics();
         fetchLabCategories();
         fetchActiveLabs();
@@ -137,10 +140,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
       }
     }, [isMounted]);
         
-    const handlePageChange = (event, page) => {
-      setCurrentPage(page);
-      fetchLabs();
-    };
     const circles = [];
 
     if (areCirclesVisible) {
@@ -215,7 +214,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
 
                 {users_tab && <Users token={token}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange}/>}
+                {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                 {active_tab && <AdminActiveLabs/>}
                 {leaderboard && <Leaderboard/>}
                 {badges && <Achievements/> }
