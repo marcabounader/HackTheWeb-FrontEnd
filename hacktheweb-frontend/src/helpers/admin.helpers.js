@@ -107,9 +107,9 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  async function getBadges(token) {
+  async function getBadges(token,page) {
     try {
-      const res = await axios.get(`${baseUrl}/api/common/get-badges`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/common/get-badges?page=${page}`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
