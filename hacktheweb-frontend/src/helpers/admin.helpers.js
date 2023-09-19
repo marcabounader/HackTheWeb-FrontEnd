@@ -3,9 +3,9 @@ import axios from "axios";
 const baseUrl = 'http://localhost:8000';
 // const baseUrl = 'http://3.248.194.204';
 
-async function getAllLabs(token,page,labs_per_page) {
+async function getAllLabs(token,page) {
     try {
-      const res = await axios.get(`${baseUrl}/api/common/get-all-labs/${page}/${labs_per_page}`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/common/get-all-labs?page=${page}`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
