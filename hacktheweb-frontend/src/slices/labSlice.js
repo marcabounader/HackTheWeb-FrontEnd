@@ -10,7 +10,8 @@ const labSlice = createSlice({
     statistics: {},
     labCategories: [],
     labDifficulties: [],
-    badgeCategories: []
+    badgeCategories: [],
+    users:[]
   },
   reducers: {
     resetLabState: (state) => {
@@ -41,6 +42,9 @@ const labSlice = createSlice({
     setBadges: (state, action) => {
       state.badges = action.payload;
     },
+    setUsers: (state, action) => {
+      state.users = action.payload;
+    },
     setStatistics: (state, action) => {
         state.statistics = action.payload;
     },
@@ -51,6 +55,24 @@ const labSlice = createSlice({
       if (labToDeactivate) {
         delete labToDeactivate.active_lab;
         labToDeactivate.isActive = false;
+      }
+    
+    },
+    setUserRestricted: (state, action) => {
+      const user_id = action.payload;
+      const user = state.users.find((user) => user.id === user_id);
+      
+      if (user) {
+        user.is_restricted = 1;
+      }
+    
+    },
+    setUserUnrestricted: (state, action) => {
+      const user_id = action.payload;
+      const user = state.users.find((user) => user.id === user_id);
+      
+      if (user) {
+        user.is_restricted = 0;
       }
     
     },
@@ -134,7 +156,10 @@ export const {
   setLabDifficulties,
   setBadgeCategories,
   modifyBadge,
-  setRestriction
+  setRestriction,
+  setUserRestricted,
+  setUserUnrestricted,
+  setUsers
 } = labSlice.actions;
 
 export default labSlice.reducer;
