@@ -16,13 +16,13 @@ const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
     const handleCloseLab = () =>setShowLabAdd(false);
     const { type_id,token} = user;   
 
-      const handlePageChange = (event,page) => {
+    const handlePageChange = (event,page) => {
         setCurrentPage(page);
         fetchLabs();
-      };
-      useEffect(() => {
+    };
+    useEffect(() => {
         fetchLabs();
-      }, []); 
+    }, [labs_tab]); 
     return ( 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
