@@ -11,8 +11,8 @@ const AddBadgeSearch = ({labs,setInputState,setFilteredLabs,filteredLabs,isOpen,
           setFilteredLabs(filtered);
         }
       };
-      const handleLabSelect = (lab_id) => {
-        setInputState((prev) => ({ ...prev, lab_id: lab_id }));
+      const handleLabSelect = (lab_id,lab_name) => {
+        setInputState((prev) => ({ ...prev, lab_id ,lab_name}));
         handleCloseViewModal();
       };
     return ( 
@@ -32,7 +32,7 @@ const AddBadgeSearch = ({labs,setInputState,setFilteredLabs,filteredLabs,isOpen,
           />
         <ul className=' cursor-pointer'>
             {filteredLabs.map((lab) => (
-              <li key={lab.id} onClick={() => handleLabSelect(lab.id)}>
+              <li key={lab.id} onClick={() => handleLabSelect(lab.id,lab.name)}>
                 {lab.name}
               </li>
             ))}
