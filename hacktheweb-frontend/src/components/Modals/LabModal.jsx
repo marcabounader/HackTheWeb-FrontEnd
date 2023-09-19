@@ -34,12 +34,13 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
               setElapsedTime(timeElapsed);
             }
         };
-        if (lab.isActive && isOpen) {
         setLaunchTime(   
             lab.active_lab && lab.active_lab.launch_time
             ? Date.parse(lab.active_lab.launch_time)
             : null
         );
+
+        if (lab.isActive && isOpen && launchTime) {
         calculateElapsedTime();
         const intervalId = setInterval(calculateElapsedTime, 1000);
         return () => {
@@ -47,7 +48,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
           setElapsedTime(0);
         };
       }
-    }, [isOpen,lab.isActive]);
+    }, [isOpen,lab.isActive,launchTime]);
 
     const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
     const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
