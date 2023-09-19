@@ -126,15 +126,15 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
             dispatch(setLabComplete(lab.id))
             showCongratulationPopup(false);
             setFlag('');
-            setErrors('')
-            // dispatch(incrementCompletedLabs());
+            setErrors('');
+            dispatch(incrementCompletedLabs());
             if(data.user_badge){
-                // dispatch(incrementBadgeCount());
+                dispatch(incrementBadgeCount());
                 dispatch(addBadge(data.user_badge))
                 showCongratulationPopup(true);
                 setBadge(data.user_badge);
             }
-            // dispatch(incrementRewards(lab.reward));
+            dispatch(incrementRewards(lab.reward));
         } else if (data && data.message=="Flag is correct, lab already completed before") {
             dispatch(setLabInactive(lab.id))
             showCongratulationPopup();
