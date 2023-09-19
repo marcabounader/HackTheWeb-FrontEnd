@@ -31,6 +31,8 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [totalPages,setTotalPages]=useState(1);
     const [perPage,setPerPage]=useState(9);
     const [totalLabs,setTotalLabs] = useState('');
+    const [badgesPerPage,setBadgesPerPage]=useState(5);
+    const [totalBadges,setTotalBadges] = useState('');
 
     useEffect(() => {
       setIsMounted(true);
@@ -74,24 +76,21 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
       }
     }, [completedLabs, isMounted]);
 
-    useEffect(() => {
-      if (isMounted) {  
-        const fetchBadges = async () => {
-          try {
-            const { data, message, errorMessages } = await getUserBadges(token);
-            if (message && message === "Unauthenticated.") {
-              navigate("/");
-            } else if (data && data.badges) {
-              dispatch(setBadges(data.badges));
-            }
-          } catch (error) {
-            console.error("Error fetching badges:", error);
-          }
-        };
-
-        fetchBadges();
+    const fetchBadges = async () => {
+      try {
+        const { data, message, errorMessages } = await getUserBadges(token);
+        if (message && message === "Unauthenticated.") {
+          navigate("/");
+        } else if (data && data.badges) {
+          dispatch(setBadges(data.badges.data)); 
+          setTotalPages(data.badges.last_page);
+          setBadgesPerPage(data.badges.per_page);
+          setTotalBadges(data.badges.total); 
+        }
+      } catch (error) {
+        console.error("Error fetching badges:", error);
       }
-    }, [isMounted]);
+    };
     
 
     const circles = [];
