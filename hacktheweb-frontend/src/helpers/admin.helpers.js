@@ -29,6 +29,32 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
+  async function getLabsInfo(token) {
+    try {
+      const res = await axios.get(`${baseUrl}/api/common/get-labs-info`, {headers: { Authorization: `Bearer ${token}` }});
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
   async function getUsers(token,page) {
     try {
       const res = await axios.get(`${baseUrl}/api/admin/get-users?page=${page}`, {headers: { Authorization: `Bearer ${token}` }});
@@ -425,4 +451,4 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,getUsers,addBadge,restrict,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
+  export {getAllLabs,getAdminStatistics,getLabsInfo,getUsers,addBadge,restrict,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
