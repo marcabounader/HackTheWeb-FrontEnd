@@ -29,9 +29,9 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  async function getUsers(token) {
+  async function getUsers(token,page) {
     try {
-      const res = await axios.get(`${baseUrl}/api/admin/get-users`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/admin/get-users?page=${page}`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
