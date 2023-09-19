@@ -1,14 +1,11 @@
 import LabCard from "../Cards/LabCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import AddLabModal from "../Modals/AddLabModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useNavigate } from "react-router-dom";
-import { getLabs } from "../../helpers/user.helpers";
-import { setLabs } from "../../slices/labSlice";
 
 const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
 
@@ -24,10 +21,8 @@ const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
         fetchLabs();
       };
       useEffect(() => {
-        if (labs_tab) {  
-          fetchLabs();
-        }
-      }, [labs_tab]); 
+        fetchLabs();
+      }, []); 
     return ( 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
