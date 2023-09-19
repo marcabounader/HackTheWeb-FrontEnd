@@ -10,7 +10,7 @@ import ActiveLabs from '../../components/Content/ActiveLabs';
 import CompletedLabs from '../../components/Content/CompletedLabs';
 import Home from '../../components/Content/Home';
 import './UserDashboard.css';
-import { faCheck, faCheckCircle, faFlask, faFlaskVial, faHome, faMedal, faRunning, faVialCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faFlaskVial, faHome, faMedal, faRunning, faVialCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
@@ -27,9 +27,6 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [showBot,setShowBot]=useState(false);
     const handleOpenBot = () => setShowBot(true);
     const handleCloseBot =() => setShowBot(false);
-    const [perPage] = useState(9);
-    const [currentPage,setCurrentPage]=useState(1);
-    const [totalPages,setTotalPages]=useState(1);
 
     useEffect(() => {
       setIsMounted(true);
@@ -57,19 +54,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
         fetchStatistics();
       }
     }, [completedLabs, isMounted]);
-    const fetchLabs = async () => {
-      try {
-        const { data, message, errorMessages } = await getLabs(token,currentPage,perPage);
-        if (message && message === "Unauthenticated.") {
-          navigate("/");
-        } else if (data && data.labs) {
-          dispatch(setLabs(data.labs));
-          setTotalPages(data.total_pages);
-        }
-      } catch (error) {
-        console.error("Error fetching labs:", error);
-      }
-    };
+
     useEffect(() => {
       if (isMounted) {  
         const fetchBadges = async () => {
@@ -85,21 +70,10 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
           }
         };
 
-        fetchLabs();
         fetchBadges();
       }
     }, [isMounted]);
-        
-    useEffect (()=>{
 
-
-
-    },[isMounted,currentPage])
-
-    const handlePageChange = (event, page) => {
-      setCurrentPage(page);
-      fetchLabs();
-    };
     const circles = [];
 
     if (areCirclesVisible) {
@@ -172,7 +146,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             <div className='content-wrapper'>
                 {home && <Home/>}
                 {achievements && <Achievements/>}
-                {labs_tab && <Labs totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange}/>}
+                {labs_tab && <Labs labs_tab={labs_tab}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard/>}
