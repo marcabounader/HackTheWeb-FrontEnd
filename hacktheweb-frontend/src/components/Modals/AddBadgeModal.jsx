@@ -52,7 +52,9 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
           const filtered = labs.filter((lab) =>
             lab.id==lab_id
           );
-          setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
+          if(filtered[0]){
+            setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
+          }
         }
     }, [isOpen]);
 
