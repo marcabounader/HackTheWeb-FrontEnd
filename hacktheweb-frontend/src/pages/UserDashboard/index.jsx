@@ -12,8 +12,8 @@ import Home from '../../components/Content/Home';
 import './UserDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faVialCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { setLabs, setActiveLabs, setCompletedLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getActiveLabs, getCompletedLabs, getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
+import { setLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
+import { getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import ChatBotModal from '../../components/Modals/ChatBot/ChatBotModal';
 
