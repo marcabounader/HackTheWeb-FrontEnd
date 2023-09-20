@@ -21,19 +21,19 @@ const AdminUsercard = ({token,user}) => {
         }
     }
     return ( 
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
-            <div className="basis-1/5 text-center">{user.rank}</div>
-            <div className="basis-1/5 flex-grow capitalize text-center">{user.name}</div>
-            <div className="basis-1/5 flex-grow capitalize text-center">{user.email}</div>
+        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
+            <div className="basis-1/5 text-left ml-2">{user.rank}</div>
+            <div className="basis-1/5 flex-grow capitalize text-left">{user.name}</div>
+            <div className="basis-1/5 flex-grow capitalize text-left">{user.email}</div>
             {user.is_restricted ?
             <>
-            <div className="basis-1/5 flex-grow capitalize text-center">Restricted</div>
-            <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Unrestrict</button></div>
+            <div className="basis-1/5 flex-grow capitalize text-left">Restricted</div>
+            <div className="basis-1/5 flex-grow text-left"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Unrestrict</button></div>
             </>
             :
             <>
-            <div className="basis-1/5 flex-grow capitalize text-center">Not restricted</div>
-            <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Restrict</button></div>
+            <div className="basis-1/5 flex-grow capitalize text-left">Not restricted</div>
+            <div className="basis-1/5 flex-grow text-left"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Restrict</button></div>
             </>
             }
             {/* <div className="basis-1/5 flex-grow text-center"><button className="btn-2 secondary-btn" >Delete</button></div> */}
