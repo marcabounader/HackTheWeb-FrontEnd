@@ -27,14 +27,6 @@ const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
         { type_id=="3" ?
         <>
         <h1 className="text-start w-full">Achievements</h1>
-        <Stack className="basis-full flex flex-col items-center">
-                <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary"
-                />
-        </Stack>
         </>
         :
         <>
@@ -42,6 +34,11 @@ const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
         <h1 className="text-start">Badges</h1>
         <FontAwesomeIcon onClick={handleOpenAddBadge} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
         </div>
+        </>
+        }
+        {badges && badges.length > 0 ? (
+          <>
+        {badges.map((badge, index) => <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />)}
         <Stack className="basis-full flex flex-col items-center">
                 <Pagination
                 count={totalPages}
@@ -51,9 +48,6 @@ const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
                 />
         </Stack>
         </>
-        }
-        {badges && badges.length > 0 ? (
-        badges.map((badge, index) => <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />)
         ) : (
           <p>No Badges available.</p>
         )}
