@@ -94,16 +94,16 @@ const PasswordModal = ({isOpen,handleCloseViewModal}) => {
         <div className="confirmation">{confirmation}</div>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
           <button
-            onClick={() => handleChangePassword()}
-            className="btn primary-btn"
-          >
-            Change
-          </button>
-          <button
             onClick={handleCloseViewModal}
             className="btn"
           >
             Cancel
+          </button>
+          <button
+            onClick={() => handleChangePassword()}
+            className="btn primary-btn"
+          >
+            Update
           </button>
         </div>
       </Modal>  
