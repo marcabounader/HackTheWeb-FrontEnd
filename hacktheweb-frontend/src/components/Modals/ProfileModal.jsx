@@ -95,17 +95,17 @@ const ProfileModal = ({ isOpen, handleCloseViewModal }) => {
           </>
         )}
         <label className="btn secondary-btn self-end">
-          Upload File
+          Upload Image
           <input type="file" name="profile_image" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
         </label>
       </div>
       <div className="error font-normal text-red-700 text-sm">{errors}</div>
       <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
-        <button onClick={() => handleSave()} className="btn primary-btn">
-          Save
-        </button>
         <button onClick={handleCloseViewModal} className="btn">
           Cancel
+        </button>
+        <button onClick={() => handleSave()} className="btn primary-btn">
+          Update
         </button>
       </div>
     </Modal>
