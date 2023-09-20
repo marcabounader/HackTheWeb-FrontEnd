@@ -84,17 +84,18 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
       <div className="error font-normal text-red-700 text-sm">{errors}</div>
       <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
         <button
-          onClick={() => handleSignIn()}
-          className="btn primary-btn"
-        >
-          Sign In
-        </button>
-        <button
           onClick={handleCloseViewModal}
           className="btn"
         >
           Cancel
         </button>
+        <button
+          onClick={() => handleSignIn()}
+          className="btn primary-btn"
+        >
+          Sign In
+        </button>
+
       </div>
       <div className='p-5'>
         Want to <span className="cursor-pointer text-color-main" onClick={()=>{handleCloseViewModal(); handleOpenRegisterModal();}}>register</span>?
