@@ -81,16 +81,16 @@ const RegisterForm = ({ isOpen, handleCloseViewModal, handleOpenLoginModal, myEm
       <div className="error font-normal text-red-700 text-sm">{errors}</div>
       <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
         <div
-          onClick={() => handleRegister()}
-          className="btn primary-btn"
-        >
-          Add User
-        </div>
-        <div
           onClick={handleCloseViewModal}
           className="btn"
         >
           Cancel
+        </div>
+        <div
+          onClick={() => handleRegister()}
+          className="btn primary-btn"
+        >
+          Add User
         </div>
       </div>
     </Modal>
