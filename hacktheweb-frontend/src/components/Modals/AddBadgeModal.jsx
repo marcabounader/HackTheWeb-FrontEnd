@@ -13,7 +13,6 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         name: badge ? badge.name : '',
         category_id: badge ? badge.category_id : '',
         lab_id: badge ? badge.lab_id: '',
-        lab_name: '',
       };
       const [inputState, setInputState] = useState(initial_state);
       const [errors, setErrors] = useState('');
@@ -25,20 +24,24 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
       const { name,category_id,lab_id,lab_name}=inputState;
 
       const [selectedImageName, setSelectedImageName] = useState('');
-      const [filteredLabs,setFilteredLabs] = useState([]);
-      const [openSearch,setOpenSearch]=useState(false);
-      const handleCloseSearch = () => setOpenSearch(false);
-      const handleOpenSearch = () => setOpenSearch(true)
+      // const [filteredLabs,setFilteredLabs] = useState([]);
+      // const [openSearch,setOpenSearch]=useState(false);
+      // const handleCloseSearch = () => setOpenSearch(false);
+      // const handleOpenSearch = () => setOpenSearch(true)
       const category_options = categories.map((category) => ({
         value: category.id,
         label: category.category,
+      }));
+      const lab_options = labs.map((lab) => ({
+        value: lab.id,
+        label: lab.name,
       }));
 
     useEffect(() => {
         setInputState(initial_state);
         setErrors('');
         setSelectedImageName('');
-        setFilteredLabs([]);
+        // setFilteredLabs([]);
         const fetchLabInfo = async () =>{
           const {data,message,errorMessages} = await getLabsInfo(token);
           if(message && message=="Unauthenticated."){
@@ -48,14 +51,14 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
           }
         }
         fetchLabInfo();
-        if(lab_id!='' && labs){
-          const filtered = labs.filter((lab) =>
-            lab.id==lab_id
-          );
-          if(filtered[0]){
-            setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
-          }
-        }
+        // if(lab_id!='' && labs){
+        //   const filtered = labs.filter((lab) =>
+        //     lab.id==lab_id
+        //   );
+        //   if(filtered[0]){
+        //     setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
+        //   }
+        // }
     }, [isOpen]);
 
     function onChange(e) {
@@ -121,11 +124,11 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border dark:bg-slate-900 dark:text-slate-200 signIn-container flex flex-col items-center gap-5 rounded-2xl shadow-lg"
+        className="z-30 w-[400px] transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-5 rounded-2xl shadow-lg"
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
       >
-        <AddBadgeSearch setFilteredLabs={setFilteredLabs} filteredLabs={filteredLabs} isOpen={openSearch} handleCloseViewModal={handleCloseSearch} labs={labs} setInputState={setInputState} />
-        <h4 className="p-4">Add Badge</h4>
+        {/* <AddBadgeSearch setFilteredLabs={setFilteredLabs} filteredLabs={filteredLabs} isOpen={openSearch} handleCloseViewModal={handleCloseSearch} labs={labs} setInputState={setInputState} /> */}
+        <h4 className="p-4">{badge ? 'Update' : 'Add'} Badge</h4>
         <div className="flex flex-col gap-3 w-full px-5 pb-5">
         <CustomInput
             label="Badge Name"
@@ -135,18 +138,14 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             value={name}
             placeholder="Name"
           />
-        <CustomInput
-            label="Lab"
-            name="lab_id"
-            type="number"
-            onChange={onChange}
-            value={lab_id}
-            placeholder="Lab ID"
-          />
-          <div>Select Lab: {lab_name}</div>
-            <label  className='uppercase'>
-                Category   
-            </label>
+            <Select 
+            name="lab_id" 
+            value={lab_options.find(option => option.value === lab_id)}
+            onChange={(selectedOption) => setInputState((prev) => ({ ...prev, lab_id: selectedOption.value }))}
+            options={lab_options} 
+            placeholder='Select a lab'
+            >
+            </Select> 
             <Select 
             name="category_id" 
             value={category_options.find(option => option.value === category_id)}
@@ -163,21 +162,20 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
               </p>
             )}          
             <label className="btn-2 secondary-btn self-start">
-            Upload File
+            Upload Lab Icon
             <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
             </label>
           </div>
           </div>
           <div className="error font-normal text-red-700 text-sm">{errors}</div>
         <div className="flex justify-between gap-3 w-full px-5 pb-5">
-          <button onClick={() => handleAction()} className="btn-2 primary-btn">
-            {badge ? 'Modify' : 'Add'}
-          </button>
-          <button onClick={handleOpenSearch} className="btn secondary-btn">
-            Lab Search
-          </button>
+
+
           <button onClick={handleCloseViewModal} className="btn">
             Cancel
+          </button>
+          <button onClick={() => handleAction()} className="btn-2 primary-btn">
+            {badge ? 'Update' : 'Add'}
           </button>
         </div>
       </Modal>
