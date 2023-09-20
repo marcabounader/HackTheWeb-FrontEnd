@@ -52,17 +52,21 @@ const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
             <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
         </div>
         }
-            <Stack className="basis-full flex flex-col items-center">
+
+            {labs && labs.length > 0 ? (
+                <>
+                {labs
+                .map((lab, index) => <LabCard lab={lab} key={index} />)}
+
+                <Stack className="basis-full flex flex-col items-center">
                 <Pagination
                 count={totalPages}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"
                 />
-            </Stack>
-            {labs && labs.length > 0 ? (
-                labs
-                .map((lab, index) => <LabCard lab={lab} key={index} />)
+                </Stack>
+                </>
             ) : (
                 <p>No labs available.</p>
             )}
