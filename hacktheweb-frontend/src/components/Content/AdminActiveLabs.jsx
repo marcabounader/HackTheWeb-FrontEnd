@@ -16,27 +16,31 @@ const AdminActiveLabs = ({setCurrentPage,fetchActiveLabs,totalPages,currentPage}
     return ( 
         <>
         <h1 className="text-start self-stretch w-full">User Active Labs</h1>
-        <Stack className="basis-full flex flex-col items-center">
+        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+            <div className="basis-1/5  text-left uppercase ml-2">Name</div>
+            <div className="basis-1/5 uppercase text-left">Email</div>
+            <div className="basis-1/5  text-left uppercase">Docker Name</div>
+            <div className="basis-1/5  text-left uppercase">Flag</div>
+            <div className="basis-1/5  text-left uppercase">Port</div>
+            <div className="basis-1/5  text-left uppercase">Launch Time</div>
+            <div className="basis-1/5  text-left uppercase">Action</div>
+
+        </div>
+        {active_labs && active_labs.length > 0 ? (
+          <>
+          <div className="flex flex-col w-full gap-[5px]">
+            {active_labs
+            .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)}
+            </div>
+            <Stack className="basis-full flex flex-col items-center">
                 <Pagination
                 count={totalPages}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"
                 />
-        </Stack>
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
-            <div className="basis-1/5  text-center uppercase">Name</div>
-            <div className="basis-1/5 uppercase text-center">Email</div>
-            <div className="basis-1/5  text-center uppercase">Docker Name</div>
-            <div className="basis-1/5  text-center uppercase">Flag</div>
-            <div className="basis-1/5  text-center uppercase">Port</div>
-            <div className="basis-1/5  text-center uppercase">Launch Time</div>
-            <div className="basis-1/5  text-center uppercase">Action</div>
-
-        </div>
-        {active_labs && active_labs.length > 0 ? (
-            active_labs
-            .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)
+            </Stack>
+          </>
         ) : (
           <p>No Active Labs.</p>
         )}
