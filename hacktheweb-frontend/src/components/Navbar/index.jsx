@@ -45,10 +45,12 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                 :
                     (
 
-                        <div className="buttons-container flex flex-row">       
+                        <div className="buttons-container flex flex-row">  
+                            <></>     
                             <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={() => {toggleContent("leaderboard");}}>Leaderboard</button>
                             <ProfileBar handleOpenPassword={handleOpenPassword} handleOpenProfile={handleOpenProfile} onMouse={onPrimaryEnter} onLeave={onPrimaryLeave} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave}/>
                             <div className=' flex w-[44px] h-[44px] ml-3 gap-[10px] justify-center items-center rounded-full'>
+                            <>
                             {
                                 profile_url ?
                                 (
@@ -69,6 +71,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                                 )
 
                             }
+                            </>
                             </div>
                         </div>
                     )
