@@ -19,14 +19,14 @@ const ActiveLabCard = ({lab}) => {
         }
     }
     return ( 
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
-            <div className="basis-1/5 capitalize text-center">{lab.user_info.name}</div>
-            <div className="basis-1/5 text-center">{lab.user_info.email}</div>
-            <div className="basis-1/5 text-center">{lab.project_name}</div>
-            <div className="basis-1/5 text-center">{lab.flag}</div>
-            <div className="basis-1/5 text-center">{lab.port}</div>
-            <div className="basis-1/5 text-center">{lab.launch_time}</div>
-            <div className="basis-1/5 text-center">
+        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
+            <div className="basis-1/5 capitalize text-left ml-2">{lab.user_info.name}</div>
+            <div className="basis-1/5 text-left">{lab.user_info.email}</div>
+            <div className="basis-1/5 text-left">{lab.project_name}</div>
+            <div className="basis-1/5 text-left">{lab.flag}</div>
+            <div className="basis-1/5 text-left">{lab.port}</div>
+            <div className="basis-1/5 text-left">{lab.launch_time}</div>
+            <div className="basis-1/5 text-left">
                 <button className="btn-2 secondary-btn" onClick={handleStopLab}>Stop</button>
             </div>
 
