@@ -3,10 +3,8 @@
   }
   .navbar{
     background: #171B1F;
-    height: 10%;
+    height: 15%;
   }
   .navbar *{
-    z-index: 1;
+  z-index: 1;
   }
-
- 
