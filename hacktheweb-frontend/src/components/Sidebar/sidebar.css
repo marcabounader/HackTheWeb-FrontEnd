@@ -29,6 +29,9 @@ svg{
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 150px;
+        width: 70px;
+    }
+    .side-text{
+        display:none;
     }
 }
