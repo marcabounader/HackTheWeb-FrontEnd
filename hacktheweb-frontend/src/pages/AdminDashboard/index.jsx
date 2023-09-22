@@ -15,6 +15,7 @@ import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 import Achievements from '../../components/Content/Achievements'
 import Users from '../../components/Content/Users';
+import { createTheme } from '@mui/material';
 
 const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -24,7 +25,16 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const [usersPerPage,setUsersPerPage]=useState(5);
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [activePerPage,setActivePerPage]=useState(5);
-
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main:'#55ABE0'
+        },
+        secondary: {
+          main:'#A4B1CD'
+        },
+      },
+    });
     const [currentPage,setCurrentPage]=useState(1);
     const [totalPages,setTotalPages]=useState(1);
     const [totalLabs,setTotalLabs] = useState('');
@@ -237,12 +247,12 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
+                {users_tab && <Users fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
-                {active_tab && <AdminActiveLabs fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
+                {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {active_tab && <AdminActiveLabs fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/> }
+                {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
             </div>
         </section>
