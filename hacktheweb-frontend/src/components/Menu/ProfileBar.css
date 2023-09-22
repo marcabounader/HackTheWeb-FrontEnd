@@ -1,0 +1,6 @@
+.ant-dropdown ul{
+    background-color: var(--black-color) !important;
+}
+.ant-dropdown *{
+    color: white;
+}
