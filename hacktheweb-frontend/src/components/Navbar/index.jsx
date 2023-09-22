@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import SideBar from '../Modals/SideBar';
 import PasswordModal from '../Modals/PasswordModal';
 import ProfileModal from '../Modals/ProfileModal';
-import ProfileBar from '../Popover/ProfileBar';
+import ProfileBar from '../Menu/ProfileBar';
 
 const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLoginModal, toggleContent}) => {
     const location = useLocation();
@@ -27,7 +27,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
 
     return (
     
-        <div className="navbar flex flex-row justify-between items-center px-5 py-5 shadow-lg">
+        <div className="navbar flex-wrap flex flex-row justify-between items-center px-5 py-5 shadow-lg">
         {/* <SideBar isOpen={showSide} onEnter={onEnter} onLeave={onLeave} handleCloseViewModal={handleCloseSide} handleOpenPassword={handleOpenPassword} handleOpenProfile={handleOpenProfile}/> */}
         <PasswordModal isOpen={showPassword} handleCloseViewModal={handleClosePassword}/>
         <ProfileModal isOpen={showProfile} handleCloseViewModal={handleCloseProfile}/>
@@ -38,18 +38,18 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
             {
                 isLanding ? 
                     (
-                        <div className="buttons-container flex flex-row">
+                        <div className="buttons-container flex-wrap-reverse flex flex-row">
                         <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
                         </div>
                     )
                 :
                     (
 
-                        <div className="buttons-container flex flex-row">  
+                        <div className="buttons-container flex-wrap-reverse flex flex-row">  
                             <></>     
                             <button className="btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={() => {toggleContent("leaderboard");}}>Leaderboard</button>
                             <ProfileBar handleOpenPassword={handleOpenPassword} handleOpenProfile={handleOpenProfile} onMouse={onPrimaryEnter} onLeave={onPrimaryLeave} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave}/>
-                            <div className=' flex w-[44px] h-[44px] ml-3 gap-[10px] justify-center items-center rounded-full'>
+                            <div className=' flex w-[44px] h-[44px] ml-3 gap-[10px] justify-center self-center items-center rounded-full'>
                             <>
                             {
                                 profile_url ?
