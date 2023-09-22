@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import AdminUsercard from "../Cards/AdminUserCard";
-import { Pagination, Stack } from "@mui/material";
+import { Pagination, Stack, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 
 
-const Users = ({token,fetchUsers,setCurrentPage,totalPages,currentPage}) => {
+const Users = ({theme,token,fetchUsers,setCurrentPage,totalPages,currentPage}) => {
     const users = useSelector((state) => state.labs.users);
 
     const handlePageChange = (event,page) => {
@@ -31,14 +31,16 @@ const Users = ({token,fetchUsers,setCurrentPage,totalPages,currentPage}) => {
             {users
             .map((user, index) => <AdminUsercard user={user} token={token} key={index} />)}
             </div>
+            <ThemeProvider theme={theme}>
             <Stack className="basis-full flex flex-col items-center">
-                <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary"
-            />
+                    <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                    />
             </Stack>
+            </ThemeProvider>
             </>
         ) : (
           <p>No Users.</p>
