@@ -8,7 +8,7 @@ const SideButton = ({onEnter,onLeave, icon, text, onClick,className, fill, icon_
           <FontAwesomeIcon icon={icon} width="35px" height="35px" className={icon_style}/>
         </div>
       )}
-      <div className='px-[10px] font-bold'>{text}</div>
+      <div className='side-text px-[10px] font-bold'>{text}</div>
     </div>
   );
 }
