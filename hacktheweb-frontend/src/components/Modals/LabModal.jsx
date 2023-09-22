@@ -146,8 +146,8 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 bg-[#0D1115] w-[90%] h-[90%] transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
-        overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
+        className="z-30 bg-[#0D1115] w-[50%] h-[90%] transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
+        overlayClassName="fixed top-0 z-10 left-0 w-[100%] h-full backdrop-blur-xl drop-shadow-lg"
         >   
             <div className='lab-title flex justify-between items-center self-stretch'>
                 <h1>{lab.name}</h1>
@@ -161,7 +161,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                 <img src={badge.icon_url} className='w-[100px] h-[100px]'></img>
             </div>}
             <div className='lab-content self-stretch flex-grow gap-[10px] flex overflow-y-auto'>
-                <div className='flex w-[300px] flex-col gap-[40px] items-stretch justify-start content-start'>
+                <div className='flex flex-grow basis-[50%] flex-col gap-[40px] justify-start content-start'>
                     <div>
                         <div className='sub-header'>Difficulty: </div>
                         <div>{lab.difficulty_info.difficulty}</div>
@@ -174,24 +174,14 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                         <div className='sub-header'>Objective: </div>
                         <div>{lab.objective}</div>
                     </div>
-                    {lab.isActive &&
-                    <div className='flex flex-row items-center gap-3'>
-                        <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
-                        {isStopLoading ?
-                            <SpinningIcon className="w-[25px] h-[25px]"/>
-                        :
-                            <button className='btn-2 secondary-btn m-0' onClick={handleStopLab}>Stop Lab</button>
-                        }
-                    </div>
-                    }
                 </div>
-                <div className='p-[10px] flex flex-col items-center gap-[5%] flex-grow bg-bg-main h-full'>
-                    <div className='flex flex-col items-center justify-center flex-grow'>
-                    <img src={lab.icon_url} className='w-[365px] h-[255px]' alt='Lab img'/>
+                <div className='p-[10px] shadow-xl rounded-md flex-grow basis-[50%] h-fit flex flex-col items-center gap-[10px] bg-bg-main'>
+                    <div className='flex flex-col w-full items-center justify-between flex-grow'>
+                    <img src={lab.icon_url} className='w-full h-[210px]' alt='Lab img'/>
                     </div>
                     <div className='flex-grow flex flex-col gap-3 justify-center box-border' >
                     {isLoading ? (
-                    <SpinningIcon className="w-[50px] h-[50px]"/>
+                    <button className='btn-2 primary-btn'><SpinningIcon/></button>
                     ) : 
                     lab.isActive ?
                         (  
@@ -202,6 +192,15 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                             Launch Time:{` ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`}
                             </p>
                             <div className="error text-center">{errors}</div>
+                            <div className='flex flex-row items-center gap-3'>
+                                {isStopLoading ?
+                                    <button className='btn-2 secondary-btn m-0'><SpinningIcon/></button>
+                                :
+                                    <button className='btn-2 secondary-btn m-0' onClick={handleStopLab}>Stop Lab</button>
+                                }
+                                <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
+                            </div>
+            
                             </>
                         )
                         :
