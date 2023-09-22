@@ -36,12 +36,13 @@
 
 ### Wireframes
 | Landing screen | Login modal | Register modal |
+| ---| ---| ---|
 | ![Landing](./readme/Wireframes/index.png) | ![Login](./readme/Wireframes/login.png) | ![Register](./readme/Wireframes/Register.png) |
 
 ### Mockups
-| Dashboard screen  | Lab Screen | Leaderboard Screen |
+| Dashboard screen  | Achievements Screen | Labs Screen |
 | ---| ---| ---|
-| ![Dashboard](./readme/demo/1440x1024.png) | ![Leaderboard](./readme/demo/1440x1024.png) | ![Lab](./readme/demo/1440x1024.png) |
+| ![Dashboard](./readme/Mockups/Home.png) | ![Achievements](./readme/Mockups/Achievements) | ![Labs](./readme/Mockups/Labs.png) |
 
 <br><br>
 
