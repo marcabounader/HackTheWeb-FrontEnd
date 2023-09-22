@@ -35,9 +35,8 @@
 > We designed HackTheWeb using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
 ### Wireframes
-| Login screen  | Register screen |  Landing screen |
-| ---| ---| ---|
-| ![Landing](./readme/Wireframes/login.png) | ![fsdaf](./readme/Wireframes/Register.png) | ![fsdaf](./readme/Wireframes/index.png) |
+| Landing screen | Login modal | Register modal |
+| ![Landing] (./readme/Wireframes/index.png) | ![Login](./readme/Wireframes/login.png) | ![Register](./readme/Wireframes/Register.png) |
 
 ### Mockups
 | Home screen  | Lab Screen | Leaderboard Screen |
