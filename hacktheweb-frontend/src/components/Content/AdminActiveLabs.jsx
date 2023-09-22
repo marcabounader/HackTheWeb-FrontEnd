@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import ActiveLabCard from "../Cards/ActiveLabCard";
-import { Pagination, Stack } from "@mui/material";
+import { Pagination, Stack, ThemeProvider } from "@mui/material";
 import { useEffect } from "react";
 
-const AdminActiveLabs = ({setCurrentPage,fetchActiveLabs,totalPages,currentPage}) => {
+const AdminActiveLabs = ({theme, setCurrentPage,fetchActiveLabs,totalPages,currentPage}) => {
     const active_labs = useSelector((state) => state.labs.activeLabs);
     const handlePageChange = (event,page) => {
       setCurrentPage(page);
@@ -32,14 +32,16 @@ const AdminActiveLabs = ({setCurrentPage,fetchActiveLabs,totalPages,currentPage}
             {active_labs
             .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)}
             </div>
-            <Stack className="basis-full flex flex-col items-center">
+            <ThemeProvider theme={theme}>
+        <Stack className="basis-full flex flex-col items-center">
                 <Pagination
                 count={totalPages}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"
                 />
-            </Stack>
+        </Stack>
+        </ThemeProvider>
           </>
         ) : (
           <p>No Active Labs.</p>
