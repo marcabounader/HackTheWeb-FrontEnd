@@ -36,12 +36,12 @@
 
 ### Wireframes
 | Landing screen | Login modal | Register modal |
-| ![Landing] (./readme/Wireframes/index.png) | ![Login](./readme/Wireframes/login.png) | ![Register](./readme/Wireframes/Register.png) |
+| ![Landing](./readme/Wireframes/index.png) | ![Login](./readme/Wireframes/login.png) | ![Register](./readme/Wireframes/Register.png) |
 
 ### Mockups
-| Home screen  | Lab Screen | Leaderboard Screen |
+| Dashboard screen  | Lab Screen | Leaderboard Screen |
 | ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Dashboard](./readme/demo/1440x1024.png) | ![Leaderboard](./readme/demo/1440x1024.png) | ![Lab](./readme/demo/1440x1024.png) |
 
 <br><br>
 
