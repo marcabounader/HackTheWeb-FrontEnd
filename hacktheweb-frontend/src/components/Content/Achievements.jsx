@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import AddBadgeModal from "../Modals/AddBadgeModal";
-import { Pagination, Stack } from "@mui/material";
+import { Pagination, Stack, ThemeProvider } from "@mui/material";
 
-const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
+const Achievements = ({theme,fetchBadges,setCurrentPage,totalPages,currentPage}) => {
     const badges = useSelector((state) => state.labs.badges);
     const user = useSelector((state) => state.user);
     const { type_id ,token } = user;
@@ -39,6 +39,7 @@ const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
         {badges && badges.length > 0 ? (
           <>
         {badges.map((badge, index) => <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />)}
+        <ThemeProvider theme={theme}>
         <Stack className="basis-full flex flex-col items-center">
                 <Pagination
                 count={totalPages}
@@ -47,6 +48,8 @@ const Achievements = ({fetchBadges,setCurrentPage,totalPages,currentPage}) => {
                 color="primary"
                 />
         </Stack>
+        </ThemeProvider>
+
         </>
         ) : (
           <p>No Badges available.</p>
