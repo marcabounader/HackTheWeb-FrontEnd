@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import AddLabModal from "../Modals/AddLabModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // const theme = createTheme({
 //   palette: {
@@ -24,7 +24,7 @@ import { createTheme } from '@mui/material/styles';
 //     },
 //   },
 // });
-const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
+const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
@@ -58,14 +58,16 @@ const Labs = ({labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
                 {labs
                 .map((lab, index) => <LabCard lab={lab} key={index} />)}
 
+                <ThemeProvider theme={theme}>
                 <Stack className="basis-full flex flex-col items-center">
-                <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary"
-                />
+                        <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        color="primary"
+                        />
                 </Stack>
+                </ThemeProvider>
                 </>
             ) : (
                 <p>No labs available.</p>
