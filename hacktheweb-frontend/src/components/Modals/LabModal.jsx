@@ -160,7 +160,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                 Congratulations! Flag is correct and {badge.name} earned.
                 <img src={badge.icon_url} className='w-[100px] h-[100px]'></img>
             </div>}
-            <div className='lab-content self-stretch flex-grow gap-[10px] flex overflow-y-auto'>
+            <div className='lab-content self-stretch flex-grow gap-[10px] flex'>
                 <div className='flex flex-grow basis-[50%] flex-col gap-[40px] justify-start content-start'>
                     <div>
                         <div className='sub-header'>Difficulty: </div>
@@ -170,12 +170,12 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                         <div className='sub-header'>Reward: </div>
                         <div>{lab.reward}</div>
                     </div>
-                    <div>
+                    <div className=' overflow-y-auto'>
                         <div className='sub-header'>Objective: </div>
                         <div>{lab.objective}</div>
                     </div>
                 </div>
-                <div className='p-[10px] shadow-xl rounded-md flex-grow basis-[50%] h-fit flex flex-col items-center gap-[10px] bg-bg-main'>
+                <div className='p-[10px] shadow-xl rounded-md flex-grow basis-[50%] self-stretch flex flex-col items-center gap-[10px] bg-bg-main'>
                     <div className='flex flex-col w-full items-center justify-between flex-grow'>
                     <img src={lab.icon_url} className='w-full h-[210px]' alt='Lab img'/>
                     </div>
