@@ -15,8 +15,8 @@ import { useDispatch } from 'react-redux';
 import { setLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
 import { getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
-import ChatBot from '../../components/Popover/ChatBot';
 import { createTheme } from '@mui/material';
+import ChatBot from '../../components/Popover/ChatBot/ChatBot';
 
 
 const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,toggleContent}) => {
