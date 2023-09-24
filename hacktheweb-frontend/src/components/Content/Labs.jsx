@@ -6,24 +6,10 @@ import { useEffect, useState } from "react";
 import AddLabModal from "../Modals/AddLabModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       light: '#757ce8',
-//       main: '#55ABE0',
-//       dark: '#002884',
-//       contrastText: '#fff',
-//     },
-//     secondary: {
-//       light: '#ff7961',
-//       main: '#f44336',
-//       dark: '#ba000d',
-//       contrastText: '#000',
-//     },
-//   },
-// });
+
+
 const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
@@ -32,7 +18,10 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
     const handleOpenLab = () => setShowLabAdd(true);
     const handleCloseLab = () =>setShowLabAdd(false);
     const { type_id,token} = user;   
-
+    const [searchTerm,setSearchTerm] = useState("");
+    const filteredLabs = labs.filter((lab) =>
+    lab.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
         fetchLabs();
@@ -45,33 +34,59 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
         {type_id=="3" ?
+        (
         <h1 className=" text-start w-full">Labs</h1>
+        )
         :
+        (
         <div className="flex flex-row basis-full justify-between items-center">
             <h1 className=" text-start ">Labs</h1>
             <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
         </div>
-        }
+        )}
 
-            {labs && labs.length > 0 ? (
+        {labs && labs.length > 0 ? (
                 <>
-                {labs
-                .map((lab, index) => <LabCard lab={lab} key={index} />)}
+                <div className="w-full flex flex-row justify-center items-center">
+                    <input
+                    type="search"
+                    placeholder="Search Labs"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                {filteredLabs && filteredLabs.length > 0 ? 
+                (
+                    <>
+                    {filteredLabs.map((lab, index) => (
+                    <LabCard lab={lab} key={index} />
+                    ))}
+                </>
+                )
+                :
+                (
+                <>
+                    {labs
+                    .map((lab, index) => <LabCard lab={lab} key={index} />)}
 
-                <ThemeProvider theme={theme}>
-                <Stack className="basis-full flex flex-col items-center">
-                        <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={handlePageChange}
-                        color="primary"
-                        />
-                </Stack>
-                </ThemeProvider>
+                    <ThemeProvider theme={theme}>
+                    <Stack className="basis-full flex flex-col items-center">
+                            <Pagination
+                            count={totalPages}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="primary"
+                            />
+                    </Stack>
+                    </ThemeProvider>
+
+                </>
+                )}
                 </>
             ) : (
                 <p>No labs available.</p>
-            )}
+        )}
+        
         </>
      );
 }
