@@ -113,7 +113,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         <div className="flex flex-row gap-5 p-6 pb-0">
         <div className='flex flex-col gap-5 basis-[50%]'>
         <CustomInput
-            label="Name"
+            label="LAB NAME"
             name="name"
             type="text"
             onChange={onChange}
