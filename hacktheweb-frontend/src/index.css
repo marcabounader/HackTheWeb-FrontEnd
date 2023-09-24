@@ -139,7 +139,7 @@ h6{
 input , select{
   border-radius: 10px;
 }
-input[type="text"]{
+input[type="text"],input[type="search"]{
   padding: 10px;
 }
 
