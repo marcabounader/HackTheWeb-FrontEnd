@@ -1,9 +1,10 @@
 import Chatbot from "react-chatbot-kit";
-import { Button, Popover } from 'antd';
-
-import ActionProvider from "../Modals/ChatBot/ActionProvider";
-import MessageParser from "../Modals/ChatBot/MessageParser";
-import config from "../Modals/ChatBot/config";
+import {  Popover } from 'antd';
+import ActionProvider from "./ActionProvider";
+import MessageParser from "./MessageParser";
+import config from "./config";
+import './chat.css';
+import 'react-chatbot-kit/build/main.css';
 
 const ChatBot = () => {
     const text = '';
