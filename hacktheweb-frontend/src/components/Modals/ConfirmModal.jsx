@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 
-const ConfirmModal = ({handler,action ,isOpen, handleCloseViewModal}) => {
+const ConfirmModal = ({handler,action,name ,isOpen, handleCloseViewModal}) => {
     const handleConfirm = () =>{
         handler();
         handleCloseViewModal();
@@ -13,7 +13,7 @@ const ConfirmModal = ({handler,action ,isOpen, handleCloseViewModal}) => {
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
         >
         <h4 className="p-4">
-          Confirm {action}
+          Confirm {action} {name}
         </h4>
         <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
           <button
