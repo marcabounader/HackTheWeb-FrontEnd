@@ -76,11 +76,11 @@ const ProfileModal = ({ isOpen, handleCloseViewModal }) => {
           <>
           {profile_url ? 
           (      
-            <img src={profile_url} alt="profile image" className=' rounded-full w-[300px]'/>
+            <img src={profile_url} alt="profile image" className=' rounded-full w-[300px] h-[300px]'/>
           )
           :
           (
-            <svg className=' rounded-full w-[300px] bg-white' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg className=' rounded-full w-[300px] h-[300px]bg-white' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <g clipPath="url(#clip0_156_5270)">
                 <path d="M12 13.5C15.7266 13.5 18.75 10.4766 18.75 6.75C18.75 3.02344 15.7266 0 12 0C8.27344 0 5.25 3.02344 5.25 6.75C5.25 10.4766 8.27344 13.5 12 13.5ZM18 15H15.4172C14.3766 15.4781 13.2188 15.75 12 15.75C10.7812 15.75 9.62813 15.4781 8.58281 15H6C2.68594 15 0 17.6859 0 21V21.75C0 22.9922 1.00781 24 2.25 24H21.75C22.9922 24 24 22.9922 24 21.75V21C24 17.6859 21.3141 15 18 15Z" fill="black"/>
               </g>
