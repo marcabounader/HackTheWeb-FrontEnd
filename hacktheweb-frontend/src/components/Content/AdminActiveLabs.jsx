@@ -10,7 +10,7 @@ const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,t
     const handleSearchChange = (event) => {
       const { value } = event.target;
       setDebouncedSearch(value);
-      if (value !== "" && value !== " " && active_labs && active_labs.length>0) {
+      if (value !== "" && active_labs && active_labs.length>0) {
           debouncedHandleSearch(value);
       } else {
           setSearchedActive([]);
@@ -18,7 +18,7 @@ const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,t
     };
     const handlePageChange = (event,page) => {
       setCurrentPage(page);
-      if(searchedActive && searchedActive.length > 0){
+      if(debouncedSearch!==""){
         handleActiveSearch(debouncedSearch)
       } else {
         fetchActiveLabs();
