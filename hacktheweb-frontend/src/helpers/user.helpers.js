@@ -335,6 +335,31 @@ const getSVG = async (icon_url) => {
     return { message };
   }
 };
+async function searchBadges(token,query,page) {
+  try {
+    const res = await axios.get(`${baseUrl}/api/hacker/search-badges?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+    if (res.status === 200) {
+      const data = res.data;
+      return { data };
+    }
+  } catch (error) {
+    const {
+      response: {
+        data: { message, errors },
+      },
+    } = error;
 
+    if (errors) {
+      const errorMessages = Object.keys(errors).map((key) => {
+        const firstError = errors[key][0];
+        if (firstError) {
+          return firstError;
+        }
+      });
+      return { errorMessages };
+    }
+    return { message };
+  }
+}
 
-  export {getStatistics,getBotResponse,getUserBadges,saveProfile,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
+  export {getStatistics,searchBadges,getBotResponse,getUserBadges,saveProfile,getTopTen,getLabs,getActiveLabs,getCompletedLabs,stopLab,launchLab,submitFlag, getSVG};
