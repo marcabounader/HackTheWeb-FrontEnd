@@ -12,7 +12,7 @@ const Users = ({handleUserSearch,searchedUsers,setSearchedUsers,theme,token,fetc
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setDebouncedSearch(value);
-        if (value !== "" && value !== " " && users && users.length>0) {
+        if (value !== "" && users && users.length>0) {
             debouncedHandleSearch(value);
         } else {
             setSearchedUsers([]);
@@ -20,7 +20,7 @@ const Users = ({handleUserSearch,searchedUsers,setSearchedUsers,theme,token,fetc
       };
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
-        if(searchedUsers && searchedUsers.length > 0){
+        if(debouncedSearch!==""){
             handleUserSearch(debouncedSearch)
         } else {
             fetchUsers();
