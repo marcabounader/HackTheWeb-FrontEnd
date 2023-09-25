@@ -18,7 +18,7 @@ const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,
     const handleSearchChange = (event) => {
       const { value } = event.target;
       setDebouncedSearch(value);
-      if (value !== "" && value !== " " && badges && badges.length>0) {
+      if (value !== "" && badges && badges.length>0) {
           debouncedHandleSearch(value);
       } else {
           setSearchedBadges([]);
@@ -32,7 +32,7 @@ const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,
     },[]);
     const handlePageChange = (event,page) => {
       setCurrentPage(page);
-      if(searchedBadges && searchedBadges.length > 0){
+      if(debouncedSearch!==""){
         handleBadgeSearch(debouncedSearch)
     } else {
       fetchBadges();
