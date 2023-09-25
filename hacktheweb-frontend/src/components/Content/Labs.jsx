@@ -23,7 +23,7 @@ const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurre
 
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
-        if(searchedLabs && searchedLabs.length > 0){
+        if(debouncedSearch!==""){
             handleSearch(debouncedSearch)
         } else {
             fetchLabs();
@@ -35,11 +35,11 @@ const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurre
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setDebouncedSearch(value);
-        if (value !== "" && value !== " ") {
-            console.log(value);
+        if (value !== "" && labs && labs.length > 0) {
             debouncedHandleSearch(value);
         } else {
             setSearchedLabs([]);
+            setCurrentPage(1);
         }
       };
 
