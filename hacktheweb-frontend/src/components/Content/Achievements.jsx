@@ -51,7 +51,11 @@ const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,
         <h1 className="text-start">Badges</h1>
         <FontAwesomeIcon onClick={handleOpenAddBadge} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
         </div>
-        <div className="w-full flex flex-row justify-center items-center">
+        </>
+        }
+        {badges && badges.length > 0 ? (
+          <>
+          <div className="w-full flex flex-row justify-center items-center">
         <input
                     type="search"
                     placeholder="Search Badges"
@@ -59,10 +63,6 @@ const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,
                     onChange={handleSearchChange}
         />
         </div>
-        </>
-        }
-        {badges && badges.length > 0 ? (
-          <>
         {searchedBadges && searchedBadges.length > 0 ? 
                 (
                   <>
