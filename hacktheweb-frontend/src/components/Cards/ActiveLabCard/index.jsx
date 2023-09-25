@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { stopLab } from "../../../helpers/admin.helpers";
 import { removeActiveLab, setLabInactive } from "../../../slices/labSlice";
+import './index.css';
 const ActiveLabCard = ({lab}) => {
     const dispatch= useDispatch();
 
@@ -19,19 +20,29 @@ const ActiveLabCard = ({lab}) => {
         }
     }
     return ( 
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
-            <div className="basis-1/5 capitalize text-left ml-2">{lab.user_info.name}</div>
-            <div className="basis-1/5 text-left">{lab.user_info.email}</div>
-            <div className="basis-1/5 text-left">{lab.project_name}</div>
-            <div className="basis-1/5 text-left">{lab.flag}</div>
-            <div className="basis-1/5 text-left">{lab.port}</div>
-            <div className="basis-1/5 text-left">{lab.launch_time}</div>
-            <div className="basis-1/5 text-left">
-                <button className="btn-2 secondary-btn" onClick={handleStopLab}>Stop</button>
-            </div>
-
-
+    <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
+        <div className="basis-1/5 capitalize text-left ml-2 parent">
+            {lab.user_info.name}
         </div>
+        <div className="basis-1/5 text-left parent">
+            {lab.user_info.email}
+        </div>
+        <div className="basis-1/5 text-left parent">
+            {lab.project_name}
+        </div>
+        <div className="basis-1/5 text-left parent">
+            {lab.flag}
+        </div>
+        <div className=" basis-[15%] text-left parent">
+            {lab.port}
+        </div>
+        <div className="basis-1/5 text-left parent">
+            {lab.launch_time}
+        </div>
+        <div className="basis-[15%] flex flex-row justify-center text-left">
+            <button className="btn-2 secondary-btn" onClick={handleStopLab}>Stop</button>
+        </div>
+    </div>
     );
 }
  
