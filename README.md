@@ -51,19 +51,12 @@
 
 > Using the wireframes and mockups as a guide, we implemented the HackTheWeb app with the following features:
 
-### User Screens (Web)
-| Login screen  | Register screen | Landing screen | Loading screen |
-| ---| ---| ---| ---|
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
-| Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
-
 ### Admin Screens (Web)
-| Login screen  | Register screen |  Landing screen |
+| Home screen  | Badges screen |  Labs screen |
 | ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
-| Home screen  | Menu Screen | Order Screen |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Home](./readme/AdminScreens/home.png) | ![Badges](./readme/AdminScreens/badges.png) | ![Labs](./readme/AdminScreens/labs.png) |
+| Active Labs screen  | Users Screen | Add Lab Screen |
+| ![Active Labs](./readme/AdminScreens/active-labs.png) | ![Users](./readme/AdminScreens/users.png) | ![Add Lab](./readme/AdminScreens/add-lab.png) |
 
 <br><br>
 
