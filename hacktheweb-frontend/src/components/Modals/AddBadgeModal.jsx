@@ -41,7 +41,6 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
         setInputState(initial_state);
         setErrors('');
         setSelectedImageName('');
-        // setFilteredLabs([]);
         const fetchLabInfo = async () =>{
           const {data,message,errorMessages} = await getLabsInfo(token);
           if(message && message=="Unauthenticated."){
@@ -51,14 +50,6 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
           }
         }
         fetchLabInfo();
-        // if(lab_id!='' && labs){
-        //   const filtered = labs.filter((lab) =>
-        //     lab.id==lab_id
-        //   );
-        //   if(filtered[0]){
-        //     setInputState((prev) => ({ ...prev ,lab_name:filtered[0].name}));
-        //   }
-        // }
     }, [isOpen]);
 
     function onChange(e) {
