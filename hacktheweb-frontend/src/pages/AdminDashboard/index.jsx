@@ -9,13 +9,14 @@ import './AdminDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics, setUsers } from '../../slices/labSlice'; 
-import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty, getUsers } from '../../helpers/admin.helpers';
+import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty, getUsers, searchActiveLabs, searchUsers } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 import Achievements from '../../components/Content/Achievements'
 import Users from '../../components/Content/Users';
 import { createTheme } from '@mui/material';
+import { searchLabs } from '../../helpers/common.helpers';
 
 const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const [usersPerPage,setUsersPerPage]=useState(5);
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [activePerPage,setActivePerPage]=useState(5);
+    const [searchedLabs,setSearchedLabs] = useState("");
+    const [searchedUsers,setSearchedUsers] = useState("");
+    const [searchedActive,setSearchedActive] = useState("");
+
     const theme = createTheme({
       palette: {
         primary: {
@@ -51,7 +56,21 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         navigate('/');
       }
     }, []);
-  
+    const handleUserSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchUsers(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.users) {
+              setSearchedUsers(data.users.data);
+              setTotalPages(data.users.last_page);
+              setPerPage(data.users.per_page);
+              setTotalUsers(data.users.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
     const fetchLabs = async () => {
       try {
         const { data, message, errorMessages } = await getAllLabs(token,currentPage);
@@ -113,6 +132,36 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         console.error("Error fetching categories:", error);
       }
     };
+    const handleSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchLabs(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.labs) {
+              setSearchedLabs(data.labs.data);
+              setTotalPages(data.labs.last_page);
+              setPerPage(data.labs.per_page);
+              setTotalLabs(data.labs.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
+    const handleActiveSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchActiveLabs(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.active_labs) {
+              setSearchedActive(data.active_labs.data);
+              setTotalPages(data.active_labs.last_page);
+              setPerPage(data.active_labs.per_page);
+              setTotalActive(data.active_labs.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
     useEffect(() => {
       if (isMounted) {
 
@@ -130,7 +179,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             console.error("Error fetching statistics:", error);
           }
         };
-          
+
         const fetchLabCategories = async () => {
           try {
             const { data, message, errorMessages } = await getLabCategory(token);
@@ -247,10 +296,10 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {users_tab && <Users handleUserSearch={handleUserSearch} setSearchedUsers={setSearchedUsers} searchedUsers={searchedUsers} fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
-                {active_tab && <AdminActiveLabs fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} searchedActive={searchedActive} setSearchedActive={setSearchedActive} fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
                 {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
