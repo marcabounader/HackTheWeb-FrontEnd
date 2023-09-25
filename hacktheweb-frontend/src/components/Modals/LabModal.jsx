@@ -13,7 +13,7 @@ import { current } from '@reduxjs/toolkit';
 
 Modal.setAppElement('#root');
 
-const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,token}) => {
+const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseViewModal,lab,token}) => {
     const boxRef = useRef();
     const [launchTime, setLaunchTime] = useState('');
     const [elapsedTime, setElapsedTime] = useState(0);
@@ -196,7 +196,7 @@ const LabModal = ({isStopLoading,handleStopLab,isOpen,handleCloseViewModal,lab,t
                                 {isStopLoading ?
                                     <button className='btn-2 secondary-btn m-0'><SpinningIcon/></button>
                                 :
-                                    <button className='btn-2 secondary-btn m-0' onClick={handleStopLab}>Stop Lab</button>
+                                    <button className='btn-2 secondary-btn m-0' onClick={handleOpenStopConfirmation}>Stop Lab</button>
                                 }
                                 <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
                             </div>
