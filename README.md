@@ -80,28 +80,51 @@
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Install Node Js.
+* Install PHP.
+* Install Composer.
+* Install Docker.
+* Install XAMPP.
 
-### Installation
+### FrontEnd Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/marcabounader92/SEF-Final-FrontEnd.git
    ```
+2. Change base url of helper function according to backend url(\src\helpers):
 3. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. Run the APP:
+   ```sh
+   npm run
+   ```
+### BackEnd Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/marcabounader92/SEF-Final-BackEnd.git
+   ```
+2. Install NPM packages
+   ```sh
+   compose install
+   ```
+4. Run XAMPP and create database named "hackthebox_db"
+5. Build the LAB images using docker-compose. 
+6. Create .env file in root folder of project and change the following variables: DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD, CHATGTP_API_KEY, APP_URL.
+7. Link the storage:
+   ```sh
+   php artisan storage:link
+   ```
+8. Migrate the tables with seeding:
+   ```sh
+   php artisan migrate --seed
+   ```
+9. Run the APP:
+   ```sh
+   php artisan serve
    ```
 
 Now, you should be able to run HackTheWeb locally and explore its features.
