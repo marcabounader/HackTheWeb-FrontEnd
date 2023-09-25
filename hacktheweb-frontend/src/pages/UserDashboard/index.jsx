@@ -17,6 +17,7 @@ import { getLabs, getStatistics, getUserBadges } from '../../helpers/user.helper
 import Leaderboard from '../../components/Content/Leaderboard';
 import { createTheme } from '@mui/material';
 import ChatBot from '../../components/Popover/ChatBot/ChatBot';
+import { searchLabs } from '../../helpers/common.helpers';
 
 
 const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,toggleContent}) => {
@@ -35,6 +36,8 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [totalLabs,setTotalLabs] = useState('');
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [totalBadges,setTotalBadges] = useState('');
+    const [searchedLabs,setSearchedLabs] = useState("");
+
     const theme = createTheme({
       palette: {
         primary: {
@@ -52,6 +55,22 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
         navigate('/');
       }
     }, []);
+    const handleSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchLabs(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.labs) {
+              setSearchedLabs(data.labs.data);
+              setTotalPages(data.labs.last_page);
+              setPerPage(data.labs.per_page);
+              setTotalLabs(data.labs.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
+
     const fetchLabs = async () => {
       try {
         const { data, message, errorMessages } = await getLabs(token,currentPage);
@@ -176,7 +195,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             <div className='content-wrapper'>
                 {home && <Home/>}
                 {achievements && <Achievements theme={theme} fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
-                {labs_tab && <Labs theme={theme} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} theme={theme} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard />}
