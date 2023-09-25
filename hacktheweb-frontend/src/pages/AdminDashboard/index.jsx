@@ -16,7 +16,7 @@ import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
 import Achievements from '../../components/Content/Achievements'
 import Users from '../../components/Content/Users';
 import { createTheme } from '@mui/material';
-import { searchLabs } from '../../helpers/common.helpers';
+import { searchBadges, searchLabs } from '../../helpers/common.helpers';
 
 const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const [searchedLabs,setSearchedLabs] = useState("");
     const [searchedUsers,setSearchedUsers] = useState("");
     const [searchedActive,setSearchedActive] = useState("");
+    const [searchedBadges,setSearchedBadges] = useState("");
 
     const theme = createTheme({
       palette: {
@@ -66,6 +67,21 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
               setTotalPages(data.users.last_page);
               setPerPage(data.users.per_page);
               setTotalUsers(data.users.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
+    const handleBadgeSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchBadges(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.badges) {
+              setSearchedBadges(data.badges.data);
+              setTotalPages(data.badges.last_page);
+              setPerPage(data.badges.per_page);
+              setTotalBadges(data.badges.total);
           }
       } catch (error) {
         console.error("Error fetching labs:", error);
@@ -301,7 +317,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
                 {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} searchedActive={searchedActive} setSearchedActive={setSearchedActive} fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
+                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} searchedBadges={searchedBadges} setSearchedBadges={setSearchedBadges} fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
             </div>
         </section>
