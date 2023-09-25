@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { restrict } from "../../../helpers/admin.helpers";
 import { setUserRestricted, setUserUnrestricted } from "../../../slices/labSlice";
 import './index.css'
-
+import ConfirmModal from "../../Modals/ConfirmModal";
 const AdminUsercard = ({token,user}) => {
     const navigate=useNavigate();
     const dispatch=useDispatch();
-
+    const [showRestrictConfirmation,setRestrictConfirmation] = useState(false);
+    const handleOpenConfirmation = () => setRestrictConfirmation(true);
+    const handleCloseConfirmation = () =>setRestrictConfirmation(false);
     const handleRestrict = async () =>{
         const {data,message,errorMessages} = await restrict(token,user.id);
         if(message && message=="Unauthenticated."){
@@ -22,6 +25,8 @@ const AdminUsercard = ({token,user}) => {
         }
     }
     return ( 
+        <>
+        <ConfirmModal action={`Restrict ${user.name}`} handler={handleRestrict} isOpen={showRestrictConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
         <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
             <div className="basis-[10%] text-left ml-2 parent">{user.rank}</div>
             <div className="basis-1/5 capitalize text-left parent">{user.name}</div>
@@ -38,6 +43,7 @@ const AdminUsercard = ({token,user}) => {
             </>
             }
         </div>
+        </>
     );
 }
  
