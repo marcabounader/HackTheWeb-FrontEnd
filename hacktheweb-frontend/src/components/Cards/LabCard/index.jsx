@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AddLabModal from "../../Modals/AddLabModal";
 import { deleteLab } from "../../../helpers/admin.helpers";
 import SpinningIcon from "../../Animation/Spinner";
+import ConfirmModal from "../../Modals/ConfirmModal";
 const LabCard = ({lab}) => {
     const dispatch= useDispatch();
     const active_labs = useSelector((state) => state.labs.activeLabs);
@@ -18,11 +19,16 @@ const LabCard = ({lab}) => {
     const [showModifyLab,setShowModifyLab] = useState(false);
     const handleOpenModifyLab = () => setShowModifyLab(true);
     const handleCloseModifyLab = () =>setShowModifyLab(false);
+    const [showDeleteConfirmation,setDeleteConfirmation] = useState(false);
+    const handleOpenConfirmation = () => setDeleteConfirmation(true);
+    const handleCloseConfirmation = () =>setDeleteConfirmation(false);
+    const [showStopConfirmation,setStopConfirmation] = useState(false);
+    const handleOpenStopConfirmation = () => setStopConfirmation(true);
+    const handleCloseStopConfirmation = () =>setStopConfirmation(false);
     const navigate =useNavigate();
     const user = useSelector((state) => state.user);
     const { token ,type_id} = user;
     const [isStopLoading, setisStopLoading] = useState(false);
-
     const handleStopLab = async () => {
         setisStopLoading(true);
         const {data , errorMessages, message} = await stopLab(token,lab.active_lab.project_name);
@@ -34,17 +40,19 @@ const LabCard = ({lab}) => {
         }
     }
     const handleDeleteLab = async () => {
-        const {data , errorMessages, message} = await deleteLab(token,lab.id);
-        if(message && message=="Unauthenticated."){
-          navigate("/");
-        } else if (data && data.message) {
-            dispatch(setLabs(labs.filter((old_lab) => old_lab.id !== lab.id)));
-        }
+            const {data , errorMessages, message} = await deleteLab(token,lab.id);
+            if(message && message=="Unauthenticated."){
+            navigate("/");
+            } else if (data && data.message) {
+                dispatch(setLabs(labs.filter((old_lab) => old_lab.id !== lab.id)));
+            }
     }
     return ( 
         <>
-        <LabModal isStopLoading={isStopLoading} handleStopLab={handleStopLab} isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
+        <LabModal handleOpenStopConfirmation={handleOpenStopConfirmation} isStopLoading={isStopLoading} handleStopLab={handleStopLab} isOpen={showLab} handleCloseViewModal={handleCloseShowLab} lab={lab} token={token} active_labs={active_labs} />
         <AddLabModal lab={lab} isOpen={showModifyLab} token={token} handleCloseViewModal={handleCloseModifyLab}></AddLabModal>
+        <ConfirmModal action="Delete" handler={handleDeleteLab} isOpen={showDeleteConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
+        <ConfirmModal action="Stop" handler={handleStopLab} isOpen={showStopConfirmation} handleCloseViewModal={handleCloseStopConfirmation}/>
 
         { type_id =="3" ?
         (
@@ -69,7 +77,7 @@ const LabCard = ({lab}) => {
                     isStopLoading ?
                     <SpinningIcon className="w-[25px] h-[25px]"/>
                     :
-                    <button className="btn secondary-btn mx-2" onClick={handleStopLab}>Stop</button>
+                    <button className="btn secondary-btn mx-2" onClick={handleOpenStopConfirmation}>Stop</button>
                 )
                 :
                 <></>
@@ -92,7 +100,7 @@ const LabCard = ({lab}) => {
                 </div>
             </div>
             <div className="flex flex-row justify-end items-end">
-                <button className="btn secondary-btn mx-2" onClick={handleDeleteLab}>Delete</button>
+                <button className="btn secondary-btn mx-2" onClick={handleOpenConfirmation}>Delete</button>
             </div>
         </div>
         )
