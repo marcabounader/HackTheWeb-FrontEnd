@@ -11,6 +11,7 @@ const AdminUsercard = ({token,user}) => {
     const [showRestrictConfirmation,setRestrictConfirmation] = useState(false);
     const handleOpenConfirmation = () => setRestrictConfirmation(true);
     const handleCloseConfirmation = () =>setRestrictConfirmation(false);
+    const [action,setAction] = useState('');
     const handleRestrict = async () =>{
         const {data,message,errorMessages} = await restrict(token,user.id);
         if(message && message=="Unauthenticated."){
@@ -26,7 +27,7 @@ const AdminUsercard = ({token,user}) => {
     }
     return ( 
         <>
-        <ConfirmModal action={`Restrict ${user.name}`} handler={handleRestrict} isOpen={showRestrictConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
+        <ConfirmModal action={action} name={user.name} handler={handleRestrict} isOpen={showRestrictConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
         <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
             <div className="basis-[10%] text-left ml-2 parent">{user.rank}</div>
             <div className="basis-1/5 capitalize text-left parent">{user.name}</div>
@@ -34,12 +35,12 @@ const AdminUsercard = ({token,user}) => {
             {user.is_restricted ?
             <>
             <div className="basis-1/5 capitalize text-left parent">Restricted</div>
-            <div className="basis-[15%] flex flex-row justify-center parent"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Unrestrict</button></div>
+            <div className="basis-[15%] flex flex-row justify-center parent"><button className="btn-2 secondary-btn" onClick={() => {handleOpenConfirmation(); setAction('Unrestrict');}}>Unrestrict</button></div>
             </>
             :
             <>
             <div className="basis-1/5 capitalize text-left parent">Not restricted</div>
-            <div className="basis-[15%] flex flex-row justify-center parent"><button className="btn-2 secondary-btn" onClick={handleRestrict}>Restrict</button></div>
+            <div className="basis-[15%] flex flex-row justify-center parent"><button className="btn-2 secondary-btn" onClick={() => {handleOpenConfirmation(); setAction('Restrict');}}>Restrict</button></div>
             </>
             }
         </div>
