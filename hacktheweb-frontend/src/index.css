@@ -139,10 +139,13 @@ h6{
 input , select{
   border-radius: 10px;
 }
-input[type="text"],input[type="search"]{
-  padding: 10px;
-}
 
+input[type="text"],input[type="search"],input[type="password"]{
+  padding: 5px;
+}
+.email-input{
+  padding:10px !important;
+}
 input::placeholder{
   font-size:var(--placeholder-size);
   padding-left:2px;
