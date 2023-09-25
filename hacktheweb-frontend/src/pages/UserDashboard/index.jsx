@@ -13,12 +13,11 @@ import './UserDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faVialCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setLabs, setBadges, setStatistics } from '../../slices/labSlice'; 
-import { getLabs, getStatistics, getUserBadges } from '../../helpers/user.helpers';
+import { getLabs, getStatistics, getUserBadges, searchBadges } from '../../helpers/user.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import { createTheme } from '@mui/material';
 import ChatBot from '../../components/Popover/ChatBot/ChatBot';
 import { searchLabs } from '../../helpers/common.helpers';
-
 
 const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,toggleContent}) => {
   const dispatch = useDispatch();
@@ -37,6 +36,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [totalBadges,setTotalBadges] = useState('');
     const [searchedLabs,setSearchedLabs] = useState("");
+    const [searchedBadges,setSearchedBadges] = useState("");
 
     const theme = createTheme({
       palette: {
@@ -65,6 +65,22 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
               setTotalPages(data.labs.last_page);
               setPerPage(data.labs.per_page);
               setTotalLabs(data.labs.total);
+          }
+      } catch (error) {
+        console.error("Error fetching labs:", error);
+      }
+    }
+
+    const handleBadgeSearch = async (query) => {
+      try{
+          const {data,message,errorMessages}=await searchBadges(token,query,currentPage);
+          if (message && message === "Unauthenticated.") {
+              navigate("/");
+          } else if (data && data.badges) {
+              setSearchedBadges(data.badges.data);
+              setTotalPages(data.badges.last_page);
+              setPerPage(data.badges.per_page);
+              setTotalBadges(data.badges.total);
           }
       } catch (error) {
         console.error("Error fetching labs:", error);
@@ -194,7 +210,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home/>}
-                {achievements && <Achievements theme={theme} fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {achievements && <Achievements handleBadgeSearch={handleBadgeSearch} searchedBadges={searchedBadges} setSearchedBadges={setSearchedBadges} theme={theme} fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} theme={theme} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
