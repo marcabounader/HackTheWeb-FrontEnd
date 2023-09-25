@@ -2,11 +2,13 @@
 import React from 'react';
 import { getBotResponse } from '../../../helpers/user.helpers';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     const user = useSelector((state) => state.user);
     const { token } = user;
+    const [messages,setMessage]=useState('');
   const handleHello = () => {
     const botMessage = createChatBotMessage('Hello. Nice to meet you.');
 
@@ -16,9 +18,12 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     }));
   };
   const handleRequest = async (request) => {
-    const {data,message,errorMessages} = await getBotResponse(token,request);
+    const newMessage = `${messages}\n${request}`;
+    setMessage(newMessage)
+    console.log(newMessage);
+    const {data,message,errorMessages} = await getBotResponse(token,newMessage);
     const botMessage = createChatBotMessage(data.response);
-
+    
     setState((prev) => ({
       ...prev,
       messages: [...prev.messages, botMessage],

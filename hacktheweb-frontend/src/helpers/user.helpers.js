@@ -34,7 +34,7 @@ const baseUrl = 'http://localhost:8000';
 
   async function getBotResponse(token,request) {
     try {
-      const res = await axios.get(`${baseUrl}/api/hacker/chat/${request}`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.post(`${baseUrl}/api/hacker/chat/`,{request}, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
