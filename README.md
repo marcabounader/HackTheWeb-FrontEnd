@@ -40,9 +40,9 @@
 | ![Landing](./readme/Wireframes/Index.png) | ![Login](./readme/Wireframes/login.png) | ![Register](./readme/Wireframes/Register.png) |
 
 ### Mockups
-| Dashboard screen  | Achievements Screen | Labs Screen |
+| Home screen  | Achievements Screen | Labs Screen |
 | ---| ---| ---|
-| ![Dashboard](./readme/Mockups/Home.png) | ![Achievements](./readme/Mockups/Achievements.png) | ![Labs](./readme/Mockups/Labs.png) |
+| ![Home](./readme/Mockups/Home.png) | ![Achievements](./readme/Mockups/Achievements.png) | ![Labs](./readme/Mockups/Labs.png) |
 
 <br><br>
 
