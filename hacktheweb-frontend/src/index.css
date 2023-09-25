@@ -146,9 +146,13 @@ input[type="text"],input[type="search"],input[type="password"]{
 .email-input{
   padding:10px !important;
 }
+input{
+  color:black;
+}
 input::placeholder{
   font-size:var(--placeholder-size);
   padding-left:2px;
+  color:black;
 }
 
 textarea::placeholder{
