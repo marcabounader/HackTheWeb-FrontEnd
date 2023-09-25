@@ -84,7 +84,7 @@ const LoginForm = ({ isOpen,handleCloseViewModal,handleOpenRegisterModal }) => {
       <div className="error font-normal text-red-700 text-sm">{errors}</div>
       <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
         <button
-          onClick={handleCloseViewModal}
+          onClick={() => {handleCloseViewModal(); setInputState(initialState);}}
           className="btn"
         >
           Cancel
