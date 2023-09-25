@@ -1,6 +1,14 @@
 .ant-dropdown ul{
-    background-color: var(--black-color) !important;
+    background-color: #0D1115 !important;
 }
 .ant-dropdown *{
-    color: white;
+    color: var(--text-color);
+}
+
+.ant-dropdown li{
+    margin:5px !important;
+}
+.ant-dropdown li:hover {
+    background-color:var(--active-color) !important;
+    scale: 1.1;
 }
