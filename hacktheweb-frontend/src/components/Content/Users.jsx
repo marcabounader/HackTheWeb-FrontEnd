@@ -45,12 +45,12 @@ const Users = ({handleUserSearch,searchedUsers,setSearchedUsers,theme,token,fetc
         />
         </div>
 
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
-            <div className="basis-1/5  text-left uppercase ml-2">Rank</div>
+        <div className="flex gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+            <div className="basis-[10%]  text-left uppercase ml-2">Rank</div>
             <div className="basis-1/5 uppercase text-left">Name</div>
             <div className="basis-1/5  text-left uppercase">Email</div>
             <div className="basis-1/5  text-left uppercase">Status</div>
-            <div className="basis-1/5  text-left uppercase">Restrict</div>
+            <div className="basis-[15%] text-center uppercase">Restrict</div>
         </div>
         {users && users.length > 0 ? (
             <>
