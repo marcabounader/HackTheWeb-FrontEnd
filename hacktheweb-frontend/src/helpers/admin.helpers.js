@@ -451,4 +451,56 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  export {getAllLabs,getAdminStatistics,getLabsInfo,getUsers,addBadge,restrict,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
+  async function searchUsers(token,query,page) {
+    try {
+      const res = await axios.get(`${baseUrl}/api/admin/search-users?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
+  async function searchActiveLabs(token,query,page) {
+    try {
+      const res = await axios.get(`${baseUrl}/api/admin/search-active-labs?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+      if (res.status === 200) {
+        const data = res.data;
+        return { data };
+      }
+    } catch (error) {
+      const {
+        response: {
+          data: { message, errors },
+        },
+      } = error;
+  
+      if (errors) {
+        const errorMessages = Object.keys(errors).map((key) => {
+          const firstError = errors[key][0];
+          if (firstError) {
+            return firstError;
+          }
+        });
+        return { errorMessages };
+      }
+      return { message };
+    }
+  }
+  export {getAllLabs,searchActiveLabs,getAdminStatistics,searchUsers,getLabsInfo,getUsers,addBadge,restrict,updatedBadge,stopLab,deleteLab,deleteBadge,getActiveLabs,getBadges,getBadgeCategories,addLab,updateLab,getLabCategory,getLabDifficulty};
