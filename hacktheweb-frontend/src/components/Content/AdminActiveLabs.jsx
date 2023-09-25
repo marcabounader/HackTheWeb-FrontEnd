@@ -41,14 +41,14 @@ const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,t
                     onChange={handleSearchChange}
         />
         </div>
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+        <div className="flex gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
             <div className="basis-1/5  text-left uppercase ml-2">Name</div>
             <div className="basis-1/5 uppercase text-left">Email</div>
             <div className="basis-1/5  text-left uppercase">Docker Name</div>
             <div className="basis-1/5  text-left uppercase">Flag</div>
-            <div className="basis-1/5  text-left uppercase">Port</div>
+            <div className="basis-[15%] text-left uppercase">Port</div>
             <div className="basis-1/5  text-left uppercase">Launch Time</div>
-            <div className="basis-1/5  text-left uppercase">Action</div>
+            <div className="basis-[15%]  text-center uppercase">Action</div>
 
         </div>
         {active_labs && active_labs.length > 0 ? (
