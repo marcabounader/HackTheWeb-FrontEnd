@@ -7,10 +7,11 @@ import AddLabModal from "../Modals/AddLabModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider } from '@mui/material/styles';
+import { debounce } from "@mui/material";
 
 
 
-const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
+const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
@@ -18,18 +19,37 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
     const handleOpenLab = () => setShowLabAdd(true);
     const handleCloseLab = () =>setShowLabAdd(false);
     const { type_id,token} = user;   
-    const [searchTerm,setSearchTerm] = useState("");
-    const filteredLabs = labs.filter((lab) =>
-    lab.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const [debouncedSearch, setDebouncedSearch] = useState("");
+
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
-        fetchLabs();
+        if(searchedLabs && searchedLabs.length > 0){
+            handleSearch(debouncedSearch)
+        } else {
+            fetchLabs();
+        }
     };
+
+    const debouncedHandleSearch = debounce(handleSearch, 300);
+
+    const handleSearchChange = (event) => {
+        const { value } = event.target;
+        setDebouncedSearch(value);
+        if (value !== "" && value !== " ") {
+            console.log(value);
+            debouncedHandleSearch(value);
+        } else {
+            setSearchedLabs([]);
+        }
+      };
+
     useEffect(() => {
         setCurrentPage(1);
         fetchLabs();
+        setSearchedLabs([]);
+        setDebouncedSearch('');
     }, [labs_tab]); 
+
     return ( 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
@@ -51,14 +71,14 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
                     <input
                     type="search"
                     placeholder="Search Labs"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={debouncedSearch}
+                    onChange={handleSearchChange}
                     />
                 </div>
-                {filteredLabs && filteredLabs.length > 0 ? 
+                {searchedLabs && searchedLabs.length > 0 ? 
                 (
                     <>
-                    {filteredLabs.map((lab, index) => (
+                    {searchedLabs.map((lab, index) => (
                     <LabCard lab={lab} key={index} />
                     ))}
                 </>
@@ -69,7 +89,9 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
                     {labs
                     .map((lab, index) => <LabCard lab={lab} key={index} />)}
 
-                    <ThemeProvider theme={theme}>
+                </>
+                )}
+                <ThemeProvider theme={theme}>
                     <Stack className="basis-full flex flex-col items-center">
                             <Pagination
                             count={totalPages}
@@ -78,10 +100,7 @@ const Labs = ({theme,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) 
                             color="primary"
                             />
                     </Stack>
-                    </ThemeProvider>
-
-                </>
-                )}
+                </ThemeProvider>
                 </>
             ) : (
                 <p>No labs available.</p>
