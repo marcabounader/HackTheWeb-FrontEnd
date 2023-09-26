@@ -1,0 +1,16 @@
+.parent {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+  .image-name-container {
+    max-width: 100%; /* Allow the container to take up the available space */
+    overflow: hidden; /* Hide overflowed content */
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+  }
+
+  .image-name-container:hover{
+    overflow: visible;
+  }
+  
