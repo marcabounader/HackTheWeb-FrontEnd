@@ -160,3 +160,23 @@ textarea::placeholder{
   font-size:var(--placeholder-size);
   padding-left:2px;
 }
+
+@media (max-width: 768px) {
+ .email-btn{
+  margin-left: 0px;
+  margin-top:5px;
+ }
+ input[type="search"]{
+  width: 100%;
+ }
+
+ .add-lab-container{
+    flex-direction: column;
+ }
+ .lab-card-wrapper {
+   flex-basis: 100%;
+ }
+ .leaderboard-header, .user-card-wrapper, .active-lab-wrapper,.admin-user-wrapper,.admin-user-header,.active-lab-header{
+  font-size:10px
+ }
+}
