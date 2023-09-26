@@ -172,11 +172,15 @@ textarea::placeholder{
 
  .add-lab-container{
     flex-direction: column;
+    overflow-y: scroll;
  }
  .lab-card-wrapper {
    flex-basis: 100%;
  }
  .leaderboard-header, .user-card-wrapper, .active-lab-wrapper,.admin-user-wrapper,.admin-user-header,.active-lab-header{
   font-size:10px
+ }
+ .hero-content{
+    justify-content: center;
  }
 }
