@@ -105,12 +105,12 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 w-[741px] p-[20px] transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-5 rounded-2xl shadow-lg"
+        className="z-30 w-[80%] max-w-[741px] p-[20px] transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-5 rounded-2xl shadow-lg"
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
       >
       
         <h4 className="p-4">{lab ? 'Modify' : 'Add'} Lab</h4>
-        <div className="flex flex-row self-stretch justify-start">
+        <div className="flex flex-row self-stretch justify-start add-lab-container">
         <div className='flex flex-col basis-1/2 flex-grow gap-5 p-[10px]'>
         <CustomInput
             label="LAB NAME"
