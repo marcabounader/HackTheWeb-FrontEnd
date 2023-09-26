@@ -198,7 +198,7 @@ const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseVi
                                 :
                                     <button className='btn-2 secondary-btn m-0' onClick={handleOpenStopConfirmation}>Stop Lab</button>
                                 }
-                                <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://localhost:${lab.active_lab.port}`}>Open Lab</a>
+                                <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://192.168.1.29:${lab.active_lab.port}`}>Open Lab</a>
                             </div>
             
                             </>
