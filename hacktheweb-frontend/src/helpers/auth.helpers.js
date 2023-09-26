@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const baseUrl = 'http://localhost:8000/api/';
+const baseUrl = 'http://192.168.1.29:8000';
 // const baseUrl = 'http://3.248.194.204/api/';
 const Auth = () => {
   // const { token } = JSON.parse(localStorage.getItem('user'));
@@ -46,7 +46,7 @@ async function logIn({ email, password }) {
 
 async function logOut(token) {
   try {
-    const res = await axios.post(`${baseUrl}logout`, undefined,{headers: { Authorization: `Bearer ${token}` }});
+    const res = await axios.post(`${baseUrl}/api/logout`, undefined,{headers: { Authorization: `Bearer ${token}` }});
     console.log(res.data);
     if (res.status === 200) {
       const data = res.data;
@@ -74,7 +74,7 @@ async function logOut(token) {
 
 async function register({password,name, email }) {
   try {
-    const res = await axios.post(`${baseUrl}register`, {
+    const res = await axios.post(`${baseUrl}/api/register`, {
       email,
       password,
       name,
@@ -103,4 +103,4 @@ async function register({password,name, email }) {
   }
 }
 
-export { logIn, Auth ,register,logOut};
+export { logIn, Auth ,register,logOut,baseUrl};

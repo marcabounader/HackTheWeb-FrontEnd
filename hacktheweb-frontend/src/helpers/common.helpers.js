@@ -1,8 +1,5 @@
 import axios from "axios";
-
-const baseUrl = 'http://localhost:8000';
-// const baseUrl = 'http://3.248.194.204';
-
+import { baseUrl } from "./auth.helpers";
 async function searchLabs(token,query,page) {
     try {
       const res = await axios.get(`${baseUrl}/api/common/search-labs?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
