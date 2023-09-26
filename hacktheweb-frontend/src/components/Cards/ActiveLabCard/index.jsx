@@ -20,7 +20,7 @@ const ActiveLabCard = ({lab}) => {
         }
     }
     return ( 
-    <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
+    <div className="active-lab-wrapper flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
         <div className="basis-1/5 capitalize text-left ml-2 parent">
             {lab.user_info.name}
         </div>
