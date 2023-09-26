@@ -6,8 +6,7 @@ import { addBadge, getLabsInfo, updatedBadge } from '../../helpers/admin.helpers
 import { modifyBadge, setBadges } from '../../slices/labSlice';
 import CustomInput from '../Inputs/CustomInput';
 import Select from 'react-select';
-import AddBadgeSearch from './AddBadgeSearch';
-
+import './index.css';
 const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
     const initial_state = {
         name: badge ? badge.name : '',
@@ -147,15 +146,14 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             </Select> 
 
         <div className='flex flex-col basis-full self-stretch justify-end'>
-            {selectedImageName && (
-              <p style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {selectedImageName}
-              </p>
-            )}          
+
             <label className="btn-2 secondary-btn self-start">
             Upload Lab Icon
             <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
             </label>
+            <div className='parent box-border max-w-[300px]'>
+            Selected Image: <span className="image-name">{selectedImageName}</span>
+            </div>
           </div>
           </div>
           <div className="error font-normal text-red-700 text-sm">{errors}</div>

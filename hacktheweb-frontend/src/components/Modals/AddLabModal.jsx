@@ -7,7 +7,7 @@ import { addLab, updateLab } from '../../helpers/admin.helpers';
 import Select from 'react-select';
 import { modifyLab, setLabs } from '../../slices/labSlice';
 import { useNavigate } from 'react-router-dom';
-
+import './index.css';
 const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
     const initial_state = {
         name: lab ? lab.name : '',
@@ -105,13 +105,13 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-5 rounded-2xl shadow-lg"
+        className="z-30 w-[741px] p-[20px] transition-opacity bg-bg-main fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-5 rounded-2xl shadow-lg"
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
       >
       
         <h4 className="p-4">{lab ? 'Modify' : 'Add'} Lab</h4>
-        <div className="flex flex-row gap-5 p-6 pb-0">
-        <div className='flex flex-col gap-5 basis-[50%]'>
+        <div className="flex flex-row self-stretch justify-start">
+        <div className='flex flex-col basis-1/2 flex-grow gap-5 p-[10px]'>
         <CustomInput
             label="LAB NAME"
             name="name"
@@ -136,20 +136,23 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             value={launch_api}
             placeholder="Launch API"
           />
-          <div className='flex flex-col basis-full self-stretch justify-end'>
-          {selectedImageName && (
-            <p style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {selectedImageName}
-            </p>
-          )}          
+          <div className='flex flex-col flex-grow self-stretch justify-end'>
+      
           <label className="btn-2 secondary-btn self-start">
             Upload Icon
             <input type="file" name="icon" accept="image/*" onChange={fileHandler} style={{ display: 'none' }} />
           </label>
+          <div className='parent box-border max-w-[300px]'>
+          Selected Image:
+          <div className="image-name-container">
+            <span className="image-name">{selectedImageName}</span>
+          </div>
+        </div>
+
           </div>
 
         </div>
-        <div className='flex flex-col gap-5 basis-[50%]'>
+        <div className='flex flex-col basis-1/2 flex-grow gap-5 p-[10px]'>
             <div className='flex flex-col gap-2'>
             <label className='uppercase'>
             Difficulty   
@@ -177,7 +180,6 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             >
             </Select> 
             </div>
-        
             <TextArea
             label="Objective"
             name="objective"
@@ -189,10 +191,10 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
         </div>
 
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
-        <div className=" monster flex justify-between gap-3 w-full px-5 pb-5">
+        <div className="flex justify-between self-stretch gap-3 max-w-full">
 
 
-          <button onClick={handleCloseViewModal} className="btn">
+          <button onClick={handleCloseViewModal} className="btn-2">
             Cancel
           </button>
           <button onClick={() => handleAction()} className="btn primary-btn">
