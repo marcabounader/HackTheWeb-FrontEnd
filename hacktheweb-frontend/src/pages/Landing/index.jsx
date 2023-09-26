@@ -25,11 +25,11 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
       circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
     }
     return ( 
-        <section className="hero-wrapper flex flex-col justify-center items-center flex-grow-1 flex-wrap">
+        <section className="hero-wrapper flex flex-col justify-center items-center flex-grow-1">
             <LoginForm isOpen={isLoginModalOpen} handleCloseViewModal={handleCloseLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
             <RegisterForm isOpen={isRegisterModalOpen} handleCloseViewModal={handleCloseRegisterModal} handleOpenLoginModal={handleOpenLoginModal} setMyEmail={setMyEmail} myEmail={myEmail}/>
             {circles}
-            <div className="flex flex-row px-[40px] self-stretch">
+            <div className="flex flex-row px-[40px] self-stretch flex-wrap-reverse">
                 <div className="flex flex-col justify-center basis-3/6">
                     <div className="flex flex-col justify-center items-center">
                         <h1>Where offense becomes the ultimate defense!</h1>
@@ -37,7 +37,7 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
                     </div>
                     <div className="my-5">
                         <input type="text" placeholder="Email" className="email-input" value={myEmail} onChange={onChange}/>
-                        <button className="btn primary-btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={handleOpenRegisterModal}>Start Hacking</button>
+                        <button className="btn primary-btn email-btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={handleOpenRegisterModal}>Start Hacking</button>
                     </div>   
                 </div>
                 <div className="flex flex-col self-stretch justify-center items-center basis-3/6 ">
