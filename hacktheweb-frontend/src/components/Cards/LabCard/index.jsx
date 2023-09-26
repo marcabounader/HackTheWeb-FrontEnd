@@ -56,7 +56,7 @@ const LabCard = ({lab}) => {
 
         { type_id =="3" ?
         (
-        <div className=" flex w-[352px] p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
+        <div className="lab-card-wrapper flex basis-1/5 self-stretch p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
             <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
                 <h6 className=" flex-grow self-stretch text-center capitalize">{lab.name}</h6>
@@ -88,7 +88,7 @@ const LabCard = ({lab}) => {
         )
         :
         (
-        <div className="flex min-w-[352px] basis-1 p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
+        <div className="flex lab-card-wrapper basis-1/5 self-stretch p-[10px] flex-col align-start justify-around shadow-md bg-bg-card rounded-[10px] gap-2">
             <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenModifyLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
                 <h6 className=" flex-grow self-stretch text-center capitalize">{lab.name}</h6>
