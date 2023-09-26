@@ -9,7 +9,7 @@ const ActiveLabs = () => {
   return (
     <>
       <h1 className="text-start w-full">Active Labs</h1>
-      {activeLabs.length > 0 ? (
+      {activeLabs && activeLabs.length > 0 ? (
         activeLabs.map((lab, index) => <LabCard lab={lab} key={index} />)
       ) : (
         <p>No active labs available.</p>
