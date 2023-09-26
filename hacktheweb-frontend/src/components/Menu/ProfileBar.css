@@ -2,12 +2,13 @@
     background-color: #0D1115 !important;
 }
 .ant-dropdown *{
-    color: var(--text-color);
+    color: var(--text-color) !important;
 }
 
 .ant-dropdown li{
     margin:5px !important;
     font-size: 16px !important;
+    font-weight: bold !important;
 }
 .ant-dropdown li:hover {
     background-color:var(--active-color) !important;
