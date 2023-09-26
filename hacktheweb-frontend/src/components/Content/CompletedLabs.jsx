@@ -3,12 +3,13 @@ import LabCard from "../Cards/LabCard";
 
 const CompletedLabs = () => {
     const labs = useSelector((state) => state.labs.labs);
+    const completedLabs = labs.filter((lab) => lab.isComplete);
+
     return ( 
         <>
         <h1 className=" text-start w-full">Completed Labs</h1>
-            {labs && labs.length > 0 ? (
-                labs
-                .filter((lab) => lab.isComplete)
+            {completedLabs && completedLabs.length > 0 ? (
+                completedLabs
                 .map((lab, index) => <LabCard lab={lab} key={index} />)
             ) : (
                 <p>No completed labs available.</p>
