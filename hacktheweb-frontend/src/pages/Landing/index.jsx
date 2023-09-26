@@ -29,7 +29,7 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
             <LoginForm isOpen={isLoginModalOpen} handleCloseViewModal={handleCloseLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
             <RegisterForm isOpen={isRegisterModalOpen} handleCloseViewModal={handleCloseRegisterModal} handleOpenLoginModal={handleOpenLoginModal} setMyEmail={setMyEmail} myEmail={myEmail}/>
             {circles}
-            <div className="flex flex-row px-[40px] self-stretch flex-wrap-reverse">
+            <div className="hero-content flex flex-row px-[40px] self-stretch flex-wrap-reverse">
                 <div className="flex flex-col justify-center basis-3/6">
                     <div className="flex flex-col justify-center items-center">
                         <h1>Where offense becomes the ultimate defense!</h1>
