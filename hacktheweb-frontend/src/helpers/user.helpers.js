@@ -32,7 +32,7 @@ import { baseUrl } from "./auth.helpers";
 
   async function getBotResponse(token,prompt) {
     try {
-      const res = await axios.post(`${baseUrl}/api/hacker/chat/`,{prompt}, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.post(`${baseUrl}/api/hacker/chat`,{prompt}, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
