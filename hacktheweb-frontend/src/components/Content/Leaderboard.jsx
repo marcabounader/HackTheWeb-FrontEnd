@@ -24,7 +24,7 @@ const Leaderboard = () => {
     return ( 
         <>
         <h1 className="text-start self-stretch w-full">Top Ten Hackers</h1>
-        <div className="flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+        <div className="leaderboard-header flex flex-start gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
             <div className="basis-1/5  text-left uppercase ml-2">Rank</div>
             <div className="basis-1/5 uppercase text-left">Name</div>
             <div className="basis-1/5  text-left uppercase">Rewards</div>
