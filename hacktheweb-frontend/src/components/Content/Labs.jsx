@@ -11,7 +11,7 @@ import { debounce } from "@mui/material";
 
 
 
-const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurrentPage,fetchLabs,totalPages,currentPage}) => {
+const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
@@ -20,34 +20,36 @@ const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurre
     const handleCloseLab = () =>setShowLabAdd(false);
     const { type_id,token} = user;   
     const [debouncedSearch, setDebouncedSearch] = useState("");
+    const [debounceTimer, setDebounceTimer] = useState(null);
 
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
-        if(debouncedSearch!==""){
-            handleSearch(debouncedSearch)
-        } else {
-            fetchLabs();
-        }
+        handleSearch(debouncedSearch)
     };
 
-    const debouncedHandleSearch = debounce(handleSearch, 300);
 
     const handleSearchChange = (event) => {
         const { value } = event.target;
+        if (debounceTimer) {
+            clearTimeout(debounceTimer);
+        }
         setDebouncedSearch(value);
         if (value !== "" && labs && labs.length > 0) {
-            debouncedHandleSearch(value);
-        } else {
-            setSearchedLabs([]);
             setCurrentPage(1);
+            const timerId = setTimeout(() => {
+                handleSearch(value);
+            }, 300);
+            setDebounceTimer(timerId);
+        } else {
+            setCurrentPage(1);
+            handleSearch('');
         }
       };
 
     useEffect(() => {
         setCurrentPage(1);
-        fetchLabs();
-        setSearchedLabs([]);
         setDebouncedSearch('');
+        handleSearch(debouncedSearch);
     }, [labs_tab]); 
 
     return ( 
@@ -75,22 +77,9 @@ const Labs = ({handleSearch,theme,searchedLabs,setSearchedLabs,labs_tab,setCurre
                     onChange={handleSearchChange}
                     />
                 </div>
-                {searchedLabs && searchedLabs.length > 0 ? 
-                (
-                    <>
-                    {searchedLabs.map((lab, index) => (
+                {labs.map((lab, index) => (
                     <LabCard lab={lab} key={index} />
-                    ))}
-                </>
-                )
-                :
-                (
-                <>
-                    {labs
-                    .map((lab, index) => <LabCard lab={lab} key={index} />)}
-
-                </>
-                )}
+                ))}
                 <ThemeProvider theme={theme}>
                     <Stack className="basis-full flex flex-col items-center">
                             <Pagination
