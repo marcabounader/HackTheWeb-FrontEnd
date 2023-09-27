@@ -26,10 +26,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
     const [usersPerPage,setUsersPerPage]=useState(5);
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [activePerPage,setActivePerPage]=useState(5);
-    const [searchedLabs,setSearchedLabs] = useState("");
-    const [searchedUsers,setSearchedUsers] = useState("");
-    const [searchedActive,setSearchedActive] = useState("");
-    const [searchedBadges,setSearchedBadges] = useState("");
 
     const theme = createTheme({
       palette: {
@@ -63,7 +59,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.users) {
-              setSearchedUsers(data.users.data);
+              dispatch(setUsers(data.users.data));
               setTotalPages(data.users.last_page);
               setPerPage(data.users.per_page);
               setTotalUsers(data.users.total);
@@ -78,7 +74,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.badges) {
-              setSearchedBadges(data.badges.data);
+              dispatch(setBadges(data.badges.data)); 
               setTotalPages(data.badges.last_page);
               setPerPage(data.badges.per_page);
               setTotalBadges(data.badges.total);
@@ -138,7 +134,6 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         if (message && message === "Unauthenticated.") {
           navigate("/");
         } else if (data && data.active_labs) {
-          console.log(data);
           dispatch(setActiveLabs(data.active_labs.data));  
           setTotalPages(data.active_labs.last_page);
           setActivePerPage(data.active_labs.per_page);
@@ -154,10 +149,10 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.labs) {
-              setSearchedLabs(data.labs.data);
-              setTotalPages(data.labs.last_page);
-              setPerPage(data.labs.per_page);
-              setTotalLabs(data.labs.total);
+            dispatch(setLabs(data.labs.data));
+            setTotalPages(data.labs.last_page);
+            setPerPage(data.labs.per_page);
+            setTotalLabs(data.labs.total);
           }
       } catch (error) {
         console.error("Error fetching labs:", error);
@@ -169,7 +164,7 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.active_labs) {
-              setSearchedActive(data.active_labs.data);
+              dispatch(setActiveLabs(data.active_labs.data));  
               setTotalPages(data.active_labs.last_page);
               setPerPage(data.active_labs.per_page);
               setTotalActive(data.active_labs.total);
@@ -312,12 +307,12 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users handleUserSearch={handleUserSearch} setSearchedUsers={setSearchedUsers} searchedUsers={searchedUsers} fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {users_tab && <Users handleUserSearch={handleUserSearch} fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
-                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} searchedActive={searchedActive} setSearchedActive={setSearchedActive} fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {labs_tab && <Labs handleSearch={handleSearch} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} searchedBadges={searchedBadges} setSearchedBadges={setSearchedBadges} fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
+                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
             </div>
         </section>
