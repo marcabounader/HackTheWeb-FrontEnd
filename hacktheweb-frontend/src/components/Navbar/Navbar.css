@@ -30,9 +30,6 @@
     .menu-container{
       display: flex;
     }
-    .profile-image{
-
-    }
     .menu-container *{
       cursor: pointer;
     }
