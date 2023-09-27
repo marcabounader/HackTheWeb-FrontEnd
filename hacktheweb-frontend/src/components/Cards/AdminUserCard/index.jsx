@@ -28,7 +28,7 @@ const AdminUsercard = ({token,user}) => {
     return ( 
         <>
         <ConfirmModal action={action} name={user.name} handler={handleRestrict} isOpen={showRestrictConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
-        <div className="admin-user-wrapper flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md">
+        <div className="admin-user-wrapper flex flex-start gap-[10px] h-[64px] w-full items-center bg-black opacity-75 shadow-md overflow-x-auto">
             <div className="basis-[10%] text-left ml-2 parent">{user.rank}</div>
             <div className="basis-1/5 capitalize text-left parent">{user.name}</div>
             <div className="basis-1/5 capitalize text-left parent">{user.email}</div>
