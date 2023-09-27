@@ -3,31 +3,34 @@ import ActiveLabCard from "../Cards/ActiveLabCard";
 import { Pagination, Stack, ThemeProvider, debounce } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,theme, setCurrentPage,fetchActiveLabs,totalPages,currentPage}) => {
+const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,currentPage}) => {
     const active_labs = useSelector((state) => state.labs.activeLabs);
-    const debouncedHandleSearch = debounce(handleActiveSearch, 300);
+    const [debounceTimer, setDebounceTimer] = useState(null);
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const handleSearchChange = (event) => {
       const { value } = event.target;
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
       setDebouncedSearch(value);
-      if (value !== "" && active_labs && active_labs.length>0) {
-          debouncedHandleSearch(value);
+      if (value !== "" && active_labs && active_labs.length > 0) {
+        setCurrentPage(1);
+          const timerId = setTimeout(() => {
+              handleActiveSearch(value);
+          }, 300);
+          setDebounceTimer(timerId);
       } else {
-          setSearchedActive([]);
+          setCurrentPage(1);
+          handleActiveSearch('');
       }
     };
     const handlePageChange = (event,page) => {
       setCurrentPage(page);
-      if(debouncedSearch!==""){
-        handleActiveSearch(debouncedSearch)
-      } else {
-        fetchActiveLabs();
-      }
+      handleActiveSearch(debouncedSearch)
     };
     useEffect(() => {
         setCurrentPage(1);
-        fetchActiveLabs();
-        setSearchedActive([]);
+        handleActiveSearch('');
         setDebouncedSearch('');
     }, []); 
     return ( 
@@ -53,22 +56,11 @@ const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,t
         </div>
         {active_labs && active_labs.length > 0 ? (
           <>
-          {searchedActive && searchedActive.length > 0 ? 
-                (
-                <div className="flex flex-col w-full gap-[5px]">
-                    {searchedActive
-                      .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)}
-                    </div>
-                )
-                :
-                (
-                <>
+
                 <div className="flex flex-col w-full gap-[5px]">
                 {active_labs
                 .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)}
                 </div>
-                </>
-                )}
 
           <ThemeProvider theme={theme}>
         <Stack className="basis-full flex flex-col items-center">
