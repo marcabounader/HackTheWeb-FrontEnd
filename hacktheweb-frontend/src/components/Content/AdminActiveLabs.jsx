@@ -41,7 +41,7 @@ const AdminActiveLabs = ({handleActiveSearch, searchedActive,setSearchedActive,t
                     onChange={handleSearchChange}
         />
         </div>
-        <div className="active-lab-header flex gap-[10px] h-[64px] w-full items-center bg-black shadow-md">
+        <div className="active-lab-header flex gap-[10px] h-[64px] w-full items-center bg-black shadow-md overflow-x-auto">
             <div className="basis-1/5  text-left uppercase ml-2">Name</div>
             <div className="basis-1/5 uppercase text-left">Email</div>
             <div className="basis-1/5  text-left uppercase">Docker Name</div>
