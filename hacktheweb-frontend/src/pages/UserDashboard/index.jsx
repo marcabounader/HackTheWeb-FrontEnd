@@ -35,8 +35,6 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
     const [totalLabs,setTotalLabs] = useState('');
     const [badgesPerPage,setBadgesPerPage]=useState(5);
     const [totalBadges,setTotalBadges] = useState('');
-    const [searchedLabs,setSearchedLabs] = useState("");
-    const [searchedBadges,setSearchedBadges] = useState("");
 
     const theme = createTheme({
       palette: {
@@ -61,7 +59,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.labs) {
-              setSearchedLabs(data.labs.data);
+              dispatch(setLabs(data.labs.data));
               setTotalPages(data.labs.last_page);
               setPerPage(data.labs.per_page);
               setTotalLabs(data.labs.total);
@@ -77,7 +75,7 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.badges) {
-              setSearchedBadges(data.badges.data);
+              dispatch(setBadges(data.badges.data)); 
               setTotalPages(data.badges.last_page);
               setPerPage(data.badges.per_page);
               setTotalBadges(data.badges.total);
@@ -210,8 +208,8 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home/>}
-                {achievements && <Achievements handleBadgeSearch={handleBadgeSearch} searchedBadges={searchedBadges} setSearchedBadges={setSearchedBadges} theme={theme} fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
-                {labs_tab && <Labs handleSearch={handleSearch} searchedLabs={searchedLabs} setSearchedLabs={setSearchedLabs} theme={theme} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {achievements && <Achievements handleBadgeSearch={handleBadgeSearch} theme={theme} fetchBadges={fetchBadges} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {labs_tab && <Labs handleSearch={handleSearch} theme={theme} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard />}
