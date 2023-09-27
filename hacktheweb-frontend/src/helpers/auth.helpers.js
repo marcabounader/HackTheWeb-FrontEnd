@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const baseUrl = 'http://192.168.1.29:8000';
+const baseUrl = 'http://192.168.1.11:8000';
 // const baseUrl = 'http://3.248.194.204/api/';
 const Auth = () => {
   // const { token } = JSON.parse(localStorage.getItem('user'));
