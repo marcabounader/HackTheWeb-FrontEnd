@@ -174,7 +174,7 @@ textarea::placeholder{
     flex-direction: column;
     overflow-y: scroll;
  }
- .lab-card-wrapper {
+ .lab-card-wrapper, .statistics-card-wrapper {
    flex-basis: 100%;
  }
  .leaderboard-header, .user-card-wrapper, .active-lab-wrapper,.admin-user-wrapper,.admin-user-header,.active-lab-header{
