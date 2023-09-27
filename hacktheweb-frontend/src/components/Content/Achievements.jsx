@@ -6,38 +6,44 @@ import { useEffect, useState } from "react";
 import AddBadgeModal from "../Modals/AddBadgeModal";
 import { Pagination, Stack, ThemeProvider, debounce } from "@mui/material";
 
-const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,fetchBadges,setCurrentPage,totalPages,currentPage}) => {
+const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,currentPage}) => {
     const badges = useSelector((state) => state.labs.badges);
     const user = useSelector((state) => state.user);
     const { type_id ,token } = user;
     const [showAddBadge,setShowAddBadge]=useState(false);
     const handleCloseAddBadge = () => setShowAddBadge(false);
     const handleOpenAddBadge = () => setShowAddBadge(true);
-    const debouncedHandleSearch = debounce(handleBadgeSearch, 300);
+    const [debounceTimer, setDebounceTimer] = useState(null);
     const [debouncedSearch, setDebouncedSearch] = useState("");
+    
+    const handlePageChange = (event,page) => {
+      setCurrentPage(page);
+      handleBadgeSearch(debouncedSearch);
+    };
+
     const handleSearchChange = (event) => {
       const { value } = event.target;
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+    }
       setDebouncedSearch(value);
-      if (value !== "" && badges && badges.length>0) {
-          debouncedHandleSearch(value);
-      } else {
-          setSearchedBadges([]);
-      }
+      if (value !== "" && badges && badges.length > 0) {
+        setCurrentPage(1);
+        const timerId = setTimeout(() => {
+            handleBadgeSearch(value);
+        }, 300);
+        setDebounceTimer(timerId);
+    } else {
+        setCurrentPage(1);
+        handleBadgeSearch('');
+    }
     };
     useEffect(()=>{
       setCurrentPage(1);
-      fetchBadges();
-      setSearchedBadges([]);
+      handleBadgeSearch('');
       setDebouncedSearch('');
     },[]);
-    const handlePageChange = (event,page) => {
-      setCurrentPage(page);
-      if(debouncedSearch!==""){
-        handleBadgeSearch(debouncedSearch)
-    } else {
-      fetchBadges();
-    }
-  };
+
     return ( 
         <>
         <AddBadgeModal isOpen={showAddBadge} handleCloseViewModal={handleCloseAddBadge} token={token}/>
@@ -63,23 +69,9 @@ const Achievements = ({handleBadgeSearch,searchedBadges,setSearchedBadges,theme,
                     onChange={handleSearchChange}
         />
         </div>
-        {searchedBadges && searchedBadges.length > 0 ? 
-                (
-                  <>
-                  {searchedBadges.map((badge, index) => 
-                  <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />
-                  )}
-                  </>
-                )
-                :
-                (
-                  <>
-                  {badges.map((badge, index) => 
-                  <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />
-                  )}
-                  </>
-                )
-        }
+        {badges.map((badge, index) => 
+        <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />
+        )}
         <ThemeProvider theme={theme}>
         <Stack className="basis-full flex flex-col items-center">
                 <Pagination
