@@ -18,7 +18,7 @@
   --active-color: rgba(164, 177, 205, 0.35);
   --placeholder-size:13px;
   --notice-size: 12px;
-
+  --text-size: 16px;
 }
 
 
@@ -28,7 +28,7 @@ html, body {
   background-color: var(--primary-bg-color);
   font-family: 'Roboto Mono', monospace;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: var(--text-size);
   box-sizing: border-box;
 }
 
@@ -37,7 +37,7 @@ html, body {
 }
 
 .label{
-  font-size:16px
+  font-size:var(--text-size);
 }
 
 .notice{
@@ -183,4 +183,25 @@ textarea::placeholder{
  .hero-content{
     justify-content: center;
  }
+ h1{
+  font-size: 32px;
+}
+h2{
+  font-size: 28px;
+}
+h3{
+  font-size: 24px;
+}
+h4{
+  font-size: 20px;
+}
+h5{
+  font-size: 18px;
+}
+h6{
+  font-size: 16px;
+}
+:root{
+  --text-size:12px;
+}
 }
