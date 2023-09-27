@@ -28,7 +28,10 @@
 
   @media (max-width: 768px) {
     .menu-container{
-      display: block;
+      display: flex;
+    }
+    .profile-image{
+
     }
     .menu-container *{
       cursor: pointer;
