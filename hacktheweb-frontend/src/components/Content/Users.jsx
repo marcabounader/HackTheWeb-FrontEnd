@@ -4,32 +4,36 @@ import { Pagination, Stack, ThemeProvider, debounce } from "@mui/material";
 import { useSelector } from "react-redux";
 
 
-const Users = ({handleUserSearch,searchedUsers,setSearchedUsers,theme,token,fetchUsers,setCurrentPage,totalPages,currentPage}) => {
+const Users = ({handleUserSearch,theme,token,setCurrentPage,totalPages,currentPage}) => {
     const users = useSelector((state) => state.labs.users);
-    const debouncedHandleSearch = debounce(handleUserSearch, 300);
+    const [debounceTimer, setDebounceTimer] = useState(null);
     const [debouncedSearch, setDebouncedSearch] = useState("");
 
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setDebouncedSearch(value);
-        if (value !== "" && users && users.length>0) {
-            debouncedHandleSearch(value);
+        if (debounceTimer) {
+            clearTimeout(debounceTimer);
+        }
+        setDebouncedSearch(value);
+        if (value !== "" && users && users.length > 0) {
+            setCurrentPage(1);
+            const timerId = setTimeout(() => {
+                handleUserSearch(value);
+            }, 300);
+            setDebounceTimer(timerId);
         } else {
-            setSearchedUsers([]);
+            setCurrentPage(1);
+            handleUserSearch('');
         }
       };
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
-        if(debouncedSearch!==""){
-            handleUserSearch(debouncedSearch)
-        } else {
-            fetchUsers();
-        }
+        handleUserSearch(debouncedSearch);
     };
     useEffect(()=>{
         setCurrentPage(1);
-        fetchUsers();
-        setSearchedUsers([]);
+        handleUserSearch('');
         setDebouncedSearch('');
     },[])
 
@@ -54,22 +58,10 @@ const Users = ({handleUserSearch,searchedUsers,setSearchedUsers,theme,token,fetc
         </div>
         {users && users.length > 0 ? (
             <>
-                {searchedUsers && searchedUsers.length > 0 ? 
-                (
-                <div className="flex flex-col w-full gap-[5px]">
-                    {searchedUsers
-                    .map((user, index) => <AdminUsercard user={user} token={token} key={index} />)}
-                    </div>
-                )
-                :
-                (
-                <>
-                    <div className="flex flex-col w-full gap-[5px]">
-                    {users
-                    .map((user, index) => <AdminUsercard user={user} token={token} key={index} />)}
-                    </div>
-                </>
-                )}
+            <div className="flex flex-col w-full gap-[5px]">
+                {users
+                .map((user, index) => <AdminUsercard user={user} token={token} key={index} />)}
+            </div>
 
             <ThemeProvider theme={theme}>
             <Stack className="basis-full flex flex-col items-center">
