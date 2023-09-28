@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Circle from '../../components/Objects/circle';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import SideButton from '../../components/Sidebar/SideButton';
 import Labs from '../../components/Content/Labs';
 import './AdminDashboard.css';
-import { faFlaskVial, faHome, faMedal, faRunning, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faFlaskVial, faHome, faMedal, faRunning, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics, setUsers } from '../../slices/labSlice'; 
 import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty, getUsers, searchActiveLabs, searchUsers } from '../../helpers/admin.helpers';
@@ -18,7 +17,7 @@ import Users from '../../components/Content/Users';
 import { createTheme } from '@mui/material';
 import { searchBadges, searchLabs } from '../../helpers/common.helpers';
 
-const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,toggleContent}) => {
+const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
   const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const { token } = user;
@@ -234,20 +233,11 @@ const AdminDashboard = ({onEnter,onLeave,addCircleRef,areCirclesVisible,state,to
         fetchBadgeCategories();
       }
     }, [isMounted]);
-        
-    const circles = [];
-
-    if (areCirclesVisible) {
-      circles.push(<Circle size="sm" ref={addCircleRef} delay={0} key="circle-sm" />);
-      circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
-      circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
-    }
 
     const {  home,labs_tab, active_tab, users_tab,leaderboard,badges} = state;
 
     return ( 
         <section className='main-wrapper'>
-            {circles}
             <Sidebar>
                 <SideButton 
                 icon={faHome}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Circle from '../../components/Objects/circle';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import SideButton from '../../components/Sidebar/SideButton';
@@ -19,7 +18,7 @@ import { createTheme } from '@mui/material';
 import ChatBot from '../../components/Popover/ChatBot/ChatBot';
 import { searchLabs } from '../../helpers/common.helpers';
 
-const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,toggleContent}) => {
+const UserDashboard = ({onLeave,onEnter,state,toggleContent}) => {
   const dispatch = useDispatch();
   const completedLabs = useSelector((state) => state.labs.completedLabs);
     const user = useSelector((state) => state.user);
@@ -136,19 +135,10 @@ const UserDashboard = ({onLeave,onEnter,addCircleRef,areCirclesVisible,state,tog
       }
     };
     
-
-    const circles = [];
-
-    if (areCirclesVisible) {
-      circles.push(<Circle size="sm" ref={addCircleRef} delay={0} key="circle-sm" />);
-      circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
-      circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
-    }
     const {  home,achievements,labs_tab, active_tab, completed_tab,leaderboard} = state;
 
     return ( 
         <section className='main-wrapper'>
-            {circles}
             <Sidebar>
                 <SideButton 
                 icon={faHome}

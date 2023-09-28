@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import Circle from './components/Objects/circle';
 const falseState = {
   home:false,
   achievements:false,
@@ -106,9 +107,17 @@ function App() {
     
     return () => window.removeEventListener("pointermove", onMove);
   }, [areCirclesVisible]);
+  const circles= [];
+
+  if (areCirclesVisible) {
+    circles.push(<Circle size="sm" ref={addCircleRef} delay={0} key="circle-sm" />);
+    circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
+    circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
+  }
   return (
    <Router>
         <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
+        {circles}
         <Routes>
           <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
           <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>

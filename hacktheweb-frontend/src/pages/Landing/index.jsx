@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Footer from "../../components/Footer";
 import LoginForm from "../../components/Forms/LoginForm";
 import RegisterForm from "../../components/Forms/RegisterForm";
-import Circle from "../../components/Objects/circle";
 import "./landing.css"
 import CyberSecurityLogo from "../../assets/logos/logo-cyber-security.svg"; // Import the SVG
 
-const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleCloseLoginModal,isRegisterModalOpen,handleCloseRegisterModal,handleOpenRegisterModal,areCirclesVisible}) => {
-    const circleRefs = useRef([]);
+const Landing = ({onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleCloseLoginModal,isRegisterModalOpen,handleCloseRegisterModal,handleOpenRegisterModal}) => {
     const [myEmail,setMyEmail]=useState('');
-    circleRefs.current = [];
     
 
     function onChange(e) {
@@ -17,18 +14,11 @@ const Landing = ({addCircleRef,onEnter,onLeave,isLoginModalOpen,handleOpenLoginM
       setMyEmail(value);
     }
     
-    const circles= [];
     
-    if (areCirclesVisible) {
-      circles.push(<Circle size="sm" ref={addCircleRef} delay={0} key="circle-sm" />);
-      circles.push(<Circle size="md" ref={addCircleRef} delay={0.1} key="circle-md" />);
-      circles.push(<Circle size="lg" ref={addCircleRef} delay={0.2} key="circle-lg" />);
-    }
     return ( 
         <section className="hero-wrapper flex flex-col justify-center items-center flex-grow-1">
             <LoginForm isOpen={isLoginModalOpen} handleCloseViewModal={handleCloseLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
             <RegisterForm isOpen={isRegisterModalOpen} handleCloseViewModal={handleCloseRegisterModal} handleOpenLoginModal={handleOpenLoginModal} setMyEmail={setMyEmail} myEmail={myEmail}/>
-            {circles}
             <div className="hero-content flex flex-row px-[40px] self-stretch flex-wrap-reverse">
                 <div className="flex flex-col justify-center basis-3/6">
                     <div className="flex flex-col justify-center items-center">
