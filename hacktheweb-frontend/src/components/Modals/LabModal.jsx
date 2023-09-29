@@ -9,8 +9,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './LabModal.css';
 import { gsap } from 'gsap';
 import SpinningIcon from '../Animation/Spinner';
-import { current } from '@reduxjs/toolkit';
-
+import { baseUrl2 } from '../../helpers/auth.helpers';
 Modal.setAppElement('#root');
 
 const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseViewModal,lab,token}) => {
@@ -146,7 +145,7 @@ const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseVi
         <Modal
         isOpen={isOpen}
         onRequestClose={handleCloseViewModal}
-        className="z-30 bg-[#0D1115] w-[50%] h-[60%] transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
+        className="z-30 overflow-y-auto bg-[#0D1115] w-[50%] h-[70%] transition-opacity fixed top-1/2 left-1/2 transform  -translate-x-1/2 -translate-y-1/2 dark:border flex flex-col items-center gap-3 shadow-lg py-[10px] px-[20px]"
         overlayClassName="fixed top-0 z-10 left-0 w-[100%] h-full backdrop-blur-xl drop-shadow-lg"
         >   
             <div className='lab-title flex justify-between items-center self-stretch'>
@@ -170,7 +169,7 @@ const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseVi
                         <div className='sub-header'>Reward: </div>
                         <div>{lab.reward}</div>
                     </div>
-                    <div className=' overflow-y-auto'>
+                    <div>
                         <div className='sub-header'>Objective: </div>
                         <div>{lab.objective}</div>
                     </div>
@@ -186,7 +185,7 @@ const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseVi
                     lab.isActive ?
                         (  
                             <>
-                            <input type="text" className=' bg-bg-main border border-white' onChange={onChange} value={flag} placeholder='Enter Flag'/>
+                            <input type="text" onChange={onChange} value={flag} placeholder='Enter Flag'/>
                             <button className='btn-2 primary-btn' onClick={handleSubmitFlag}>Submit Flag</button>
                             <p>
                             Launch Time:{` ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`}
@@ -198,7 +197,7 @@ const LabModal = ({isStopLoading,handleOpenStopConfirmation,isOpen,handleCloseVi
                                 :
                                     <button className='btn-2 secondary-btn m-0' onClick={handleOpenStopConfirmation}>Stop Lab</button>
                                 }
-                                <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`http://192.168.1.29:${lab.active_lab.port}`}>Open Lab</a>
+                                <a className='btn-2 primary-btn m-0 text-center' target="_blank" href={`${baseUrl2}:${lab.active_lab.port}`}>Open Lab</a>
                             </div>
             
                             </>
