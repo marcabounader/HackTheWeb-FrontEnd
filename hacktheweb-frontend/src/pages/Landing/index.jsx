@@ -5,7 +5,7 @@ import RegisterForm from "../../components/Forms/RegisterForm";
 import "./landing.css"
 import CyberSecurityLogo from "../../assets/logos/logo-cyber-security.svg"; // Import the SVG
 
-const Landing = ({onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleCloseLoginModal,isRegisterModalOpen,handleCloseRegisterModal,handleOpenRegisterModal}) => {
+const Landing = ({onPrimaryEnter,onPrimaryLeave,isLoginModalOpen,handleOpenLoginModal, handleCloseLoginModal,isRegisterModalOpen,handleCloseRegisterModal,handleOpenRegisterModal}) => {
     const [myEmail,setMyEmail]=useState('');
     
 
@@ -27,7 +27,7 @@ const Landing = ({onEnter,onLeave,isLoginModalOpen,handleOpenLoginModal, handleC
                     </div>
                     <div className="my-5">
                         <input type="text" placeholder="Email" className="email-input" value={myEmail} onChange={onChange}/>
-                        <button className="btn primary-btn email-btn" onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={handleOpenRegisterModal}>Start Hacking</button>
+                        <button className="btn primary-btn email-btn" onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave} onClick={handleOpenRegisterModal}>New Hacker</button>
                     </div>   
                 </div>
                 <div className="flex flex-col self-stretch justify-center items-center basis-3/6 ">
