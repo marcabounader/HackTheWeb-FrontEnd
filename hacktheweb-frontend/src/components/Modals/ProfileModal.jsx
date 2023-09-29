@@ -43,8 +43,10 @@ const ProfileModal = ({ isOpen, handleCloseViewModal }) => {
       data.changes.forEach((change) => {
         if (change === 'name') {
           dispatch(updateUser({ attributeName: 'name', attributeValue: data.user.name }));
+          handleCloseViewModal();
         } else if (change === 'profile_url') {
           dispatch(updateUser({ attributeName: 'profile_url', attributeValue: data.user.profile_url }));
+          handleCloseViewModal();
         }
       });
     }
