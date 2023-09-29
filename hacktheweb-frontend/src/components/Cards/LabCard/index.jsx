@@ -56,10 +56,10 @@ const LabCard = ({lab}) => {
 
         { type_id =="3" ?
         (
-        <div className="lab-card-wrapper flex basis-[24%] self-stretch p-[10px] flex-col align-start justify-between shadow-md bg-bg-card rounded-[10px]">
-            <div className=" flex-wrap flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
+        <div className="lab-card-wrapper flex-grow flex basis-[23%] self-stretch p-[10px] flex-col align-start justify-between shadow-md bg-bg-card rounded-[10px]">
+            <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenShowLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
-                <h6 className=" flex-wrap flex-grow self-stretch text-center capitalize">{lab.name}</h6>
+                <h6 className="flex-grow self-stretch text-center capitalize overflow-x-auto">{lab.name}</h6>
             </div>
             <div className="flex flex-row justify-between">
             <div className="flex flex-col justify-between items-start ">
@@ -88,10 +88,10 @@ const LabCard = ({lab}) => {
         )
         :
         (
-        <div className="flex lab-card-wrapper basis-[24%] self-stretch p-[10px] flex-col align-start justify-between shadow-md bg-bg-card rounded-[10px]">
+        <div className="flex lab-card-wrapper flex-grow basis-[23%] self-stretch p-[10px] flex-col align-start justify-between shadow-md bg-bg-card rounded-[10px]">
             <div className="flex flex-row cursor-pointer gap-3" onClick={handleOpenModifyLab}>
                 <img className="w-[60px] h-[50px]" src={lab.icon_url} alt="lab image"/>
-                <h6 className=" flex-grow flex-wrap overflow-auto self-stretch text-center capitalize">{lab.name}</h6>
+                <h6 className=" flex-grow overflow-auto self-stretch text-center capitalize overflow-x-auto">{lab.name}</h6>
             </div>
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-between items-start ">
