@@ -35,8 +35,8 @@ const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,cu
     }, []); 
     return ( 
         <>
+        <div className=" basis-full flex flex-row justify-between items-center">
         <h1 className="text-start self-stretch w-full">User Active Labs</h1>
-        <div className="w-full flex flex-row justify-center items-center">
         <input
                     type="search"
                     placeholder="Search Active Labs"
