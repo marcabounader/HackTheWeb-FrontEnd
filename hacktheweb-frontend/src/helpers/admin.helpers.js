@@ -448,9 +448,9 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  async function searchUsers(token,query,page) {
+  async function searchUsers(token,query,page,perPage) {
     try {
-      const res = await axios.get(`${baseUrl}/api/admin/search-users?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/admin/search-users?page=${page}&perPage=${perPage}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
@@ -474,9 +474,9 @@ async function getAllLabs(token,page) {
       return { message };
     }
   }
-  async function searchActiveLabs(token,query,page) {
+  async function searchActiveLabs(token,query,page,perPage) {
     try {
-      const res = await axios.get(`${baseUrl}/api/admin/search-active-labs?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+      const res = await axios.get(`${baseUrl}/api/admin/search-active-labs?page=${page}&perPage=${perPage}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
       if (res.status === 200) {
         const data = res.data;
         return { data };
