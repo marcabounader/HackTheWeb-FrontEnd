@@ -333,9 +333,9 @@ const getSVG = async (icon_url) => {
     return { message };
   }
 };
-async function searchBadges(token,query,page) {
+async function searchBadges(token,query,page,perPage) {
   try {
-    const res = await axios.get(`${baseUrl}/api/hacker/search-badges?page=${page}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
+    const res = await axios.get(`${baseUrl}/api/hacker/search-badges?page=${page}&perPage=${perPage}&query=${query}`, {headers: { Authorization: `Bearer ${token}` }});
     if (res.status === 200) {
       const data = res.data;
       return { data };
