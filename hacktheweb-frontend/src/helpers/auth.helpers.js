@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const baseUrl = 'http://192.168.1.11:8000';
+const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl2= 'http://127.0.0.1';
 // const baseUrl = 'http://3.248.194.204/api/';
 const Auth = () => {
   // const { token } = JSON.parse(localStorage.getItem('user'));
@@ -103,4 +104,4 @@ async function register({password,name, email }) {
   }
 }
 
-export { logIn, Auth ,register,logOut,baseUrl};
+export { logIn, Auth ,register,logOut,baseUrl,baseUrl2};
