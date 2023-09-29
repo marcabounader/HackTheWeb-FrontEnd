@@ -161,6 +161,10 @@ textarea::placeholder{
   padding-left:2px;
 }
 
+.MuiPagination-ul *{
+  color:white !important;
+}
+
 @media (max-width: 768px) {
  .email-btn{
   margin-left: 0px;
@@ -203,5 +207,8 @@ h6{
 }
 :root{
   --text-size:12px;
+}
+.side-button-wrapper{
+  justify-content: center;
 }
 }
