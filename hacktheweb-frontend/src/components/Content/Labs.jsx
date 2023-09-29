@@ -55,28 +55,37 @@ const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage
     return ( 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
+        <div className="basis-full flex-wrap flex flex-row justify-between items-center">
         {type_id=="3" ?
         (
-        <h1 className=" text-start w-full">Labs</h1>
-        )
-        :
-        (
-        <div className="flex flex-row basis-full justify-between items-center">
-            <h1 className=" text-start ">Labs</h1>
-            <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
-        </div>
-        )}
-
-        {labs && labs.length > 0 ? (
-                <>
-                <div className="w-full flex flex-row justify-center items-center">
-                    <input
+        <>
+        <h1 className=" text-start ">Labs</h1>
+        <input
                     type="search"
                     placeholder="Search Labs"
                     value={debouncedSearch}
                     onChange={handleSearchChange}
                     />
-                </div>
+        </>
+        )
+        :
+        (
+        <>
+            <h1 className=" text-start ">Labs</h1>
+            <input
+                type="search"
+                placeholder="Search Labs"
+                value={debouncedSearch}
+                onChange={handleSearchChange}
+            />
+            <FontAwesomeIcon onClick={handleOpenLab} icon={faPlusSquare} className="text-color-secondary w-[40px] h-[40px]" ></FontAwesomeIcon>
+        </>
+        )}
+        </div>
+
+        {labs && labs.length > 0 ? (
+                <>
+
                 {labs.map((lab, index) => (
                     <LabCard lab={lab} key={index} />
                 ))}
@@ -87,6 +96,7 @@ const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage
                             page={currentPage}
                             onChange={handlePageChange}
                             color="primary"
+                            style={{color:'red'}}
                             />
                     </Stack>
                 </ThemeProvider>
