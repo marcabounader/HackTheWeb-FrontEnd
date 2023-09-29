@@ -8,7 +8,7 @@ import './AdminDashboard.css';
 import { faFlaskVial, faHome, faMedal, faRunning, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setActiveLabs, setBadgeCategories, setBadges, setLabCategories, setLabDifficulties, setLabs, setStatistics, setUsers } from '../../slices/labSlice'; 
-import { getActiveLabs, getAdminStatistics, getAllLabs, getBadgeCategories, getBadges, getLabCategory, getLabDifficulty, getUsers, searchActiveLabs, searchUsers } from '../../helpers/admin.helpers';
+import { getAdminStatistics, getBadgeCategories, getLabCategory, getLabDifficulty, searchActiveLabs, searchUsers } from '../../helpers/admin.helpers';
 import Leaderboard from '../../components/Content/Leaderboard';
 import Home from '../../components/Content/Home';
 import AdminActiveLabs from '../../components/Content/AdminActiveLabs';
@@ -21,9 +21,9 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
   const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const { token } = user;
-    const [perPage,setPerPage]=useState(9);
+    const [perPage,setPerPage]=useState(12);
     const [usersPerPage,setUsersPerPage]=useState(5);
-    const [badgesPerPage,setBadgesPerPage]=useState(5);
+    const [badgesPerPage,setBadgesPerPage]=useState(8);
     const [activePerPage,setActivePerPage]=useState(5);
 
     const theme = createTheme({
@@ -54,103 +54,40 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
     }, []);
     const handleUserSearch = async (query) => {
       try{
-          const {data,message,errorMessages}=await searchUsers(token,query,currentPage);
+          const {data,message,errorMessages}=await searchUsers(token,query,currentPage,usersPerPage);
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.users) {
               dispatch(setUsers(data.users.data));
               setTotalPages(data.users.last_page);
-              setPerPage(data.users.per_page);
               setTotalUsers(data.users.total);
           }
       } catch (error) {
-        console.error("Error fetching labs:", error);
+        console.error("Error fetching users:", error);
       }
     }
     const handleBadgeSearch = async (query) => {
       try{
-          const {data,message,errorMessages}=await searchBadges(token,query,currentPage);
+          const {data,message,errorMessages}=await searchBadges(token,query,currentPage,badgesPerPage);
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.badges) {
               dispatch(setBadges(data.badges.data)); 
               setTotalPages(data.badges.last_page);
-              setPerPage(data.badges.per_page);
               setTotalBadges(data.badges.total);
           }
       } catch (error) {
-        console.error("Error fetching labs:", error);
+        console.error("Error fetching badges:", error);
       }
     }
-    const fetchLabs = async () => {
-      try {
-        const { data, message, errorMessages } = await getAllLabs(token,currentPage);
-        if (message && message === "Unauthenticated.") {
-          navigate("/");
-        } else if (data && data.labs) {
-          dispatch(setLabs(data.labs.data));
-          setTotalPages(data.labs.last_page);
-          setPerPage(data.labs.per_page);
-          setTotalLabs(data.labs.total);
-        }
-      } catch (error) {
-        console.error("Error fetching labs:", error);
-      }
-    };
-    const fetchUsers = async () =>{
-      try{
-      const {data,message,errorMessages} = await getUsers(token,currentPage);
-      if (message && message === "Unauthenticated.") {
-        navigate("/");
-      } else if (data && data.users) {
-        dispatch(setUsers(data.users.data));
-        setTotalPages(data.users.last_page);
-        setUsersPerPage(data.users.per_page);
-        setTotalUsers(data.users.total);
-      }
-    } catch (error) {
-      console.error("Error fetching labs:", error);
-    }
-    };
-    const fetchBadges = async () => {
-      try {
-        const { data, message, errorMessages } = await getBadges(token,currentPage);
-        if (message && message === "Unauthenticated.") {
-          navigate("/");
-        } else if (data && data.badges) {
-          dispatch(setBadges(data.badges.data)); 
-          setTotalPages(data.badges.last_page);
-          setBadgesPerPage(data.badges.per_page);
-          setTotalBadges(data.badges.total); 
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    const fetchActiveLabs = async () => {
-      try {
-        const { data, message, errorMessages } = await getActiveLabs(token,currentPage);
-        if (message && message === "Unauthenticated.") {
-          navigate("/");
-        } else if (data && data.active_labs) {
-          dispatch(setActiveLabs(data.active_labs.data));  
-          setTotalPages(data.active_labs.last_page);
-          setActivePerPage(data.active_labs.per_page);
-          setTotalActive(data.active_labs.total); 
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
     const handleSearch = async (query) => {
       try{
-          const {data,message,errorMessages}=await searchLabs(token,query,currentPage);
+          const {data,message,errorMessages}=await searchLabs(token,query,currentPage,perPage);
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.labs) {
             dispatch(setLabs(data.labs.data));
             setTotalPages(data.labs.last_page);
-            setPerPage(data.labs.per_page);
             setTotalLabs(data.labs.total);
           }
       } catch (error) {
@@ -159,17 +96,16 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
     }
     const handleActiveSearch = async (query) => {
       try{
-          const {data,message,errorMessages}=await searchActiveLabs(token,query,currentPage);
+          const {data,message,errorMessages}=await searchActiveLabs(token,query,currentPage,activePerPage);
           if (message && message === "Unauthenticated.") {
               navigate("/");
           } else if (data && data.active_labs) {
               dispatch(setActiveLabs(data.active_labs.data));  
               setTotalPages(data.active_labs.last_page);
-              setPerPage(data.active_labs.per_page);
               setTotalActive(data.active_labs.total);
           }
       } catch (error) {
-        console.error("Error fetching labs:", error);
+        console.error("Error fetching active labs:", error);
       }
     }
     useEffect(() => {
@@ -211,7 +147,7 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
               dispatch(setLabDifficulties(data.difficulties));     
             }
           } catch (error) {
-            console.error("Error fetching categories:", error);
+            console.error("Error fetching difficulties:", error);
           }
         };
 
@@ -224,7 +160,7 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
               dispatch(setBadgeCategories(data.categories));  
             }
           } catch (error) {
-            console.error("Error fetching categories:", error);
+            console.error("Error fetching badge categories:", error);
           }
         };
         fetchLabDifficulties();
@@ -297,12 +233,12 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users handleUserSearch={handleUserSearch} fetchUsers={fetchUsers} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {users_tab && <Users handleUserSearch={handleUserSearch} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs handleSearch={handleSearch} labs_tab={labs_tab} fetchLabs={fetchLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
-                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} fetchActiveLabs={fetchActiveLabs} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {labs_tab && <Labs handleSearch={handleSearch} labs_tab={labs_tab} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} fetchBadges={fetchBadges} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
+                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
             </div>
         </section>
