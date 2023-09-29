@@ -51,13 +51,13 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
     let menu_items=[];
     if(type_id==3){
         menu_items=[
-            <MenuItem onClick={()=>{handleOpenProfile(); handleClose();}}>Profile</MenuItem>,
-            <MenuItem onClick={()=>{handleOpenPassword(); handleClose();}}>Settings</MenuItem>,
-            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+            <MenuItem onClick={()=>{handleOpenProfile(); handleClose();}} key='1'>Profile</MenuItem>,
+            <MenuItem onClick={()=>{handleOpenPassword(); handleClose();}} key='2'>Settings</MenuItem>,
+            <MenuItem onClick={handleLogOut} key='3'>Logout</MenuItem>
         ];
     } else {
         menu_items=[
-            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+            <MenuItem onClick={handleLogOut} key='1'>Logout</MenuItem>
         ];
     }             
     return (
@@ -73,7 +73,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                 isLanding ? 
                     (
                         <div className="landing-buttons-container flex-wrap-reverse flex flex-row">
-                        <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Login/Register</button>
+                        <button className="btn primary-btn" onClick={handleOpenLoginModal} onMouseEnter={onPrimaryEnter} onMouseLeave={onPrimaryLeave}>Start Hacking</button>
                         </div>
                     )
                 :
@@ -87,6 +87,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
                             >
+                            <div className=' flex w-[44px] h-[44px] ml-3 justify-center self-center items-center rounded-full'>
                             {
                                 profile_url ?
                                 (
@@ -107,6 +108,7 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                                 )
 
                             }
+                            </div>
                             </Button>
                             <Menu
                             id='basic-menu'
@@ -119,8 +121,8 @@ const Navbar = ({onEnter,onLeave, onPrimaryEnter, onPrimaryLeave, handleOpenLogi
                             }}
                             PopoverClasses={{paper: 'custom-popover'}}
                             >
-                            <MenuItem onClick={() => {toggleContent("leaderboard");}}>Leaderboard</MenuItem>
-                                {menu_items}
+                            <MenuItem onClick={() => {toggleContent("leaderboard"); }} key="4">Leaderboard</MenuItem>
+                            {menu_items}
                             </Menu>
                         </div>
                         <div className="buttons-container flex flex-row">
