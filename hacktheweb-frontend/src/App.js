@@ -119,9 +119,9 @@ function App() {
         <Navbar onEnter={onEnter} onLeave={onLeave} toggleContent={toggleContent} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave} handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal}/>
         {circles}
         <Routes>
-          <Route path="/" element={<Landing addCircleRef={addCircleRef} isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onEnter={onEnter} onLeave={onLeave} areCirclesVisible={areCirclesVisible}/>} />
-          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
-          <Route path="/admin-dashboard" element={<AdminDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state} addCircleRef={addCircleRef} areCirclesVisible={areCirclesVisible}/>}/>
+          <Route path="/" element={<Landing isLoginModalOpen={isLoginModalOpen} handleCloseLoginModal={handleCloseLoginModal} isRegisterModalOpen={isRegisterModalOpen} handleCloseRegisterModal={handleCloseRegisterModal} handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} onPrimaryEnter={onPrimaryEnter} onPrimaryLeave={onPrimaryLeave}/>} />
+          <Route path="/user-dashboard" element={<UserDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state}/>}/>
+          <Route path="/admin-dashboard" element={<AdminDashboard onEnter={onEnter} onLeave={onSideLeave} toggleContent={toggleContent} state={state}/>}/>
 
         </Routes>
     </Router>
