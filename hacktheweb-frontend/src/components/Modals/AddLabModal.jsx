@@ -69,6 +69,7 @@ const AddLabModal = ({lab,token,isOpen,handleCloseViewModal}) => {
             navigate("/");
           } else if (data && data.lab) {
             dispatch(modifyLab(data.lab));
+            handleCloseViewModal();
           }
         } else {
           const { data, message, errorMessages } = await addLab(token, inputState);
