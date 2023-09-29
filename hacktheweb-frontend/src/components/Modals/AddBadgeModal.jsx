@@ -79,6 +79,7 @@ const AddBadgeModal = ({badge,token,isOpen,handleCloseViewModal}) => {
             navigate("/");
           } else if (data && data.badge) {
             dispatch(modifyBadge(data.badge));
+            handleCloseViewModal();
           }
         } else {
           const { data, message, errorMessages } = await addBadge(token, inputState);
