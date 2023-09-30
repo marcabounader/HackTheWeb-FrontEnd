@@ -3,10 +3,13 @@ import ActiveLabCard from "../Cards/ActiveLabCard";
 import { Pagination, Stack, ThemeProvider, debounce } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,currentPage}) => {
+const AdminActiveLabs = ({activePerPage,setActivePerPage,handleActiveSearch,theme, setCurrentPage,totalPages,currentPage}) => {
     const active_labs = useSelector((state) => state.labs.activeLabs);
     const [debounceTimer, setDebounceTimer] = useState(null);
     const [debouncedSearch, setDebouncedSearch] = useState("");
+    const handleItemsPerPageChange = (event, value) => {
+      setActivePerPage(value);
+    };
     const handleSearchChange = (event) => {
       const { value } = event.target;
       if (debounceTimer) {
@@ -32,7 +35,10 @@ const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,cu
         setCurrentPage(1);
         handleActiveSearch('');
         setDebouncedSearch('');
-    }, []); 
+    }, []);
+    useEffect(()=>{
+      handleActiveSearch(debouncedSearch);
+    },[activePerPage]);
     return ( 
         <>
         <div className=" basis-full flex flex-row justify-between items-center">
@@ -62,8 +68,9 @@ const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,cu
                 .map((lab, index) => <ActiveLabCard lab={lab} key={index} />)}
                 </div>
 
-          <ThemeProvider theme={theme}>
-        <Stack className="basis-full flex flex-col items-center">
+                <div className="basis-full flex flex-row justify-center items-center">
+        <ThemeProvider theme={theme}>
+        <Stack>
                 <Pagination
                 count={totalPages}
                 page={currentPage}
@@ -72,6 +79,13 @@ const AdminActiveLabs = ({handleActiveSearch,theme, setCurrentPage,totalPages,cu
                 />
         </Stack>
         </ThemeProvider>
+        <select className=" rounded-none text-black" value={activePerPage} onChange={(e) => handleItemsPerPageChange(e, e.target.value)}>
+        <option value={5}>5 per page</option>
+        <option value={10}>10 per page</option>
+        <option value={15}>15 per page</option>
+        <option value={20}>20 per page</option>
+        </select>
+        </div>
           </>
         ) : (
           <p>No Active Labs.</p>
