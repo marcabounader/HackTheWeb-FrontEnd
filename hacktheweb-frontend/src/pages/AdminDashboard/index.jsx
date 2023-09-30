@@ -233,12 +233,12 @@ const AdminDashboard = ({onEnter,onLeave,state,toggleContent}) => {
             </Sidebar>
             <div className='content-wrapper'>
 
-                {users_tab && <Users handleUserSearch={handleUserSearch} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {users_tab && <Users usersPerPage={usersPerPage} setUsersPerPage={setUsersPerPage} handleUserSearch={handleUserSearch} token={token} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {home && <Home/>}
-                {labs_tab && <Labs handleSearch={handleSearch} labs_tab={labs_tab} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
-                {active_tab && <AdminActiveLabs handleActiveSearch={handleActiveSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {labs_tab && <Labs perPage={perPage} setPerPage={setPerPage} handleSearch={handleSearch} labs_tab={labs_tab} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
+                {active_tab && <AdminActiveLabs activePerPage={activePerPage} setActivePerPage={setActivePerPage} handleActiveSearch={handleActiveSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/>}
                 {leaderboard && <Leaderboard/>}
-                {badges && <Achievements handleBadgeSearch={handleBadgeSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
+                {badges && <Achievements badgesPerPage={badgesPerPage} setBadgesPerPage={setBadgesPerPage} handleBadgeSearch={handleBadgeSearch} totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} theme={theme}/> }
 
             </div>
         </section>
