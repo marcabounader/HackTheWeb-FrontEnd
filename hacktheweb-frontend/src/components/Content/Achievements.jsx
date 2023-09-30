@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import AddBadgeModal from "../Modals/AddBadgeModal";
 import { Pagination, Stack, ThemeProvider, debounce } from "@mui/material";
 
-const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,currentPage}) => {
+const Achievements = ({badgesPerPage,setBadgesPerPage,handleBadgeSearch,theme,setCurrentPage,totalPages,currentPage}) => {
     const badges = useSelector((state) => state.labs.badges);
     const user = useSelector((state) => state.user);
     const { type_id ,token } = user;
@@ -20,7 +20,9 @@ const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,current
       setCurrentPage(page);
       handleBadgeSearch(debouncedSearch);
     };
-
+    const handleItemsPerPageChange = (event, value) => {
+      setBadgesPerPage(value);
+    };
     const handleSearchChange = (event) => {
       const { value } = event.target;
       if (debounceTimer) {
@@ -43,6 +45,9 @@ const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,current
       handleBadgeSearch('');
       setDebouncedSearch('');
     },[]);
+    useEffect(()=>{
+      handleBadgeSearch(debouncedSearch);
+    },[badgesPerPage]);
 
     return ( 
         <>
@@ -76,8 +81,9 @@ const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,current
         {badges.map((badge, index) => 
         <BadgeCard badges={badges} type_id={type_id} badge={badge} key={index} token={token} />
         )}
+        <div className="basis-full flex flex-row justify-center items-center">
         <ThemeProvider theme={theme}>
-        <Stack className="basis-full flex flex-col items-center">
+        <Stack>
                 <Pagination
                 count={totalPages}
                 page={currentPage}
@@ -86,7 +92,13 @@ const Achievements = ({handleBadgeSearch,theme,setCurrentPage,totalPages,current
                 />
         </Stack>
         </ThemeProvider>
-
+        <select className=" rounded-none text-black" value={badgesPerPage} onChange={(e) => handleItemsPerPageChange(e, e.target.value)}>
+        <option value={4}>4 per page</option>
+        <option value={8}>8 per page</option>
+        <option value={12}>12 per page</option>
+        <option value={16}>16 per page</option>
+        </select>
+        </div>
         </>
         ) : (
           <p>No Badges available.</p>
