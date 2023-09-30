@@ -84,21 +84,21 @@ function App() {
     circleRefs.current.forEach(ref => ref.moveTo(innerWidth / 2, innerHeight / 2));
     
     const onMove = ({ clientX, clientY }) => {
-      const cursorElement = document.elementFromPoint(clientX, clientY);
-      const isCursorOverInputOrButton =
-      cursorElement &&
-      (cursorElement.tagName === "INPUT" || cursorElement.tagName === "BUTTON" || cursorElement.tagName === "svg");
-      if(!isCursorOverInputOrButton && !areCirclesVisible){
-        setAreCirclesVisible(true);
-      } else if(isCursorOverInputOrButton && areCirclesVisible){
-        setAreCirclesVisible(false);
+      // const cursorElement = document.elementFromPoint(clientX, clientY);
+      // const isCursorOverInputOrButton =
+      // cursorElement &&
+      // (cursorElement.tagName === "INPUT" || cursorElement.tagName === "BUTTON" || cursorElement.tagName === "svg");
+      // if(!isCursorOverInputOrButton && !areCirclesVisible){
+      //   setAreCirclesVisible(true);
+      // } else if(isCursorOverInputOrButton && areCirclesVisible){
+      //   setAreCirclesVisible(false);
 
-      } else {
+      // } else {
         circleRefs.current.forEach((ref) => 
         {
           ref.moveTo(clientX, clientY);
         });
-      }
+      // }
 
     };
     
