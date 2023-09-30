@@ -28,16 +28,16 @@ const BadgeCard = ({type_id,badges,badge,token}) => {
         <ConfirmModal action="Delete" handler={handleDelete} isOpen={showDeleteConfirmation} handleCloseViewModal={handleCloseConfirmation}/>
         <AddBadgeModal badge={badge} isOpen={showModifyBadge} handleCloseViewModal={handleCloseModifyBadge} token={token}/>
         { type_id=="3" ?
-        <div className="flex flex-grow basis-[23%] self-stretch p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg">
+        <div className="flex basis-[23%] self-stretch p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg">
             <h4>{badge.name}</h4>
-            <div className='flex flex-row justify-center flex-grow items-center'>
+            <div className='flex flex-row justify-center items-center'>
             <img src={badge.icon_url} alt={`${badge.name} icon`} className='w-[139px] h-[137px]'/>
             </div>        
         </div>
         :
-        <div className="flex flex-grow basis-[23%] self-stretch p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg">
+        <div className="flex basis-[23%] self-stretch p-[10px] flex-col items-center gap-[10px] bg-bg-card rounded-xl shadow-lg">
             <h4 className=' cursor-pointer'>{badge.name}</h4>
-            <div className='flex flex-row justify-center flex-grow items-center cursor-pointer' onClick={handleOpenModifyBadge}>
+            <div className='flex flex-row justify-center items-center cursor-pointer' onClick={handleOpenModifyBadge}>
             <img src={badge.icon_url} alt={`${badge.name} icon`} className='w-[139px] h-[137px]'/>
             </div>
             <button className='btn-2 secondary-btn self-end' onClick={handleOpenConfirmation}>Delete</button>
