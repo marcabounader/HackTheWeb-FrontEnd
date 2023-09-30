@@ -164,8 +164,8 @@ const UserDashboard = ({onLeave,onEnter,state,toggleContent}) => {
             </Sidebar>
             <div className='content-wrapper'>
                 {home && <Home/>}
-                {achievements && <Achievements handleBadgeSearch={handleBadgeSearch} theme={theme} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
-                {labs_tab && <Labs handleSearch={handleSearch} theme={theme} labs_tab={labs_tab}  totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {achievements && <Achievements badgesPerPage={badgesPerPage} setBadgesPerPage={setBadgesPerPage} handleBadgeSearch={handleBadgeSearch} theme={theme} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+                {labs_tab && <Labs perPage={perPage} setPerPage={setPerPage} handleSearch={handleSearch} theme={theme} labs_tab={labs_tab}  totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
                 {active_tab && <ActiveLabs/>}
                 {completed_tab && <CompletedLabs/>}
                 {leaderboard && <Leaderboard />}
