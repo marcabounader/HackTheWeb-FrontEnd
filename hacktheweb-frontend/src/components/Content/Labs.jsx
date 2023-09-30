@@ -11,7 +11,7 @@ import { debounce } from "@mui/material";
 
 
 
-const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage}) => {
+const Labs = ({perPage,setPerPage,handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage}) => {
 
     const labs = useSelector((state) => state.labs.labs);
     const user = useSelector((state) => state.user);
@@ -21,7 +21,9 @@ const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage
     const { type_id,token} = user;   
     const [debouncedSearch, setDebouncedSearch] = useState("");
     const [debounceTimer, setDebounceTimer] = useState(null);
-
+    const handleItemsPerPageChange = (event, value) => {
+        setPerPage(value);
+      };
     const handlePageChange = (event,page) => {
         setCurrentPage(page);
         handleSearch(debouncedSearch)
@@ -49,9 +51,11 @@ const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage
     useEffect(() => {
         setCurrentPage(1);
         setDebouncedSearch('');
+        handleSearch('');
+    }, []); 
+    useEffect(()=>{
         handleSearch(debouncedSearch);
-    }, [labs_tab]); 
-
+      },[perPage]);
     return ( 
         <>
         <AddLabModal isOpen={showLabAdd} token={token} handleCloseViewModal={handleCloseLab}></AddLabModal>
@@ -89,17 +93,24 @@ const Labs = ({handleSearch,theme,labs_tab,setCurrentPage,totalPages,currentPage
                 {labs.map((lab, index) => (
                     <LabCard lab={lab} key={index} />
                 ))}
-                <ThemeProvider theme={theme}>
-                    <Stack className="basis-full flex flex-col items-center">
-                            <Pagination
-                            count={totalPages}
-                            page={currentPage}
-                            onChange={handlePageChange}
-                            color="primary"
-                            style={{color:'red'}}
-                            />
-                    </Stack>
+                <div className="basis-full flex flex-row justify-center items-center">
+        <ThemeProvider theme={theme}>
+        <Stack>
+                <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                />
+                </Stack>
                 </ThemeProvider>
+                <select className=" rounded-none text-black" value={perPage} onChange={(e) => handleItemsPerPageChange(e, e.target.value)}>
+                <option value={4}>4 per page</option>
+                <option value={8}>8 per page</option>
+                <option value={12}>12 per page</option>
+                <option value={16}>16 per page</option>
+                </select>
+                </div>
                 </>
             ) : (
                 <p>No labs available.</p>
