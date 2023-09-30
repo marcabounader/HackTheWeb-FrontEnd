@@ -59,7 +59,7 @@ const PasswordModal = ({isOpen,handleCloseViewModal}) => {
         overlayClassName="fixed top-0 z-10 left-0 w-[100vw] h-full backdrop-blur-xl drop-shadow-lg"
         >
         <h4 className="p-4">
-          Profile
+          Change Password
         </h4>
         <div className="form-container flex flex-col gap-5 p-6 pb-0 ">
           <CustomInput
