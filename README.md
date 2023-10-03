@@ -3,7 +3,7 @@
 <br><br>
 
 <!-- Table of contents -->
-<img src="./readme/title.svg"/>
+<img src="./readme/title2.svg"/>
 
 1. [Project Philosophy](#project-philosophy)
 2. [Prototyping](#prototyping)
@@ -23,7 +23,7 @@
 
 <!-- project philosophy -->
 <a name="project-philosophy"></a>
-<img src="./readme/title2.svg"/>
+<img src="./readme/title3.svg"/>
 
 > The HackTheWeb platform serves as an educational tool, providing users with a comprehensive understanding of various web application attacks and their practical execution.
 > HackTheWeb's aim is to empower users with the knowledge and skills required to either build robust, secure web applications or to effectively assess their security through penetration testing. Participants will advance through the program by progressively mastering web application attacks, advancing to higher levels upon successful completion. Additionally, an AI chatbot is available to assist users when they encounter challenges at any level, offering valuable information and tips to help them overcome obstacles and progress further.
@@ -62,7 +62,7 @@
 
 <!-- Prototyping -->
 <a name="prototyping"></a>
-<img src="./readme/title3.svg"/>
+<img src="./readme/title4.svg"/>
 
 > We designed HackTheWeb using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
@@ -104,9 +104,9 @@
 ### Admin Screens (Web)
 | Home screen  | Badges screen |  Labs screen |
 | ---| ---| ---|
-| ![Home](./readme/AdminScreens/home.png) | ![Badges](./readme/AdminScreens/badges.png) | ![Labs](./readme/AdminScreens/labs.png) |
+| ![Home](./readme/AdminScreens/home.jpg) | ![Badges](./readme/AdminScreens/badges.jpg) | ![Labs](./readme/AdminScreens/labs.jpg) |
 | Active Labs screen  | Users Screen | Add Lab Screen |
-| ![Active Labs](./readme/AdminScreens/active-labs.png) | ![Users](./readme/AdminScreens/users.png) | ![Add Lab](./readme/AdminScreens/add-lab.png) |
+| ![Active Labs](./readme/AdminScreens/active-labs.jpg) | ![Users](./readme/AdminScreens/users.jpg) | ![Add Lab](./readme/AdminScreens/add-lab.jpg) |
 
 ### Hacker
 | Home screen  | Badges screen |
