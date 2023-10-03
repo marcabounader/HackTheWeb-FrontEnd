@@ -83,21 +83,6 @@
 | ![Badges](./readme/Mockups/Admin/Badges.png) | ![Users](./readme/Mockups/Admin/Users.png) | ![Add Lab](./readme/Mockups/Admin/Add%20Lab.png) |
 <br><br>
 
-<!-- Implementation -->
-<a name="implementation"></a>
-<img src="./readme/title4.svg"/>
-
-> Using the wireframes and mockups as a guide, we implemented the HackTheWeb app with the following features:
-
-### Admin Screens (Web)
-| Home screen  | Badges screen |  Labs screen |
-| ---| ---| ---|
-| ![Home](./readme/AdminScreens/home.png) | ![Badges](./readme/AdminScreens/badges.png) | ![Labs](./readme/AdminScreens/labs.png) |
-| Active Labs screen  | Users Screen | Add Lab Screen |
-| ![Active Labs](./readme/AdminScreens/active-labs.png) | ![Users](./readme/AdminScreens/users.png) | ![Add Lab](./readme/AdminScreens/add-lab.png) |
-
-<br><br>
-
 <!-- Tech stack -->
 <a name="teck-stack"></a>
 <img src="./readme/title5.svg"/>
@@ -115,6 +100,13 @@
 <!-- Demo -->
 <a name="demo"></a>
 <img src="./readme/title6.svg"/>
+
+### Admin Screens (Web-Mockups)
+| Home screen  | Badges screen |  Labs screen |
+| ---| ---| ---|
+| ![Home](./readme/AdminScreens/home.png) | ![Badges](./readme/AdminScreens/badges.png) | ![Labs](./readme/AdminScreens/labs.png) |
+| Active Labs screen  | Users Screen | Add Lab Screen |
+| ![Active Labs](./readme/AdminScreens/active-labs.png) | ![Users](./readme/AdminScreens/users.png) | ![Add Lab](./readme/AdminScreens/add-lab.png) |
 
 ### Hacker
 | Home screen  | Badges screen |
