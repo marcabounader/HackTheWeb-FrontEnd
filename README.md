@@ -101,7 +101,7 @@
 <a name="demo"></a>
 <img src="./readme/title6.svg"/>
 
-### Admin Screens (Web-Mockups)
+### Admin Screens (Web)
 | Home screen  | Badges screen |  Labs screen |
 | ---| ---| ---|
 | ![Home](./readme/AdminScreens/home.png) | ![Badges](./readme/AdminScreens/badges.png) | ![Labs](./readme/AdminScreens/labs.png) |
